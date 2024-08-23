@@ -1,0 +1,81 @@
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+  <header> Cadastro de cliente</header>  
+  <div class="form-container">
+    <!-- Seção 1 -->
+    <div class="form-section">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+    </div>
+
+    <!-- Seção 2 -->
+    <div class="form-section">
+      <mat-form-field appearance="fill">
+        <mat-label>Rua</mat-label>
+        <input matInput formControlName="street" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="number" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Complemento</mat-label>
+        <input matInput formControlName="complement" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Bairro</mat-label>
+        <input matInput formControlName="neighborhood" />
+      </mat-form-field>
+    </div>
+
+    <!-- Seção 3 -->
+    <div class="form-section">
+      <mat-form-field appearance="fill">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="state" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>País</mat-label>
+        <input matInput formControlName="country" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="postalCode" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" />
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <mat-slide-toggle formControlName="active">Ativo</mat-slide-toggle>
+  <button mat-raised-button color="primary" type="submit">Salvar</button>
+</form>

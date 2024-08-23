@@ -1,0 +1,82 @@
+<mat-toolbar color="primary">
+    <span>Petgroomer</span>
+    <span class="spacer"></span>
+  
+    <!-- Botão Início -->
+    <button mat-button routerLink="/">
+      Início <mat-icon>home</mat-icon>
+    </button>
+  
+    <!-- Menu Cliente -->
+    <button mat-button [matMenuTriggerFor]="clienteMenu">
+      Cliente <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #clienteMenu="matMenu">
+      <button mat-menu-item routerLink="/registerClient" routerLinkActive="active">
+        Cadastro <mat-icon>person_add</mat-icon>
+      </button>
+      <button mat-menu-item routerLink="/cliente/consulta">
+        Consulta <mat-icon>search</mat-icon>
+      </button>
+    </mat-menu>
+  
+    <!-- Menu Funcionário -->
+    <button mat-button [matMenuTriggerFor]="funcionarioMenu">
+      Funcionário <mat-icon>work</mat-icon>
+    </button>
+    <mat-menu #funcionarioMenu="matMenu">
+      <button mat-menu-item routerLink="/funcionario/cadastro" routerLinkActive="active">
+        Cadastro <mat-icon>person_add</mat-icon>
+      </button>
+      <button mat-menu-item routerLink="/funcionario/relatorios">
+        Relatórios <mat-icon>bar_chart</mat-icon>
+      </button>
+    </mat-menu>
+  
+    <!-- Menu Pet -->
+    <button mat-button [matMenuTriggerFor]="petMenu">
+      Pet <mat-icon>pets</mat-icon>
+    </button>
+    <mat-menu #petMenu="matMenu">
+      <button mat-menu-item routerLink="/pet/cadastro">
+        Cadastro <mat-icon>add_circle</mat-icon>
+      </button>
+      <button mat-menu-item routerLink="/pet/consulta">
+        Consulta <mat-icon>search</mat-icon>
+      </button>
+    </mat-menu>
+  
+    <!-- Menu Administrativo -->
+    <button mat-button [matMenuTriggerFor]="administrativoMenu">
+      Administrativo <mat-icon>admin_panel_settings</mat-icon>
+    </button>
+    <mat-menu #administrativoMenu="matMenu">
+      <button mat-menu-item routerLink="/administrativo/usuarios">
+        Usuários <mat-icon>people</mat-icon>
+      </button>
+      <button mat-menu-item routerLink="/administrativo/configuracoes">
+        Configurações <mat-icon>settings</mat-icon>
+      </button>
+    </mat-menu>
+  
+    <!-- Menu Relatórios -->
+    <button mat-button [matMenuTriggerFor]="relatoriosMenu">
+      Relatórios <mat-icon>report</mat-icon>
+    </button>
+    <mat-menu #relatoriosMenu="matMenu">
+      <button mat-menu-item routerLink="/relatorios/financeiros">
+        Financeiros <mat-icon>attach_money</mat-icon>
+      </button>
+      <button mat-menu-item routerLink="/relatorios/operacionais">
+        Operacionais <mat-icon>assessment</mat-icon>
+      </button>
+    </mat-menu>
+  
+    <button mat-button routerLink="/">
+      Sair <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <!-- Conteúdo principal -->
+  <router-outlet></router-outlet>
+  
