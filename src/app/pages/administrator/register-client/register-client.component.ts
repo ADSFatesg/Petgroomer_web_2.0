@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../../../service/client.service';
 import { Client } from '../../../model/client';
 import { Address } from '../../../model/address';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register-client',
@@ -14,18 +15,20 @@ import { Address } from '../../../model/address';
 })
 export class RegisterClientComponent {
   clientForm: FormGroup;
+  erroMessaage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
-    private cepService: CepService
+    private cepService: CepService,
+    private snackBar: MatSnackBar
   ) {
     this.clientForm = this.fb.group({
-      cpf: ['', Validators.required],
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-      postalCode: ['', Validators.required],
+      cpf: [''],
+      name: [''],
+      email: ['', []],
+      phone: [''],
+      postalCode: [''],
       street: [''],
       number: [''],
       neighborhood: [''],
@@ -92,14 +95,36 @@ export class RegisterClientComponent {
           postalCode: this.clientForm.get('postalCode')!.value
         } as Address
       };
-      this.clientService.createClient(client).subscribe(
-        response => {
+      this.clientService.createClient(client).subscribe({
+        next: (response) => {
           console.log('Cliente criado com sucesso', response);
+          this.snackBar.open('Cliente criado com sucesso!', 'Fechar', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
         },
-        error => {
+        error: (error) => {
           console.error('Erro ao criar cliente', error);
+          let errorMessage = 'Ocorreu um erro desconhecido ao criar o cliente.';
+          if (error.error instanceof ErrorEvent) {
+            errorMessage = `Erro: ${error.error.message}`;
+          } else {
+            errorMessage = `Código: ${error.status}\nMensagem: ${error.message}`;
+          }
+          this.snackBar.open(errorMessage, 'Fechar', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
         }
-      );
+      });
+    } else {
+      this.snackBar.open('Por favor, corrija os erros do formulário.', 'Fechar', {
+        duration: 5000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right'
+      });
     }
   }
 }
