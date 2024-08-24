@@ -15,7 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterClientComponent {
   clientForm: FormGroup;
-  erroMessaage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +25,7 @@ export class RegisterClientComponent {
     this.clientForm = this.fb.group({
       cpf: [''],
       name: [''],
-      email: ['', []],
+      email: [''],
       phone: [''],
       postalCode: [''],
       street: [''],
@@ -35,7 +34,7 @@ export class RegisterClientComponent {
       city: [''],
       state: [''],
       country: [''],
-      complement: [''], // Adicione o campo complement
+      complement: [''],
       active: [true],
       password: ['']
     });
@@ -48,22 +47,22 @@ export class RegisterClientComponent {
         if (formattedCep.length === 8) {
           this.cepService.getCepInfo(formattedCep).subscribe({
             next: (data: Cep) => {
-              console.log('Dados retornados pela API:', data);
-              // Atualiza apenas os campos de endereço com as informações do CEP
               this.clientForm.patchValue({
                 street: data.logradouro,
                 neighborhood: data.bairro,
                 city: data.localidade,
                 state: data.uf,
                 postalCode: data.cep,
-                // Mantém o campo 'number' vazio para ser preenchido pelo usuário
                 number: this.clientForm.get('number')?.value || '',
-                country: this.clientForm.get('country')?.value || '', // Defina um valor padrão se necessário
+                country: this.clientForm.get('country')?.value || '',
               });
             },
             error: err => {
-              console.error('Erro ao consultar o CEP:', err);
-              // Limpa os campos de endereço no formulário se houver erro
+              this.snackBar.open('Erro ao consultar o CEP.', 'Fechar', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'right'
+              });
               this.clientForm.patchValue({
                 street: '',
                 number: '',
@@ -95,29 +94,14 @@ export class RegisterClientComponent {
           postalCode: this.clientForm.get('postalCode')!.value
         } as Address
       };
-      this.clientService.createClient(client).subscribe({
-        next: (response) => {
-          console.log('Cliente criado com sucesso', response);
+      this.clientService.create(client).subscribe({
+        next: () => {
           this.snackBar.open('Cliente criado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
         },
-        error: (error) => {
-          console.error('Erro ao criar cliente', error);
-          let errorMessage = 'Ocorreu um erro desconhecido ao criar o cliente.';
-          if (error.error instanceof ErrorEvent) {
-            errorMessage = `Erro: ${error.error.message}`;
-          } else {
-            errorMessage = `Código: ${error.status}\nMensagem: ${error.message}`;
-          }
-          this.snackBar.open(errorMessage, 'Fechar', {
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-        }
       });
     } else {
       this.snackBar.open('Por favor, corrija os erros do formulário.', 'Fechar', {
@@ -127,4 +111,5 @@ export class RegisterClientComponent {
       });
     }
   }
+  
 }

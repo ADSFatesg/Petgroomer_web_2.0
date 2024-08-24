@@ -1,42 +1,73 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+// src/app/client.service.ts
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Client } from '../model/client';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:8080/api/client'; 
 
-  constructor(private http: HttpClient) { }
+  private apiUrl = 'http://localhost:8080/api/client'; // Substitua pela URL da sua API
 
-  //Busca cliente pelo id
-  getClient(id: number): Observable<Client> {
+  constructor(private http: HttpClient, snackBar :MatSnackBar ) {}
+
+  create(client: Client): Observable<Client> {
+    return this.http.post<Client>(this.apiUrl, client).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  findAll(): Observable<Client[]> {
+    return this.http.get<Client[]>(this.apiUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  findById(id: number): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // registra cliente
-  createClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(this.apiUrl, client).pipe(
+  findByCpf(cpf: string): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/findCpf/${cpf}`).pipe(
       catchError(this.handleError)
     );
   }
-  // Função para lidar com erros
-  private handleError(error: HttpErrorResponse) {
-    // Aqui você pode personalizar a lógica de erro
-    let errorMessage = 'Ocorreu um erro desconhecido.';
-    if (error.error instanceof ErrorEvent) {
-      // Erro do cliente
-      errorMessage = `Erro: ${error.error.message}`;
-    } else {
-      // Erro do servidor
-      errorMessage = `Código: ${error.status}\nMensagem: ${error.message}`;
-    }
-    // Repassar o erro para que possa ser tratado pelo componente
-    return throwError(() => new Error(errorMessage));
+
+  update(id: number, client: Client): Observable<Client> {
+    return this.http.put<Client>(`${this.apiUrl}/${id}`, client).pipe(
+      catchError(this.handleError)
+    );
   }
 
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      return throwError(() => new Error(`Erro: ${error.error.message}`));
+    } else {
+      // Server-side error 
+      let errorMessage = 'Ocorreu um erro inesperado.';
+  
+      if (error.status === 400 && error.error && error.error.errors) { 
+        // Trata erros de validação 
+        const validationErrors = error.error.errors.map((err: any) => err.error); 
+        errorMessage = `Erro de validação: ${validationErrors.join(', ')}`;
+      } else if (error.error && error.error.message) {
+        errorMessage = error.error.message;
+      } 
+  
+      return throwError(() => new Error(errorMessage));
+    }
+  }
 }

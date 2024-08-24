@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdministratorModule } from './pages/administrator/administrator.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './exceptions/erro-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AdministratorModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
