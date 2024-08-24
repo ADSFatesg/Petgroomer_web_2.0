@@ -1,82 +1,89 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Cep } from './../../../model/cep';
 import { CepService } from './../../../service/cep.service';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../../../service/client.service';
 import { Client } from '../../../model/client';
 import { Address } from '../../../model/address';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { EnumCountry } from '../../../model/enum-country';
 
 @Component({
   selector: 'app-register-client',
   templateUrl: './register-client.component.html',
-  styleUrl: './register-client.component.scss'
+  styleUrls: ['./register-client.component.scss']
 })
-export class RegisterClientComponent {
-  clientForm: FormGroup;
+export class RegisterClientComponent implements OnInit {
+  clientForm!: FormGroup;
+  hide = true;
+
+  countries = Object.values(EnumCountry);
 
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
     private cepService: CepService,
     private snackBar: MatSnackBar
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.clientForm = this.fb.group({
-      cpf: [''],
-      name: [''],
-      email: [''],
-      phone: [''],
-      postalCode: [''],
+      cpf: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
       street: [''],
-      number: [''],
+      number: ['', [Validators.required]],
       neighborhood: [''],
       city: [''],
       state: [''],
-      country: [''],
+      country: [''], // Certifique-se de que o campo 'country' esteja no FormGroup
       complement: [''],
       active: [true],
-      password: ['']
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  ngOnInit(): void {
-    this.clientForm.get('postalCode')!.valueChanges.subscribe(
-      postalCode => {
-        const formattedCep = postalCode.replace('-', '').trim();
-        if (formattedCep.length === 8) {
-          this.cepService.getCepInfo(formattedCep).subscribe({
-            next: (data: Cep) => {
-              this.clientForm.patchValue({
-                street: data.logradouro,
-                neighborhood: data.bairro,
-                city: data.localidade,
-                state: data.uf,
-                postalCode: data.cep,
-                number: this.clientForm.get('number')?.value || '',
-                country: this.clientForm.get('country')?.value || '',
-              });
-            },
-            error: err => {
-              this.snackBar.open('Erro ao consultar o CEP.', 'Fechar', {
-                duration: 5000,
-                verticalPosition: 'top',
-                horizontalPosition: 'right'
-              });
-              this.clientForm.patchValue({
-                street: '',
-                number: '',
-                neighborhood: '',
-                city: '',
-                state: '',
-                postalCode: '',
-                country: ''
-              });
-            }
+  consultarCEP() {
+    const cepControl = this.clientForm.get('postalCode');
+    if (cepControl && cepControl.valid) {
+      const formattedCep = cepControl.value.replace('-', '').trim();
+      this.cepService.getCepInfo(formattedCep).subscribe({
+        next: (data: Cep) => {
+          this.clientForm.patchValue({
+            street: data.logradouro,
+            neighborhood: data.bairro,
+            city: data.localidade,
+            state: data.uf,
+            number: this.clientForm.get('number')?.value || '',
+    
+          });
+        },
+        error: err => {
+          this.snackBar.open('Erro ao consultar o CEP.', 'Fechar', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+          this.clientForm.patchValue({
+            street: '',
+            number: '',
+            neighborhood: '',
+            city: '',
+            state: '',
+            // country: '' // Não limpar o país em caso de erro
           });
         }
-      }
-    );
+      });
+    } else {
+      this.snackBar.open('CEP inválido. Por favor, digite um CEP válido.', 'Fechar', {
+        duration: 5000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right'
+      });
+    }
   }
 
   onSubmit(): void {
@@ -90,7 +97,7 @@ export class RegisterClientComponent {
           neighborhood: this.clientForm.get('neighborhood')!.value,
           city: this.clientForm.get('city')!.value,
           state: this.clientForm.get('state')!.value,
-          country: this.clientForm.get('country')!.value,
+          country: this.clientForm.get('country')!.value, // Usar o valor do FormGroup para o país
           postalCode: this.clientForm.get('postalCode')!.value
         } as Address
       };
@@ -101,6 +108,7 @@ export class RegisterClientComponent {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.clientForm.reset(); 
         },
       });
     } else {
@@ -111,5 +119,4 @@ export class RegisterClientComponent {
       });
     }
   }
-  
 }

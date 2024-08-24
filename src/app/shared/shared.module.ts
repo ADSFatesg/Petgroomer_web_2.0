@@ -12,8 +12,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -32,7 +32,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatSlideToggleModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskDirective,
+    MatSelectModule
+
+    
   ],
   exports:[
     CommonModule,
@@ -48,6 +52,10 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
-  ]
+    NgxMaskDirective,
+    MatSelectModule
+    
+  ],
+  providers: [provideNgxMask()]
 })
 export class SharedModule { }

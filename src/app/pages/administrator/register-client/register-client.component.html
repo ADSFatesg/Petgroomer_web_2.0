@@ -1,82 +1,92 @@
 <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
   <header> Cadastro de cliente</header>  
   <div class="form-container">
-    <!-- Seção 1 -->
     <div class="form-section">
       <mat-form-field appearance="fill">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="name" />
+        <mat-icon matSuffix>person</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>CPF</mat-label>
-        <input matInput formControlName="cpf" />
+        <input matInput formControlName="cpf" mask="000.000.000-00" /> 
+        <mat-icon matSuffix>badge</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
+        <mat-icon matSuffix>email</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Telefone</mat-label>
-        <input matInput formControlName="phone" />
+        <input matInput formControlName="phone" mask="(00) 00000-0000" /> 
+        <mat-icon matSuffix>phone</mat-icon> 
       </mat-form-field>
     </div>
 
-    <!-- Seção 2 -->
     <div class="form-section">
       <mat-form-field appearance="fill">
         <mat-label>Rua</mat-label>
         <input matInput formControlName="street" />
+        <mat-icon matSuffix>home</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Número</mat-label>
-        <input matInput formControlName="number" />
+        <input matInput formControlName="number" /> 
+        <mat-icon matSuffix>tag</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Complemento</mat-label>
         <input matInput formControlName="complement" />
+        <mat-icon matSuffix>add_location</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Bairro</mat-label>
         <input matInput formControlName="neighborhood" />
+        <mat-icon matSuffix>location_city</mat-icon> 
       </mat-form-field>
-      
     </div>
 
-    <!-- Seção 3 -->
     <div class="form-section">
       <mat-form-field appearance="fill">
         <mat-label>Cidade</mat-label>
         <input matInput formControlName="city" />
+        <mat-icon matSuffix>apartment</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Estado</mat-label>
-        <input matInput formControlName="state" />
+        <input matInput formControlName="state" mask="AA" /> <mat-icon matSuffix>flag</mat-icon> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>País</mat-label>
-        <input matInput formControlName="country" />
+        <mat-select formControlName="country"> 
+          <mat-option *ngFor="let country of countries" [value]="country">
+            {{country}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="fill">
         <mat-label>CEP</mat-label>
-        <input matInput formControlName="postalCode" />
+        <input matInput formControlName="postalCode" mask="00000-000" />
+        <button mat-icon-button matSuffix (click)="consultarCEP()" type="button"> 
+          <mat-icon>search</mat-icon>
+        </button> 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Senha</mat-label>
-        <input matInput formControlName="password" />
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> 
       </mat-form-field>
     </div>
   </div>
-  
-  <mat-slide-toggle formControlName="active">Ativo</mat-slide-toggle>
   <button mat-raised-button color="primary" type="submit">Salvar</button>
 </form>
