@@ -45,14 +45,14 @@ export class ConsultClientComponent implements OnInit{
       });
       return;
     }
-
+  
     this.loading = true;
     this.clientService.findByCpf(this.cpf).subscribe(
       (cliente: Client) => {
         this.client = cliente;
         this.clientForm.patchValue({
           name: cliente.name,
-          cpf:cliente.cpf,
+          cpf: cliente.cpf,
           email: cliente.email,
           phone: cliente.phone,
           street: cliente.address.street,
@@ -68,7 +68,7 @@ export class ConsultClientComponent implements OnInit{
         this.loading = false;
       },
       (error) => {
-        this.snackBar.open('Erro ao consultar cliente.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao consultar cliente.', 'Fechar', {
           duration: 3000,
         });
         this.loading = false;

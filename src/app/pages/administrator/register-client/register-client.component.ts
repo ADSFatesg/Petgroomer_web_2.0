@@ -50,22 +50,22 @@ export class RegisterClientComponent implements OnInit {
     const cepControl = this.clientForm.get('postalCode');
     if (cepControl && cepControl.valid) {
       const formattedCep = cepControl.value.replace('-', '').trim();
-      this.cepService.getCepInfo(formattedCep).subscribe({
-        next: (data: Cep) => {
+      this.cepService.getCepInfo(formattedCep).subscribe(
+        (data: Cep) => {
           this.clientForm.patchValue({
             street: data.logradouro,
             neighborhood: data.bairro,
             city: data.localidade,
             state: data.uf,
             number: this.clientForm.get('number')?.value || '',
-    
           });
         },
-        error: err => {
-          this.snackBar.open('Erro ao consultar o CEP.', 'Fechar', {
+        (error) => {
+          // Captura a mensagem de erro e exibe no snackBar
+          this.snackBar.open(error.message || 'Erro ao consultar o CEP.', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
-            horizontalPosition: 'right'
+            horizontalPosition: 'center'
           });
           this.clientForm.patchValue({
             street: '',
@@ -73,15 +73,14 @@ export class RegisterClientComponent implements OnInit {
             neighborhood: '',
             city: '',
             state: '',
-            // country: '' // Não limpar o país em caso de erro
           });
         }
-      });
+      );
     } else {
       this.snackBar.open('CEP inválido. Por favor, digite um CEP válido.', 'Fechar', {
         duration: 5000,
         verticalPosition: 'top',
-        horizontalPosition: 'right'
+        horizontalPosition: 'center'
       });
     }
   }
@@ -97,12 +96,13 @@ export class RegisterClientComponent implements OnInit {
           neighborhood: this.clientForm.get('neighborhood')!.value,
           city: this.clientForm.get('city')!.value,
           state: this.clientForm.get('state')!.value,
-          country: this.clientForm.get('country')!.value, // Usar o valor do FormGroup para o país
+          country: this.clientForm.get('country')!.value,
           postalCode: this.clientForm.get('postalCode')!.value
         } as Address
       };
-      this.clientService.create(client).subscribe({
-        next: () => {
+  
+      this.clientService.create(client).subscribe(
+        () => {
           this.snackBar.open('Cliente criado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
@@ -110,7 +110,15 @@ export class RegisterClientComponent implements OnInit {
           });
           this.clientForm.reset(); 
         },
-      });
+        (error) => {
+          // Captura a mensagem de erro e exibe no snackBar
+          this.snackBar.open(error.message || 'Erro ao criar cliente.', 'Fechar', {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+        }
+      );
     } else {
       this.snackBar.open('Por favor, corrija os erros do formulário.', 'Fechar', {
         duration: 5000,

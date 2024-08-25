@@ -13,7 +13,7 @@ export class ClientService {
 
   private apiUrl = 'http://localhost:8080/api/client'; // Substitua pela URL da sua API
 
-  constructor(private http: HttpClient, snackBar :MatSnackBar ) {}
+  constructor(private http: HttpClient ) {}
 
   create(client: Client): Observable<Client> {
     return this.http.post<Client>(this.apiUrl, client).pipe(
