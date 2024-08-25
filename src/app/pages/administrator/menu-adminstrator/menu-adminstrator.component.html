@@ -1,82 +1,179 @@
-<mat-toolbar color="primary">
-    <span>Petgroomer</span>
-    <span class="spacer"></span>
-  
-    <!-- Botão Início -->
-    <button mat-button routerLink="/">
-      Início <mat-icon>home</mat-icon>
+<mat-toolbar color="primary" class="toolbar">
+  <span>Petgroomer</span>
+  <span class="spacer"></span>
+
+  <!-- Botão de menu responsivo (visível apenas em telas pequenas) -->
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile-menu-button">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <!-- Botão de menu com ícone e seta, visível em telas grandes -->
+   
+  <div class="menu-buttons">
+    <button mat-button routerLink="/" class="inicio-button">
+      <mat-icon>home</mat-icon>
+      Início
     </button>
-  
-    <!-- Menu Cliente -->
-    <button mat-button [matMenuTriggerFor]="clienteMenu">
-      Cliente <mat-icon>person</mat-icon>
+    <button mat-button [matMenuTriggerFor]="clienteMenu" class="dropdown-button">
+   <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>person</mat-icon>
+      Cliente
     </button>
     <mat-menu #clienteMenu="matMenu">
-      <button mat-menu-item routerLink="/registerClient" routerLinkActive="active">
-        Cadastro <mat-icon>person_add</mat-icon>
+      <button mat-menu-item routerLink="/registerClient">
+        <mat-icon>person_add</mat-icon>
+        Cadastro Cliente
       </button>
-      <button mat-menu-item routerLink="/cliente/consulta">
-        Consulta <mat-icon>search</mat-icon>
+      <button mat-menu-item routerLink="/consultClient">
+        <mat-icon>search</mat-icon>
+        Consulta Cliente
       </button>
     </mat-menu>
-  
-    <!-- Menu Funcionário -->
-    <button mat-button [matMenuTriggerFor]="funcionarioMenu">
-      Funcionário <mat-icon>work</mat-icon>
+
+    <button mat-button [matMenuTriggerFor]="funcionarioMenu" class="dropdown-button">
+      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>work</mat-icon>
+      Funcionário
     </button>
     <mat-menu #funcionarioMenu="matMenu">
-      <button mat-menu-item routerLink="/funcionario/cadastro" routerLinkActive="active">
-        Cadastro <mat-icon>person_add</mat-icon>
+      <button mat-menu-item routerLink="/funcionario/cadastro">
+        <mat-icon>person_add</mat-icon>
+        Cadastro Funcionário
       </button>
       <button mat-menu-item routerLink="/funcionario/relatorios">
-        Relatórios <mat-icon>bar_chart</mat-icon>
+        <mat-icon>bar_chart</mat-icon>
+        Relatórios
       </button>
     </mat-menu>
-  
-    <!-- Menu Pet -->
-    <button mat-button [matMenuTriggerFor]="petMenu">
-      Pet <mat-icon>pets</mat-icon>
+
+    <button mat-button [matMenuTriggerFor]="petMenu" class="dropdown-button">
+      <mat-icon>keyboard_arrow_down</mat-icon> <mat-icon>pets</mat-icon>
+      Pet
     </button>
     <mat-menu #petMenu="matMenu">
       <button mat-menu-item routerLink="/pet/cadastro">
-        Cadastro <mat-icon>add_circle</mat-icon>
+        <mat-icon>add_circle</mat-icon>
+        Cadastro Pet
       </button>
       <button mat-menu-item routerLink="/pet/consulta">
-        Consulta <mat-icon>search</mat-icon>
+        <mat-icon>search</mat-icon>
+        Consulta Pet
       </button>
     </mat-menu>
-  
-    <!-- Menu Administrativo -->
-    <button mat-button [matMenuTriggerFor]="administrativoMenu">
-      Administrativo <mat-icon>admin_panel_settings</mat-icon>
+    <button mat-button [matMenuTriggerFor]="administrativoMenu" class="dropdown-button">
+      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>admin_panel_settings</mat-icon>
+      Administrativo
     </button>
     <mat-menu #administrativoMenu="matMenu">
       <button mat-menu-item routerLink="/administrativo/usuarios">
-        Usuários <mat-icon>people</mat-icon>
+        <mat-icon>people</mat-icon>
+        Usuários
       </button>
       <button mat-menu-item routerLink="/administrativo/configuracoes">
-        Configurações <mat-icon>settings</mat-icon>
+        <mat-icon>settings</mat-icon>
+        Configurações
       </button>
     </mat-menu>
-  
-    <!-- Menu Relatórios -->
-    <button mat-button [matMenuTriggerFor]="relatoriosMenu">
-      Relatórios <mat-icon>report</mat-icon>
+
+    <button mat-button [matMenuTriggerFor]="relatoriosMenu" class="dropdown-button">
+      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>report</mat-icon>
+      Relatórios
     </button>
     <mat-menu #relatoriosMenu="matMenu">
       <button mat-menu-item routerLink="/relatorios/financeiros">
-        Financeiros <mat-icon>attach_money</mat-icon>
+        <mat-icon>attach_money</mat-icon>
+        Financeiros
       </button>
       <button mat-menu-item routerLink="/relatorios/operacionais">
-        Operacionais <mat-icon>assessment</mat-icon>
+        <mat-icon>assessment</mat-icon>
+        Operacionais
       </button>
     </mat-menu>
-  
-    <button mat-button routerLink="/">
-      Sair <mat-icon>exit_to_app</mat-icon>
+
+    <button mat-button routerLink="/" class="dropdown-button">
+      <mat-icon>exit_to_app</mat-icon>
+      Sair
     </button>
-  </mat-toolbar>
-  
-  <!-- Conteúdo principal -->
-  <router-outlet></router-outlet>
-  
+  </div>
+
+  <!-- Mat Menu (visível apenas em telas menores) -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/">
+      <mat-icon>home</mat-icon> Início
+    </button>
+    
+    <!-- Cliente -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuCliente">
+      <mat-icon>person</mat-icon> Cliente
+    </button>
+    <mat-menu #subMenuCliente="matMenu">
+      <button mat-menu-item routerLink="/registerClient">
+        <mat-icon>person_add</mat-icon> Cadastro Cliente
+      </button>
+      <button mat-menu-item routerLink="/cliente/consulta">
+        <mat-icon>search</mat-icon> Consulta Cliente
+      </button>
+    </mat-menu>
+
+    <!-- Funcionário -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuFuncionario">
+      <mat-icon>work</mat-icon> Funcionário
+    </button>
+    <mat-menu #subMenuFuncionario="matMenu">
+      <button mat-menu-item routerLink="/funcionario/cadastro">
+        <mat-icon>person_add</mat-icon> Cadastro Funcionário
+      </button>
+      <button mat-menu-item routerLink="/funcionario/relatorios">
+        <mat-icon>bar_chart</mat-icon> Relatórios Funcionário
+      </button>
+    </mat-menu>
+
+    <!-- Pet -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuPet">
+      <mat-icon>pets</mat-icon> Pet
+    </button>
+    <mat-menu #subMenuPet="matMenu">
+      <button mat-menu-item routerLink="/pet/cadastro">
+        <mat-icon>add_circle</mat-icon> Cadastro Pet
+      </button>
+      <button mat-menu-item routerLink="/pet/consulta">
+        <mat-icon>search</mat-icon> Consulta Pet
+      </button>
+    </mat-menu>
+
+    <!-- Administrativo -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuAdministrativo">
+      <mat-icon>admin_panel_settings</mat-icon> Administrativo
+    </button>
+    <mat-menu #subMenuAdministrativo="matMenu">
+      <button mat-menu-item routerLink="/administrativo/usuarios">
+        <mat-icon>people</mat-icon> Usuários
+      </button>
+      <button mat-menu-item routerLink="/administrativo/configuracoes">
+        <mat-icon>settings</mat-icon> Configurações
+      </button>
+    </mat-menu>
+
+    <!-- Relatórios -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuRelatorios">
+      <mat-icon>report</mat-icon> Relatórios
+    </button>
+    <mat-menu #subMenuRelatorios="matMenu">
+      <button mat-menu-item routerLink="/relatorios/financeiros">
+        <mat-icon>attach_money</mat-icon> Financeiros
+      </button>
+      <button mat-menu-item routerLink="/relatorios/operacionais">
+        <mat-icon>assessment</mat-icon> Operacionais
+      </button>
+    </mat-menu>
+
+    <!-- Sair -->
+    <button mat-menu-item routerLink="/">
+      <mat-icon>exit_to_app</mat-icon> Sair
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<!-- Conteúdo principal -->
+<router-outlet></router-outlet>
+<footer class="footer">
+  <span class="signature">© 2024 Petgroomer - Todos os direitos reservados.</span>
+</footer>

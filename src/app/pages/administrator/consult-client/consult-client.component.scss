@@ -1,0 +1,31 @@
+.consulta-section {
+    display: flex;
+    justify-content: center;  // Centraliza o campo de CPF e o botão
+    align-items: center;
+    gap: 8px;  // Espaçamento entre o campo CPF e o botão
+    margin-bottom: 16px;
+  }
+  
+  .cpf-field {
+    flex: 0 1 250px;  // Reduz o campo CPF para uma largura fixa de 250px
+  }
+  
+  .consulta-button {
+    flex: 0 1 100px;  // Reduz o botão de consulta para uma largura fixa de 100px
+  }
+  
+  .barra-progresso {
+    margin-top: 16px;  // Espaçamento acima da barra de progresso
+    width: 100%;  // Ocupa toda a largura disponível
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;  // Colunas maiores para o conteúdo principal e menores para o restante
+    gap: 24px;  // Maior espaçamento entre os campos
+    margin-top: 16px;
+  }
+  
+  mat-form-field {
+    width: 100%;  // Garante que cada campo ocupe toda a largura da coluna
+  }
+  

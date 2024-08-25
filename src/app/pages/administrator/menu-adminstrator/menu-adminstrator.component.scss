@@ -1,72 +1,87 @@
-// Estilo da barra de ferramentas
-mat-toolbar {
-  background-color: #3f51b5; // Cor de fundo da barra de ferramentas
-  color: #fff; // Cor do texto
-  
-  // Espaçador
-  .spacer {
-    flex: 1  auto; // Espaça os itens na barra de ferramentas
+/* Estilo geral da barra de ferramentas */
+.toolbar {
+  background-color: #3f51b5; /* Cor de fundo */
+  color: #fff; /* Cor do texto */
+}
+
+.spacer {
+  flex: 1 auto;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Estilo para os botões com dropdown */
+.dropdown-button {
+  color: #fff; /* Cor do texto */
+  font-size: 16px; /* Tamanho do texto */
+  text-transform: none; /* Evitar letras maiúsculas */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Garante que o conteúdo se distribua */
+
+  padding: 0 8px; /* Espaçamento interno para o botão */
+
+  mat-icon:first-child {
+    margin-right: 8px; /* Espaçamento entre o ícone do tipo e o texto */
   }
 
-  // Responsividade para telas pequenas
-  @media (max-width: 600px) {
-    // Ajusta o layout em telas pequenas
-    .spacer {
-      display: none; // Oculta o espaçador
-    }
-    
-    // Estilo do conteúdo da toolbar
-    > * {
-      display: contents;
-      text-align: justify;
-    }
-    
-    // Ajusta o tamanho dos itens da toolbar
-    button[mat-button] {
-      font-size: 14px; // Reduz o tamanho da fonte
-    }
+  mat-icon:last-child {
+    margin-left: auto; /* Empurra a seta para o lado direito do botão */
   }
 }
 
-// Estilo dos botões
+/* Estilo para os botões padrão */
 button[mat-button] {
-  color: #fff; // Cor do texto dos botões
-  font-size: 16px; // Tamanho da fonte dos botões
-  
-  &:hover {
-    background-color: #303f9f; // Cor de fundo ao passar o mouse
+  color: #fff;
+  font-size: 16px;
+  display: flex; /* Garante que os ícones e o texto estejam alinhados */
+  align-items: center; /* Centraliza verticalmente os ícones e o texto */
+}
+
+button[mat-button]:hover {
+  background-color: #303f9f; /* Cor de fundo ao passar o mouse */
+}
+
+/* Ajuste de estilo dos itens do menu */
+mat-menu button[mat-menu-item] {
+  display: flex;
+  align-items: center;
+}
+
+mat-menu button[mat-menu-item] mat-icon {
+  margin-right: 8px; /* Espaço entre o ícone e o texto no menu */
+}
+
+/* Design responsivo */
+@media (max-width: 600px) {
+  .menu-buttons {
+    display: none; /* Esconde os botões do menu em telas pequenas */
   }
 
-  // Responsividade para telas pequenas
-  @media (max-width: 600px) {
-    font-size: 14px; // Reduz o tamanho da fonte
-    padding: 0px 0px; // Ajusta o padding
+  .mobile-menu-button {
+    display: inline-block; /* Exibe o botão de menu responsivo em telas pequenas */
   }
 }
 
-// Estilo do menu
-mat-menu {
-  background-color: #ffffff; // Cor de fundo do menu
-  border: 1px solid #ddd; // Borda do menu
-  border-radius: 4px; // Borda arredondada do menu
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); // Sombra do menu
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: none; // Oculta o menu por padrão
-
-  // Responsividade para telas pequenas
-  @media (max-width: 600px) {
-    position: static;
-    width: 100%;
-    border: none;
-    box-shadow: none;
-    
-    button {
-      color: #333; // Cor do texto dos itens do menu
-      font-size: 12px; // Reduz o tamanho da fonte dos itens do menu
-      padding: 6px 12px; // Ajusta o padding
-      text-align: center;
-    }
+@media (min-width: 601px) {
+  .mobile-menu-button {
+    display: none; /* Esconde o botão de menu responsivo em telas maiores */
   }
+}
+/* Estilo para o rodapé */
+.footer {
+  text-align: center; /* Centraliza o texto do rodapé */
+  padding: 16px 0; /* Espaçamento vertical */
+  position: fixed; /* Fixa o rodapé na parte inferior */
+  bottom: 0; /* Alinha na parte inferior da página */
+  width: 100%; /* Largura total da página */
+  font-size: 14px; /* Tamanho da fonte */
+}
+
+.signature {
+  color: inherit; /* Usa a cor de texto padrão da página */
 }

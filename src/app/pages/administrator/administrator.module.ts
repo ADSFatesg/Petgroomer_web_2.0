@@ -5,11 +5,12 @@ import { MenuAdminstratorModule } from './menu-adminstrator/menu-adminstrator.mo
 import { AgendaModule } from './agenda/agenda.module';
 import { SharedModule } from '../../shared/shared.module';
 import { RegisterClientModule } from './register-client/register-client.module';
+import { ConsultClientModule } from './consult-client/consult-client.module';
 
 
 @NgModule({
   declarations: [
-    
+
   ],
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import { RegisterClientModule } from './register-client/register-client.module';
     MenuAdminstratorModule,
     AgendaModule,
     SharedModule,
-    RegisterClientModule
+    RegisterClientModule,
+    ConsultClientModule
   ]
 })
 export class AdministratorModule { }
