@@ -1,7 +1,7 @@
 import { Address } from './address';
 
 export interface Client {
-  id?: number;
+  id: number;
   cpf: string;
   name: string;
   email: string;

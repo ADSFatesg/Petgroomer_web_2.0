@@ -4,80 +4,104 @@
   
     <!-- Seção de Consulta (CPF e Botão) -->
     <div class="consulta-section">
-      <!-- Campo de entrada para CPF -->
-      <mat-form-field appearance="fill" class="cpf-field">
-        <mat-label>CPF</mat-label>
-        <input matInput [(ngModel)]="cpf" placeholder="Digite o CPF" required>
-        <mat-error *ngIf="!cpf">
-          CPF é obrigatório
-        </mat-error>
-        <mat-progress-bar *ngIf="loading" mode="indeterminate" class="barra-progresso"></mat-progress-bar>
-      </mat-form-field>
-  
-      <!-- Botão de consulta -->
-      <button mat-raised-button color="primary" class="consulta-button" (click)="consultarCliente()">
-        Consultar
-      </button>
-    </div>
-  
+        <!-- Campo de entrada para CPF -->
+        <mat-form-field appearance="fill" class="cpf-field">
+          <mat-label>CPF</mat-label>
+          <input matInput [(ngModel)]="cpf" placeholder="Digite o CPF" required mask="000.000.000-00">
+          <mat-error *ngIf="!cpf">
+            CPF é obrigatório
+          </mat-error>
+          <mat-progress-bar *ngIf="loading" mode="indeterminate" class="barra-progresso"></mat-progress-bar>
+        </mat-form-field>
+    
+        <!-- Lupa para consulta -->
+        <button mat-icon-button color="primary" class="consulta-lupa-button" (click)="consultarCliente()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
     <!-- Barra de progresso abaixo do botão -->
     
   
     <!-- Formulário preenchido com os dados do cliente -->
     <form [formGroup]="clientForm" class="form-grid">
-      <!-- Campos do formulário -->
-      <mat-form-field appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="name" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Rua</mat-label>
-        <input matInput formControlName="street" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Cidade</mat-label>
-        <input matInput formControlName="city" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>CPF</mat-label>
-        <input matInput formControlName="cpf" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Número</mat-label>
-        <input matInput formControlName="number" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Estado</mat-label>
-        <input matInput formControlName="state" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Complemento</mat-label>
-        <input matInput formControlName="complement" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>País</mat-label>
-        <input matInput formControlName="country" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Telefone</mat-label>
-        <input matInput formControlName="phone" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Bairro</mat-label>
-        <input matInput formControlName="neighborhood" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>CEP</mat-label>
-        <input matInput formControlName="postalCode" readonly>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Status</mat-label>
-        <input matInput formControlName="active" readonly>
-      </mat-form-field>
-    </form>
-  </mat-card>
-  
+        <!-- Campos do formulário -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nome</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput formControlName="name" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Rua</mat-label>
+          <mat-icon matPrefix>location_on</mat-icon>
+          <input matInput formControlName="street" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Cidade</mat-label>
+          <mat-icon matPrefix>location_city</mat-icon>
+          <input matInput formControlName="city" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>CPF</mat-label>
+          <mat-icon matPrefix>credit_card</mat-icon>
+          <input matInput formControlName="cpf" readonly mask="000.000.000-00">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Número</mat-label>
+          <mat-icon matPrefix>home</mat-icon>
+          <input matInput formControlName="number" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Estado</mat-label>
+          <mat-icon matPrefix>map</mat-icon>
+          <input matInput formControlName="state" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
+          <input matInput formControlName="email" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Complemento</mat-label>
+          <mat-icon matPrefix>note</mat-icon>
+          <input matInput formControlName="complement" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>País</mat-label>
+          <mat-icon matPrefix>public</mat-icon>
+          <input matInput formControlName="country" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Telefone</mat-label>
+          <mat-icon matPrefix>phone</mat-icon>
+          <input matInput formControlName="phone" readonly mask="(00) 00000-0000">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Bairro</mat-label>
+          <mat-icon matPrefix>home_work</mat-icon>
+          <input matInput formControlName="neighborhood" readonly>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>CEP</mat-label>
+          <mat-icon matPrefix>local_post_office</mat-icon>
+          <input matInput formControlName="postalCode" readonly mask="00000-000">
+        </mat-form-field>
+      
+        <mat-slide-toggle formControlName="active">
+          Ativo
+        </mat-slide-toggle>
+      </form>
+      
+      <button mat-button (click)="atualizarCliente()" [disabled]="loading || !client">
+        Atualizar Cliente
+      </button>

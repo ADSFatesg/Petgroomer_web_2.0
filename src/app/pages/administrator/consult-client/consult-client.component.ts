@@ -14,30 +14,33 @@ export class ConsultClientComponent implements OnInit{
   clientForm!: FormGroup;
   loading: boolean = false;
   client: Client | null = null;
+  clientId: number | null = null; // Store the client ID here
+
 
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
     private snackBar: MatSnackBar
   ) {}
+
   ngOnInit(): void {
-       // Inicializa o formulário com os campos esperados
-       this.clientForm = this.fb.group({
-        name: [{ value: '', disabled: false }],
-        email: [{ value: '', disabled: false }],
-        phone: [{ value: '', disabled: false }],
-        street: [{ value: '', disabled: false }],
-        number: [{ value: '', disabled: false }],
-        complement: [{ value: '', disabled: false }],
-        neighborhood: [{ value: '', disabled: false }],
-        city: [{ value: '', disabled: false }],
-        state: [{ value: '', disabled: false }],
-        country: [{ value: '', disabled: false }],
-        postalCode: [{ value: '', disabled: false }],
-        active: [{ value: '', disabled: false }],
-        cpf:[{ value: '', disabled: true}]
-      });
+    this.clientForm = this.fb.group({
+      name: [{ value: '', disabled: false }],
+      email: [{ value: '', disabled: false }],
+      phone: [{ value: '', disabled: false }],
+      street: [{ value: '', disabled: false }],
+      number: [{ value: '', disabled: false }],
+      complement: [{ value: '', disabled: false }],
+      neighborhood: [{ value: '', disabled: false }],
+      city: [{ value: '', disabled: false }],
+      state: [{ value: '', disabled: false }],
+      country: [{ value: '', disabled: false }],
+      postalCode: [{ value: '', disabled: false }],
+      active: [false],  // Initialize as boolean
+      cpf: [{ value: '', disabled: true }]
+    });
   }
+
   consultarCliente() {
     if (!this.cpf) {
       this.snackBar.open('CPF não foi informado.', 'Fechar', {
@@ -45,11 +48,12 @@ export class ConsultClientComponent implements OnInit{
       });
       return;
     }
-  
+
     this.loading = true;
     this.clientService.findByCpf(this.cpf).subscribe(
       (cliente: Client) => {
         this.client = cliente;
+        this.clientId = cliente.id;  // Capture the client ID
         this.clientForm.patchValue({
           name: cliente.name,
           cpf: cliente.cpf,
@@ -63,7 +67,7 @@ export class ConsultClientComponent implements OnInit{
           state: cliente.address.state,
           country: cliente.address.country,
           postalCode: cliente.address.postalCode,
-          active: cliente.active ? 'Ativo' : 'Inativo'
+          active: cliente.active,  // Use boolean directly
         });
         this.loading = false;
       },
@@ -74,5 +78,36 @@ export class ConsultClientComponent implements OnInit{
         this.loading = false;
       }
     );
+  }
+
+  atualizarCliente() {
+    if (this.client && this.clientId !== null) {
+      const updatedClient: Client = {
+        ...this.client,
+        ...this.clientForm.getRawValue(),  // Get form values
+
+      };
+
+      this.loading = true;
+      this.clientService.update(this.clientId, updatedClient).subscribe(
+        (cliente: Client) => {
+          this.snackBar.open('Cliente atualizado com sucesso!', 'Fechar', {
+            duration: 3000,
+          });
+          this.client = cliente; // Update local client data
+          this.loading = false;
+        },
+        (error) => {
+          this.snackBar.open(error.message || 'Erro ao atualizar cliente.', 'Fechar', {
+            duration: 3000,
+          });
+          this.loading = false;
+        }
+      );
+    } else {
+      this.snackBar.open('Nenhum cliente foi carregado.', 'Fechar', {
+        duration: 3000,
+      });
+    }
   }
 }
