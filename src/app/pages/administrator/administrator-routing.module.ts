@@ -4,12 +4,14 @@ import { MenuAdminstratorComponent } from './menu-adminstrator/menu-adminstrator
 import { AgendaComponent } from './agenda/agenda.component';
 import { RegisterClientComponent } from './register-client/register-client.component';
 import { ConsultClientComponent } from './consult-client/consult-client.component';
+import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 
 const routes: Routes = [
     { path: '', component: MenuAdminstratorComponent, children: [
       { path: '', component: AgendaComponent },
       { path: 'registerClient', component:RegisterClientComponent },
-      { path: 'consultClient', component:ConsultClientComponent }
+      { path: 'consultClient', component:ConsultClientComponent },
+      {path:'registerEmployee', component: RegisterEmployeeComponent}
     ]
   }
 ];

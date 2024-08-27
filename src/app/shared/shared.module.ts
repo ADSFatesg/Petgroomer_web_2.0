@@ -19,6 +19,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -42,7 +44,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSnackBarModule,
     FormsModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     CommonModule,
@@ -65,7 +68,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSnackBarModule,
     FormsModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule
     
   ],
   providers: [provideNgxMask()]

@@ -1,0 +1,84 @@
+// Estilização geral do formulário
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Aumentar o espaçamento entre as seções do formulário
+    max-width: 1400px; // Aumentar a largura máxima para acomodar três seções
+    margin: 0 auto;
+    padding: 24px; // Aumentar o padding para dar mais espaço interno
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Ajustar o shadow para mais destaque
+    background-color: #fff;
+    
+    // Container para as três seções
+    .form-container {
+      display: flex;
+      gap: 20px; // Aumentar o espaçamento entre as seções
+      flex-wrap: wrap; // Permitir quebra de linha em telas pequenas
+  
+      .form-section {
+        flex: 1; // As seções ocupam igualmente o espaço disponível
+        display: flex;
+        flex-direction: column;
+        gap: 20px; // Aumentar o espaçamento entre os campos dentro das seções
+  
+        // Ajuste para responsividade
+        &:first-child {
+          min-width: 280px; // Aumentar a largura mínima para a primeira seção
+        }
+  
+        &:nth-child(2) {
+          min-width: 280px; // Aumentar a largura mínima para a segunda seção
+        }
+  
+        &:last-child {
+          min-width: 280px; // Aumentar a largura mínima para a terceira seção
+        }
+      }
+    }
+  
+    // Estilização do botão
+    button {
+      align-self: flex-end;
+    }
+  
+    // Estilização do mat-slide-toggle
+    mat-slide-toggle {
+      margin-top: 20px; // Aumentar o espaçamento superior para o toggle
+    }
+  }
+  
+  // Adicionar espaçamento entre os campos
+  .mat-form-field {
+    margin-bottom: 20px; // Aumentar o espaçamento inferior entre os campos
+  }
+  
+  // Estilizar o label
+  .mat-label {
+    font-size: 16px; // Aumentar o tamanho da fonte dos labels
+    color: #333;
+  }
+  
+  // Estilizar a borda do campo
+  .mat-form-field-underline {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  // Adicionar um efeito de foco
+  .mat-form-field-underline.mat-focused {
+    border-bottom: 2px solid #3f51b5; // Cor do tema primário do Angular Material
+  }
+  
+  // Estilizar o botão primário
+  button.mat-raised-button {
+    font-weight: bold;
+    font-size: 18px; // Aumentar o tamanho da fonte do botão
+    padding: 10px 20px; // Aumentar o padding do botão para torná-lo mais proeminente
+  }
+  
+  // Estilização do cabeçalho
+  header {
+    font-size: 24px; // Aumentar o tamanho da fonte do cabeçalho
+    margin-bottom: 20px; // Adicionar espaçamento inferior ao cabeçalho
+  }
+  
