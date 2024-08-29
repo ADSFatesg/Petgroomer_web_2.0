@@ -1,92 +1,185 @@
-<form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
-  <header> Cadastro de cliente</header>  
-  <div class="form-container">
-    <div class="form-section">
-      <mat-form-field appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="name" />
-        <mat-icon matSuffix>person</mat-icon> 
-      </mat-form-field>
+<div class="register-client-container">
+  <h1>Cadastro de Cliente</h1>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <div class="form-sections">
 
-      <mat-form-field appearance="fill">
-        <mat-label>CPF</mat-label>
-        <input matInput formControlName="cpf" mask="000.000.000-00" /> 
-        <mat-icon matSuffix>badge</mat-icon> 
-      </mat-form-field>
+      <!-- Seção 1: Informações Pessoais -->
+      <div class="form-section">
+        <h3>Informações Pessoais</h3>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
-        <mat-icon matSuffix>email</mat-icon> 
-      </mat-form-field>
+        <!-- Campo CPF -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('cpf')?.touched && clientForm.get('cpf')?.invalid}">
+          <label for="cpf">CPF <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">badge</mat-icon>
+            <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
+          </div>
+          <div *ngIf="clientForm.get('cpf')?.touched && clientForm.get('cpf')?.invalid" class="error-message">
+            CPF é obrigatório.
+          </div>
+        </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Telefone</mat-label>
-        <input matInput formControlName="phone" mask="(00) 00000-0000" /> 
-        <mat-icon matSuffix>phone</mat-icon> 
-      </mat-form-field>
+        <!-- Campo Nome -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('name')?.touched && clientForm.get('name')?.invalid}">
+          <label for="name">Nome <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">person</mat-icon>
+            <input id="name" formControlName="name" type="text" placeholder="Nome completo">
+          </div>
+          <div *ngIf="clientForm.get('name')?.touched && clientForm.get('name')?.invalid" class="error-message">
+            Nome é obrigatório.
+          </div>
+        </div>
+
+        <!-- Campo Email -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('email')?.touched && clientForm.get('email')?.invalid}">
+          <label for="email">Email <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">email</mat-icon>
+            <input id="email" formControlName="email" type="email" placeholder="Email">
+          </div>
+          <div *ngIf="clientForm.get('email')?.touched && clientForm.get('email')?.invalid" class="error-message">
+            {{ clientForm.get('email')?.errors?.['required'] ? 'Email é obrigatório.' : 'Email inválido.' }}
+          </div>
+        </div>
+
+        <!-- Campo Telefone -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('phone')?.touched && clientForm.get('phone')?.invalid}">
+          <label for="phone">Telefone <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">phone</mat-icon>
+            <input id="phone" formControlName="phone" type="text" placeholder="Telefone" mask="(00) 00000-0000">
+          </div>
+          <div *ngIf="clientForm.get('phone')?.touched && clientForm.get('phone')?.invalid" class="error-message">
+            Telefone é obrigatório.
+          </div>
+        </div>
+
+        <!-- Campo Senha -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('password')?.touched && clientForm.get('password')?.invalid}">
+          <label for="password">Senha <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">lock</mat-icon>
+            <input id="password" formControlName="password" type="password" placeholder="Senha">
+          </div>
+          <div *ngIf="clientForm.get('password')?.touched && clientForm.get('password')?.invalid" class="error-message">
+            {{ clientForm.get('password')?.errors?.['required'] ? 'Senha é obrigatória.' : 'Senha deve ter no mínimo 6 caracteres.' }}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Seção 2: Endereço Parte 1 -->
+      <div class="form-section">
+        <h3>Endereço</h3>
+
+        <!-- Campo CEP -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('postalCode')?.touched && clientForm.get('postalCode')?.invalid}">
+          <label for="postalCode">CEP <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_on</mat-icon>
+            <input id="postalCode" formControlName="postalCode" type="text" placeholder="CEP" mask="00000-000">
+            <button type="button" class="btn-icon" (click)="consultarCEP()" tabindex="-1">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="clientForm.get('postalCode')?.touched && clientForm.get('postalCode')?.invalid" class="error-message">
+            CEP é obrigatório.
+          </div>
+        </div>
+
+        <!-- Campo Rua -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('street')?.touched && clientForm.get('street')?.invalid}">
+          <label for="street">Rua <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">home</mat-icon>
+            <input id="street" formControlName="street" type="text" placeholder="Rua">
+          </div>
+          <div *ngIf="clientForm.get('street')?.touched && clientForm.get('street')?.invalid" class="error-message">
+            Rua é obrigatória.
+          </div>
+        </div>
+
+        <!-- Campo Número -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('number')?.touched && clientForm.get('number')?.invalid}">
+          <label for="number">Número <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">looks_one</mat-icon>
+            <input id="number" formControlName="number" type="text" placeholder="Número">
+          </div>
+          <div *ngIf="clientForm.get('number')?.touched && clientForm.get('number')?.invalid" class="error-message">
+            Número é obrigatório.
+          </div>
+        </div>
+
+        <!-- Campo Complemento -->
+        <div class="form-group">
+          <label for="complement">Complemento</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">add_location</mat-icon>
+            <input id="complement" formControlName="complement" type="text" placeholder="Complemento">
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção 3: Endereço Parte 2 -->
+      <div class="form-section">
+        <h3>Complementos</h3>
+
+        <!-- Campo Bairro -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('neighborhood')?.touched && clientForm.get('neighborhood')?.invalid}">
+          <label for="neighborhood">Bairro <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_city</mat-icon>
+            <input id="neighborhood" formControlName="neighborhood" type="text" placeholder="Bairro">
+          </div>
+          <div *ngIf="clientForm.get('neighborhood')?.touched && clientForm.get('neighborhood')?.invalid" class="error-message">
+            Bairro é obrigatório.
+          </div>
+        </div>
+
+        <!-- Campo Cidade -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('city')?.touched && clientForm.get('city')?.invalid}">
+          <label for="city">Cidade <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_city</mat-icon>
+            <input id="city" formControlName="city" type="text" placeholder="Cidade">
+          </div>
+          <div *ngIf="clientForm.get('city')?.touched && clientForm.get('city')?.invalid" class="error-message">
+            Cidade é obrigatória.
+          </div>
+        </div>
+
+        <!-- Campo Estado -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('state')?.touched && clientForm.get('state')?.invalid}">
+          <label for="state">Estado <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">map</mat-icon>
+            <input id="state" formControlName="state" type="text" placeholder="Estado">
+          </div>
+          <div *ngIf="clientForm.get('state')?.touched && clientForm.get('state')?.invalid" class="error-message">
+            Estado é obrigatório.
+          </div>
+        </div>
+
+        <!-- Campo País -->
+        <div class="form-group" [ngClass]="{'has-error': clientForm.get('country')?.touched && clientForm.get('country')?.invalid}">
+          <label for="country">País <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">public</mat-icon>
+            <select id="country" formControlName="country">
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+          </div>
+          <div *ngIf="clientForm.get('country')?.touched && clientForm.get('country')?.invalid" class="error-message">
+            País é obrigatório.
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="form-section">
-      <mat-form-field appearance="fill">
-        <mat-label>Rua</mat-label>
-        <input matInput formControlName="street" />
-        <mat-icon matSuffix>home</mat-icon> 
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Número</mat-label>
-        <input matInput formControlName="number" /> 
-        <mat-icon matSuffix>tag</mat-icon> 
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Complemento</mat-label>
-        <input matInput formControlName="complement" />
-        <mat-icon matSuffix>add_location</mat-icon> 
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Bairro</mat-label>
-        <input matInput formControlName="neighborhood" />
-        <mat-icon matSuffix>location_city</mat-icon> 
-      </mat-form-field>
-    </div>
-
-    <div class="form-section">
-      <mat-form-field appearance="fill">
-        <mat-label>Cidade</mat-label>
-        <input matInput formControlName="city" />
-        <mat-icon matSuffix>apartment</mat-icon> 
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Estado</mat-label>
-        <input matInput formControlName="state" mask="AA" /> <mat-icon matSuffix>flag</mat-icon> 
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>País</mat-label>
-        <mat-select formControlName="country"> 
-          <mat-option *ngFor="let country of countries" [value]="country">
-            {{country}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>CEP</mat-label>
-        <input matInput formControlName="postalCode" mask="00000-000" />
-        <button mat-icon-button matSuffix (click)="consultarCEP()" type="button"> 
-          <mat-icon>search</mat-icon>
-        </button> 
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Senha</mat-label>
-        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> 
-      </mat-form-field>
-    </div>
-  </div>
-  <button mat-raised-button color="primary" type="submit">Salvar</button>
-</form>
+    <button type="submit" class="btn-save" [disabled]="clientForm.invalid">Cadastrar Cliente</button>
+  </form>
+</div>

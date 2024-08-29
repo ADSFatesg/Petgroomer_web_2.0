@@ -17,7 +17,7 @@ import { EnumCountry } from '../../../model/enum-country';
 export class RegisterClientComponent implements OnInit {
   clientForm!: FormGroup;
   hide = true;
-
+  loading = false;
   countries = Object.values(EnumCountry);
 
   constructor(
@@ -87,6 +87,7 @@ export class RegisterClientComponent implements OnInit {
 
   onSubmit(): void {
     if (this.clientForm.valid) {
+      this.loading = true;
       const client: Client = {
         ...this.clientForm.value,
         address: {
@@ -103,6 +104,7 @@ export class RegisterClientComponent implements OnInit {
   
       this.clientService.create(client).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Cliente criado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',

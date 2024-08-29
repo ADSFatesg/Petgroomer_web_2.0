@@ -1,107 +1,128 @@
-<!-- consult-client.component.html -->
-<mat-card class="consulta-cliente-card">
-    <mat-card-title>Alterar Cliente</mat-card-title>
-  
-    <!-- Seção de Consulta (CPF e Botão) -->
-    <div class="consulta-section">
-        <!-- Campo de entrada para CPF -->
-        <mat-form-field appearance="fill" class="cpf-field">
-          <mat-label>CPF</mat-label>
-          <input matInput [(ngModel)]="cpf" placeholder="Digite o CPF" required mask="000.000.000-00">
-          <mat-error *ngIf="!cpf">
-            CPF é obrigatório
-          </mat-error>
-          <mat-progress-bar *ngIf="loading" mode="indeterminate" class="barra-progresso"></mat-progress-bar>
-        </mat-form-field>
-    
-        <!-- Lupa para consulta -->
-        <button mat-icon-button color="primary" class="consulta-lupa-button" (click)="consultarCliente()">
-          <mat-icon>search</mat-icon>
-        </button>
+<div class="consult-employee-container">
+  <form [formGroup]="clientForm" (ngSubmit)="atualizarCliente()">
+    <div class="form-sections">
+
+      <!-- Seção 1: Informações Pessoais -->
+      <div class="form-section">
+        <h3>Informações Pessoais</h3>
+
+        <div class="form-group cpf-group">
+          <label for="cpf">CPF</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">badge</mat-icon>
+            <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
+            <button type="button" class="btn-icon" (click)="consultarCliente()" tabindex="-1">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">person</mat-icon>
+            <input id="name" formControlName="name" type="text" placeholder="Nome completo">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">email</mat-icon>
+            <input id="email" formControlName="email" type="email" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Telefone</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">phone</mat-icon>
+            <input id="phone" formControlName="phone" type="text" placeholder="Telefone" mask="(00) 00000-0000">
+          </div>
+        </div>
       </div>
-    <!-- Barra de progresso abaixo do botão -->
-    
-  
-    <!-- Formulário preenchido com os dados do cliente -->
-    <form [formGroup]="clientForm" class="form-grid">
-        <!-- Campos do formulário -->
-        <mat-form-field appearance="fill">
-          <mat-label>Nome</mat-label>
-          <mat-icon matPrefix>person</mat-icon>
-          <input matInput formControlName="name" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Rua</mat-label>
-          <mat-icon matPrefix>location_on</mat-icon>
-          <input matInput formControlName="street" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Cidade</mat-label>
-          <mat-icon matPrefix>location_city</mat-icon>
-          <input matInput formControlName="city" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>CPF</mat-label>
-          <mat-icon matPrefix>credit_card</mat-icon>
-          <input matInput formControlName="cpf" readonly mask="000.000.000-00">
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Número</mat-label>
-          <mat-icon matPrefix>home</mat-icon>
-          <input matInput formControlName="number" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Estado</mat-label>
-          <mat-icon matPrefix>map</mat-icon>
-          <input matInput formControlName="state" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <mat-icon matPrefix>email</mat-icon>
-          <input matInput formControlName="email" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Complemento</mat-label>
-          <mat-icon matPrefix>note</mat-icon>
-          <input matInput formControlName="complement" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>País</mat-label>
-          <mat-icon matPrefix>public</mat-icon>
-          <input matInput formControlName="country" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Telefone</mat-label>
-          <mat-icon matPrefix>phone</mat-icon>
-          <input matInput formControlName="phone" readonly mask="(00) 00000-0000">
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>Bairro</mat-label>
-          <mat-icon matPrefix>home_work</mat-icon>
-          <input matInput formControlName="neighborhood" readonly>
-        </mat-form-field>
-      
-        <mat-form-field appearance="fill">
-          <mat-label>CEP</mat-label>
-          <mat-icon matPrefix>local_post_office</mat-icon>
-          <input matInput formControlName="postalCode" readonly mask="00000-000">
-        </mat-form-field>
-      
-        <mat-slide-toggle formControlName="active">
-          Ativo
-        </mat-slide-toggle>
-      </form>
-      
-      <button mat-button (click)="atualizarCliente()" [disabled]="loading || !client">
-        Atualizar Cliente
-      </button>
+
+      <!-- Seção 2: Endereço -->
+      <div class="form-section">
+        <h3>Endereço</h3>
+
+        <div class="form-group">
+          <label for="postalCode">CEP</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_on</mat-icon>
+            <input id="postalCode" formControlName="postalCode" type="text" placeholder="CEP" mask="00000-000">
+            <button type="button" class="btn-icon" (click)="consultarCEP()" tabindex="-1">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="street">Rua</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">home</mat-icon>
+            <input id="street" formControlName="street" type="text" placeholder="Rua">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="number">Número</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">looks_one</mat-icon>
+            <input id="number" formControlName="number" type="text" placeholder="Número">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="complement">Complemento</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">add_location</mat-icon>
+            <input id="complement" formControlName="complement" type="text" placeholder="Complemento">
+          </div>
+        </div>
+      </div>
+      <!-- Seção 3: Endereço -->
+      <div class="form-section">
+        <h3>Complementos</h3>
+        <div class="form-group">
+          <label for="neighborhood">Bairro</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_city</mat-icon>
+            <input id="neighborhood" formControlName="neighborhood" type="text" placeholder="Bairro">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">Cidade</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_city</mat-icon>
+            <input id="city" formControlName="city" type="text" placeholder="Cidade">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="state">Estado</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">map</mat-icon>
+            <input id="state" formControlName="state" type="text" placeholder="Estado">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="country">País</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">public</mat-icon>
+            <select id="country" formControlName="country">
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="active">Ativo</label>
+          <input id="active" formControlName="active" type="checkbox">
+        </div>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn-save" [disabled]="loading">Salvar Alterações</button>
+  </form>
+</div>

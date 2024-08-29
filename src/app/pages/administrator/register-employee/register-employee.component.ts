@@ -16,7 +16,6 @@ import { Address } from '../../../model/address';
 })
 export class RegisterEmployeeComponent implements OnInit{
   employeeForm!: FormGroup;
-  hide = true;
   loading = false;
   countries = Object.values(EnumCountry);
   positions = Object.values(EnumPosition);

@@ -8,10 +8,14 @@ import { RegisterClientModule } from './register-client/register-client.module';
 import { ConsultClientModule } from './consult-client/consult-client.module';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { RegisterEmployeeModule } from './register-employee/register-employee.module';
+import { ConsultEmployeeComponent } from './consult-employee/consult-employee.component';
+import { ConsultEmployeeModule } from './consult-employee/consult-employee.module';
 
 
 @NgModule({
-  declarations: [ ],
+  declarations: [ 
+    
+  ],
   imports: [
     CommonModule,
     AdministratorRoutingModule,
@@ -20,7 +24,8 @@ import { RegisterEmployeeModule } from './register-employee/register-employee.mo
     SharedModule,
     RegisterClientModule,
     ConsultClientModule,
-    RegisterEmployeeModule
+    RegisterEmployeeModule,
+    ConsultEmployeeModule
   ]
 })
 export class AdministratorModule { }

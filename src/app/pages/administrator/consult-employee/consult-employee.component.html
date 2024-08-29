@@ -1,0 +1,161 @@
+<div class="consult-employee-container">
+    <form [formGroup]="employeeForm" (ngSubmit)="atualizarFuncionario()">
+      <div class="form-sections">
+        
+        <!-- Seção 1: Informações Pessoais -->
+        <div class="form-section">
+          <h3>Informações Pessoais</h3>
+          
+          <div class="form-group cpf-group">
+            <label for="cpf">CPF</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">badge</mat-icon>
+              <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
+              <button type="button" class="btn-icon" (click)="consultarFuncionario()" tabindex="-1">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">person</mat-icon>
+              <input id="name" formControlName="name" type="text" placeholder="Nome completo">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">email</mat-icon>
+              <input id="email" formControlName="email" type="email" placeholder="Email">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="phone">Telefone</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">phone</mat-icon>
+              <input id="phone" formControlName="phone" type="text" placeholder="Telefone" mask="(00) 00000-0000">
+            </div>
+          </div>
+        </div>
+  
+        <!-- Seção 2: Endereço -->
+        <div class="form-section">
+          <h3>Endereço</h3>
+          
+          <div class="form-group postalCode-group">
+            <label for="postalCode">CEP</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">location_on</mat-icon>
+              <input id="postalCode" formControlName="postalCode" type="text" placeholder="CEP" mask="00000-000">
+              <button type="button" class="btn-icon" (click)="consultarCEP()" tabindex="-1">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="street">Rua</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">home</mat-icon>
+              <input id="street" formControlName="street" type="text" placeholder="Rua">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="number">Número</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">looks_one</mat-icon>
+              <input id="number" formControlName="number" type="text" placeholder="Número">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="neighborhood">Bairro</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">location_city</mat-icon>
+              <input id="neighborhood" formControlName="neighborhood" type="text" placeholder="Bairro">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="city">Cidade</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">location_city</mat-icon>
+              <input id="city" formControlName="city" type="text" placeholder="Cidade">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="state">Estado</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">map</mat-icon>
+              <input id="state" formControlName="state" type="text" placeholder="Estado">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="country">País</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">public</mat-icon>
+              <select id="country" formControlName="country">
+                <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="complement">Complemento</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">add_location</mat-icon>
+              <input id="complement" formControlName="complement" type="text" placeholder="Complemento">
+            </div>
+          </div>
+        </div>
+  
+        <!-- Seção 3: Informações de Trabalho -->
+        <div class="form-section">
+          <h3>Informações de Trabalho</h3>
+          
+          <div class="form-group">
+            <label for="position">Cargo</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">work</mat-icon>
+              <select id="position" formControlName="position">
+                <option *ngFor="let position of positions" [value]="position">{{ position }}</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="commission">Comissão</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">attach_money</mat-icon>
+              <input id="commission" formControlName="commission" type="text" placeholder="Comissão">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="wage">Salário</label>
+            <div class="input-with-icon">
+              <mat-icon class="leading-icon">money</mat-icon>
+              <input id="wage" formControlName="wage" type="text" placeholder="Salário">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="active">Ativo</label>
+            <div class="input-with-icon">
+              <input id="active" formControlName="active" type="checkbox">
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn-save" [disabled]="loading">Salvar Alterações</button>
+    </form>
+  </div>
+  
