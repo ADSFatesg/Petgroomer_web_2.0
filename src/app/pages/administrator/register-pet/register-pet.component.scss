@@ -1,0 +1,140 @@
+.register-pet-container {
+    max-width: 100%; // Mantém a largura total disponível
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    h3 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        .form-sections {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; // Para adaptar ao espaço disponível
+            gap: 20px; // Espaçamento entre as seções
+
+            .form-section {
+                flex: 1;
+                min-width: 350px; // Garante que as seções tenham pelo menos 350px
+                margin: 0 10px;
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+
+            label {
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            input,
+            select {
+                padding: 10px;
+                font-size: 14px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                outline: none;
+                transition: border-color 0.3s;
+
+                &:focus {
+                    border-color: #66afe9;
+                    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+                }
+            }
+
+            input[type="checkbox"] {
+                width: auto;
+                margin-top: 10px;
+            }
+
+            .has-error input,
+            .has-error select {
+                border-color: #e74c3c;
+            }
+
+            .error-message {
+                font-size: 12px;
+                color: #e74c3c;
+                margin-top: 5px;
+            }
+
+            .input-with-icon {
+                position: relative;
+
+                input {
+                    padding-right: 35px; /* Espaço extra à direita para o ícone */
+                   
+                }
+
+                mat-icon {
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 20px;
+                    color: #666;
+                }
+
+                button.btn-icon {
+                    position: absolute;
+                    right: 79%; /* Coloca o botão da lupa dentro do input */
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                
+                    mat-icon {
+                        color: #666;
+                        font-size: 24px;
+                    }
+
+                    &:hover mat-icon {
+                        color: #007bff;
+                    }
+                }
+            }
+        }
+
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+
+            &:hover {
+                background-color: #218838;
+            }
+
+            &:disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
