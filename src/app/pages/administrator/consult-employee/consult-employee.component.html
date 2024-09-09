@@ -1,161 +1,219 @@
 <div class="consult-employee-container">
-    <form [formGroup]="employeeForm" (ngSubmit)="atualizarFuncionario()">
-      <div class="form-sections">
+  <form [formGroup]="employeeForm" (ngSubmit)="atualizarFuncionario()">
+    <div class="form-sections">
+      
+      <!-- Seção 1: Informações Pessoais -->
+      <div class="form-section">
+        <h3>Informações Pessoais</h3>
         
-        <!-- Seção 1: Informações Pessoais -->
-        <div class="form-section">
-          <h3>Informações Pessoais</h3>
-          
-          <div class="form-group cpf-group">
-            <label for="cpf">CPF</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">badge</mat-icon>
-              <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
-              <button type="button" class="btn-icon" (click)="consultarFuncionario()" tabindex="-1">
-                <mat-icon>search</mat-icon>
-              </button>
-            </div>
+        <!-- CPF -->
+        <div class="form-group cpf-group" [ngClass]="{'has-error': employeeForm.get('cpf')?.invalid && employeeForm.get('cpf')?.touched}">
+          <label for="cpf">CPF <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">badge</mat-icon>
+            <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
+            <button type="button" class="btn-icon" (click)="consultarFuncionario()" tabindex="-1">
+              <mat-icon>search</mat-icon>
+            </button>
           </div>
-  
-          <div class="form-group">
-            <label for="name">Nome</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">person</mat-icon>
-              <input id="name" formControlName="name" type="text" placeholder="Nome completo">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="email">Email</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">email</mat-icon>
-              <input id="email" formControlName="email" type="email" placeholder="Email">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="phone">Telefone</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">phone</mat-icon>
-              <input id="phone" formControlName="phone" type="text" placeholder="Telefone" mask="(00) 00000-0000">
-            </div>
+          <div *ngIf="employeeForm.get('cpf')?.invalid && employeeForm.get('cpf')?.touched" class="error-message">
+            CPF é obrigatório.
           </div>
         </div>
-  
-        <!-- Seção 2: Endereço -->
-        <div class="form-section">
-          <h3>Endereço</h3>
-          
-          <div class="form-group postalCode-group">
-            <label for="postalCode">CEP</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">location_on</mat-icon>
-              <input id="postalCode" formControlName="postalCode" type="text" placeholder="CEP" mask="00000-000">
-              <button type="button" class="btn-icon" (click)="consultarCEP()" tabindex="-1">
-                <mat-icon>search</mat-icon>
-              </button>
-            </div>
+
+        <!-- Nome -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched}">
+          <label for="name">Nome <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">person</mat-icon>
+            <input id="name" formControlName="name" type="text" placeholder="Nome completo">
           </div>
-  
-          <div class="form-group">
-            <label for="street">Rua</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">home</mat-icon>
-              <input id="street" formControlName="street" type="text" placeholder="Rua">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="number">Número</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">looks_one</mat-icon>
-              <input id="number" formControlName="number" type="text" placeholder="Número">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="neighborhood">Bairro</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">location_city</mat-icon>
-              <input id="neighborhood" formControlName="neighborhood" type="text" placeholder="Bairro">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="city">Cidade</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">location_city</mat-icon>
-              <input id="city" formControlName="city" type="text" placeholder="Cidade">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="state">Estado</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">map</mat-icon>
-              <input id="state" formControlName="state" type="text" placeholder="Estado">
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="country">País</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">public</mat-icon>
-              <select id="country" formControlName="country">
-                <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-              </select>
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="complement">Complemento</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">add_location</mat-icon>
-              <input id="complement" formControlName="complement" type="text" placeholder="Complemento">
-            </div>
+          <div *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched" class="error-message">
+            Nome é obrigatório.
           </div>
         </div>
-  
-        <!-- Seção 3: Informações de Trabalho -->
-        <div class="form-section">
-          <h3>Informações de Trabalho</h3>
-          
-          <div class="form-group">
-            <label for="position">Cargo</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">work</mat-icon>
-              <select id="position" formControlName="position">
-                <option *ngFor="let position of positions" [value]="position">{{ position }}</option>
-              </select>
-            </div>
+
+        <!-- Email -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched}">
+          <label for="email">Email <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">email</mat-icon>
+            <input id="email" formControlName="email" type="email" placeholder="Email">
           </div>
-  
-          <div class="form-group">
-            <label for="commission">Comissão</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">attach_money</mat-icon>
-              <input id="commission" formControlName="commission" type="text" placeholder="Comissão">
-            </div>
+          <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="error-message">
+            {{ employeeForm.get('email')?.errors?.['required'] ? 'Email é obrigatório.' : 'Email inválido.' }}
           </div>
-  
-          <div class="form-group">
-            <label for="wage">Salário</label>
-            <div class="input-with-icon">
-              <mat-icon class="leading-icon">money</mat-icon>
-              <input id="wage" formControlName="wage" type="text" placeholder="Salário">
-            </div>
+        </div>
+
+        <!-- Telefone -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('phone')?.invalid && employeeForm.get('phone')?.touched}">
+          <label for="phone">Telefone <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">phone</mat-icon>
+            <input id="phone" formControlName="phone" type="text" placeholder="Telefone" mask="(00) 00000-0000">
           </div>
-  
-          <div class="form-group">
-            <label for="active">Ativo</label>
-            <div class="input-with-icon">
-              <input id="active" formControlName="active" type="checkbox">
-            </div>
+          <div *ngIf="employeeForm.get('phone')?.invalid && employeeForm.get('phone')?.touched" class="error-message">
+            Telefone é obrigatório.
           </div>
         </div>
       </div>
-  
-      <button type="submit" class="btn-save" [disabled]="loading">Salvar Alterações</button>
-    </form>
-  </div>
-  
+
+      <!-- Seção 2: Endereço -->
+      <div class="form-section">
+        <h3>Endereço</h3>
+        
+        <!-- CEP -->
+        <div class="form-group postalCode-group" [ngClass]="{'has-error': employeeForm.get('postalCode')?.invalid && employeeForm.get('postalCode')?.touched}">
+          <label for="postalCode">CEP <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_on</mat-icon>
+            <input id="postalCode" formControlName="postalCode" type="text" placeholder="CEP" mask="00000-000">
+            <button type="button" class="btn-icon" (click)="consultarCEP()" tabindex="-1">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="employeeForm.get('postalCode')?.invalid && employeeForm.get('postalCode')?.touched" class="error-message">
+            CEP é obrigatório.
+          </div>
+        </div>
+
+        <!-- Rua -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('street')?.invalid && employeeForm.get('street')?.touched}">
+          <label for="street">Rua <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">home</mat-icon>
+            <input id="street" formControlName="street" type="text" placeholder="Rua">
+          </div>
+          <div *ngIf="employeeForm.get('street')?.invalid && employeeForm.get('street')?.touched" class="error-message">
+            Rua é obrigatória.
+          </div>
+        </div>
+
+        <!-- Número -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('number')?.invalid && employeeForm.get('number')?.touched}">
+          <label for="number">Número <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">looks_one</mat-icon>
+            <input id="number" formControlName="number" type="text" placeholder="Número">
+          </div>
+          <div *ngIf="employeeForm.get('number')?.invalid && employeeForm.get('number')?.touched" class="error-message">
+            Número é obrigatório.
+          </div>
+        </div>
+
+        <!-- Bairro -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('neighborhood')?.invalid && employeeForm.get('neighborhood')?.touched}">
+          <label for="neighborhood">Bairro <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_city</mat-icon>
+            <input id="neighborhood" formControlName="neighborhood" type="text" placeholder="Bairro">
+          </div>
+          <div *ngIf="employeeForm.get('neighborhood')?.invalid && employeeForm.get('neighborhood')?.touched" class="error-message">
+            Bairro é obrigatório.
+          </div>
+        </div>
+
+        <!-- Cidade -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('city')?.invalid && employeeForm.get('city')?.touched}">
+          <label for="city">Cidade <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">location_city</mat-icon>
+            <input id="city" formControlName="city" type="text" placeholder="Cidade">
+          </div>
+          <div *ngIf="employeeForm.get('city')?.invalid && employeeForm.get('city')?.touched" class="error-message">
+            Cidade é obrigatória.
+          </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('state')?.invalid && employeeForm.get('state')?.touched}">
+          <label for="state">Estado <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">map</mat-icon>
+            <input id="state" formControlName="state" type="text" placeholder="Estado">
+          </div>
+          <div *ngIf="employeeForm.get('state')?.invalid && employeeForm.get('state')?.touched" class="error-message">
+            Estado é obrigatório.
+          </div>
+        </div>
+
+        <!-- País -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('country')?.invalid && employeeForm.get('country')?.touched}">
+          <label for="country">País <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">public</mat-icon>
+            <select id="country" formControlName="country">
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+          </div>
+          <div *ngIf="employeeForm.get('country')?.invalid && employeeForm.get('country')?.touched" class="error-message">
+            País é obrigatório.
+          </div>
+        </div>
+
+        <!-- Complemento -->
+        <div class="form-group">
+          <label for="complement">Complemento</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">add_location</mat-icon>
+            <input id="complement" formControlName="complement" type="text" placeholder="Complemento">
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção 3: Informações de Trabalho -->
+      <div class="form-section">
+        <h3>Informações de Trabalho</h3>
+        
+        <!-- Cargo -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched}">
+          <label for="position">Cargo <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">work</mat-icon>
+            <select id="position" formControlName="position">
+              <option *ngFor="let position of positions" [value]="position">{{ position }}</option>
+            </select>
+          </div>
+          <div *ngIf="employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched" class="error-message">
+            Cargo é obrigatório.
+          </div>
+        </div>
+
+        <!-- Comissão -->
+        <div class="form-group">
+          <label for="commission">Comissão</label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">attach_money</mat-icon>
+            <input id="commission" formControlName="commission" type="text" placeholder="Comissão">
+          </div>
+        </div>
+
+        <!-- Salário -->
+        <div class="form-group" [ngClass]="{'has-error': employeeForm.get('wage')?.invalid && employeeForm.get('wage')?.touched}">
+          <label for="wage">Salário <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">money</mat-icon>
+            <input id="wage" formControlName="wage" type="text" placeholder="Salário">
+          </div>
+          <div *ngIf="employeeForm.get('wage')?.invalid && employeeForm.get('wage')?.touched" class="error-message">
+            Salário é obrigatório.
+          </div>
+        </div>
+
+        <!-- Ativo -->
+        <div class="form-group">
+          <label for="active">Ativo</label>
+          <div class="input-with-icon">
+            <input id="active" formControlName="active" type="checkbox">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botão com loading -->
+    <button type="submit" class="btn-save" [disabled]="loading">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      {{ loading ? 'Salvando...' : 'Salvar Alterações' }}
+    </button>
+  </form>
+</div>

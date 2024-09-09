@@ -17,7 +17,7 @@ export class ConsultClientComponent implements OnInit{
   clientForm!: FormGroup;
   loading: boolean = false;
   client: Client | null = null;
-  clientId: number | null = null; // Store the client ID here
+  clientId: string | null = null; // Store the client ID here
   countries = Object.values(EnumCountry);
 
   constructor(
@@ -93,7 +93,7 @@ export class ConsultClientComponent implements OnInit{
         if (cliente) {
           // Armazena o cliente encontrado para posterior atualização
           this.client = cliente;
-          this.clientId = cliente.id;
+          this.clientId = cliente.id || '';
   
           // Atualiza o formulário com os dados do cliente
           this.clientForm.patchValue({
@@ -147,6 +147,9 @@ export class ConsultClientComponent implements OnInit{
           this.client = cliente; 
           this.clientForm.patchValue(cliente);
           this.loading = false;
+  
+          // Reseta o formulário após a atualização bem-sucedida
+          this.clientForm.reset();
         },
         (error) => {
           this.snackBar.open(error.message || 'Erro ao atualizar cliente.', 'Fechar', {

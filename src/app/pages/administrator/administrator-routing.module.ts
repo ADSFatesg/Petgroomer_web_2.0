@@ -7,6 +7,7 @@ import { ConsultClientComponent } from './consult-client/consult-client.componen
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ConsultEmployeeComponent } from './consult-employee/consult-employee.component';
 import { RegisterPetComponent } from './register-pet/register-pet.component';
+import { ConsultPetComponent } from './consult-pet/consult-pet.component';
 
 const routes: Routes = [
     { path: '', component: MenuAdminstratorComponent, children: [
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path:'registerEmployee', component: RegisterEmployeeComponent},
       {path:'consultEployee', component: ConsultEmployeeComponent},
       {path:'registerPet', component:RegisterPetComponent},
+      {path:'ConsultPet', component:ConsultPetComponent},
     ]
   }
 ];

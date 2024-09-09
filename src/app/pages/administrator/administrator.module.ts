@@ -12,10 +12,13 @@ import { ConsultEmployeeComponent } from './consult-employee/consult-employee.co
 import { ConsultEmployeeModule } from './consult-employee/consult-employee.module';
 import { RegisterPetComponent } from './register-pet/register-pet.component';
 import { RegisterPetModule } from './register-pet/register-pet.module';
+import { ConsultPetComponent } from './consult-pet/consult-pet.component';
+import { ConsultPetModule } from './consult-pet/consult-pet.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     AdministratorRoutingModule,
@@ -26,7 +29,8 @@ import { RegisterPetModule } from './register-pet/register-pet.module';
     ConsultClientModule,
     RegisterEmployeeModule,
     ConsultEmployeeModule,
-    RegisterPetModule
+    RegisterPetModule,
+    ConsultPetModule
   ]
 })
 export class AdministratorModule { }

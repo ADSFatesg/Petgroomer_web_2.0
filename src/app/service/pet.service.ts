@@ -29,7 +29,7 @@ export class PetService {
     )
   }
   update(id: string, pet: Pet): Observable<Pet> {
-    return this.http.put<Pet>(`${this.apiUrl}/ ${id}`, pet).pipe(
+    return this.http.put<Pet>(`${this.apiUrl}/${id}`, pet).pipe(
       catchError(this.handleError)
     )
   }
@@ -38,12 +38,14 @@ export class PetService {
       catchError(this.handleError)
     );
   }
-  getPetsByClientId(clientId: number): Observable<Client> {
-    return this.http.get<Client>(`${this.apiUrl}/client/${clientId}`).pipe(
-      catchError(this.handleError)
-    );
-  }
 
+getPetsByClientId(clientId: string): Observable<Pet[]> {
+  return this.http.get<Pet[]>(`${this.apiUrl}/client/${clientId}`).pipe(
+    catchError(this.handleError)
+  );
+}
+
+  
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Client-side error

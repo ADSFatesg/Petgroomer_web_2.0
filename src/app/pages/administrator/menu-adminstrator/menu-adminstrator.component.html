@@ -40,10 +40,10 @@
     <mat-menu #funcionarioMenu="matMenu">
       <button mat-menu-item routerLink="/registerEmployee">
         <mat-icon>person_add</mat-icon>
-        Cadastro Funcionário
+        Cadastro
       </button>
       <button mat-menu-item routerLink="/consultEployee">
-        <mat-icon>bar_chart</mat-icon>
+        <mat-icon>edit</mat-icon>
         Alterar
       </button>
     </mat-menu>
@@ -55,11 +55,11 @@
     <mat-menu #petMenu="matMenu">
       <button mat-menu-item routerLink="/registerPet">
         <mat-icon>add_circle</mat-icon>
-        Cadastro Pet
+        Cadastro
       </button>
-      <button mat-menu-item routerLink="/pet/consulta">
-        <mat-icon>search</mat-icon>
-        Consulta Pet
+      <button mat-menu-item routerLink="/ConsultPet">
+        <mat-icon>edit</mat-icon>
+        Alterar
       </button>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="administrativoMenu" class="dropdown-button">

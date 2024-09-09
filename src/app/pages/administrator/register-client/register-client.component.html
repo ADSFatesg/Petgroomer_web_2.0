@@ -8,7 +8,8 @@
         <h3>Informações Pessoais</h3>
 
         <!-- Campo CPF -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('cpf')?.touched && clientForm.get('cpf')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('cpf')?.touched && clientForm.get('cpf')?.invalid}">
           <label for="cpf">CPF <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">badge</mat-icon>
@@ -20,7 +21,8 @@
         </div>
 
         <!-- Campo Nome -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('name')?.touched && clientForm.get('name')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('name')?.touched && clientForm.get('name')?.invalid}">
           <label for="name">Nome <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">person</mat-icon>
@@ -32,7 +34,8 @@
         </div>
 
         <!-- Campo Email -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('email')?.touched && clientForm.get('email')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('email')?.touched && clientForm.get('email')?.invalid}">
           <label for="email">Email <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">email</mat-icon>
@@ -44,7 +47,8 @@
         </div>
 
         <!-- Campo Telefone -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('phone')?.touched && clientForm.get('phone')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('phone')?.touched && clientForm.get('phone')?.invalid}">
           <label for="phone">Telefone <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">phone</mat-icon>
@@ -54,19 +58,6 @@
             Telefone é obrigatório.
           </div>
         </div>
-
-        <!-- Campo Senha -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('password')?.touched && clientForm.get('password')?.invalid}">
-          <label for="password">Senha <span class="required">*</span></label>
-          <div class="input-with-icon">
-            <mat-icon class="leading-icon">lock</mat-icon>
-            <input id="password" formControlName="password" type="password" placeholder="Senha">
-          </div>
-          <div *ngIf="clientForm.get('password')?.touched && clientForm.get('password')?.invalid" class="error-message">
-            {{ clientForm.get('password')?.errors?.['required'] ? 'Senha é obrigatória.' : 'Senha deve ter no mínimo 6 caracteres.' }}
-          </div>
-        </div>
-
       </div>
 
       <!-- Seção 2: Endereço Parte 1 -->
@@ -74,7 +65,8 @@
         <h3>Endereço</h3>
 
         <!-- Campo CEP -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('postalCode')?.touched && clientForm.get('postalCode')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('postalCode')?.touched && clientForm.get('postalCode')?.invalid}">
           <label for="postalCode">CEP <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">location_on</mat-icon>
@@ -83,13 +75,15 @@
               <mat-icon>search</mat-icon>
             </button>
           </div>
-          <div *ngIf="clientForm.get('postalCode')?.touched && clientForm.get('postalCode')?.invalid" class="error-message">
+          <div *ngIf="clientForm.get('postalCode')?.touched && clientForm.get('postalCode')?.invalid"
+            class="error-message">
             CEP é obrigatório.
           </div>
         </div>
 
         <!-- Campo Rua -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('street')?.touched && clientForm.get('street')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('street')?.touched && clientForm.get('street')?.invalid}">
           <label for="street">Rua <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">home</mat-icon>
@@ -101,7 +95,8 @@
         </div>
 
         <!-- Campo Número -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('number')?.touched && clientForm.get('number')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('number')?.touched && clientForm.get('number')?.invalid}">
           <label for="number">Número <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">looks_one</mat-icon>
@@ -127,19 +122,22 @@
         <h3>Complementos</h3>
 
         <!-- Campo Bairro -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('neighborhood')?.touched && clientForm.get('neighborhood')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('neighborhood')?.touched && clientForm.get('neighborhood')?.invalid}">
           <label for="neighborhood">Bairro <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">location_city</mat-icon>
             <input id="neighborhood" formControlName="neighborhood" type="text" placeholder="Bairro">
           </div>
-          <div *ngIf="clientForm.get('neighborhood')?.touched && clientForm.get('neighborhood')?.invalid" class="error-message">
+          <div *ngIf="clientForm.get('neighborhood')?.touched && clientForm.get('neighborhood')?.invalid"
+            class="error-message">
             Bairro é obrigatório.
           </div>
         </div>
 
         <!-- Campo Cidade -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('city')?.touched && clientForm.get('city')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('city')?.touched && clientForm.get('city')?.invalid}">
           <label for="city">Cidade <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">location_city</mat-icon>
@@ -151,7 +149,8 @@
         </div>
 
         <!-- Campo Estado -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('state')?.touched && clientForm.get('state')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('state')?.touched && clientForm.get('state')?.invalid}">
           <label for="state">Estado <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">map</mat-icon>
@@ -163,7 +162,8 @@
         </div>
 
         <!-- Campo País -->
-        <div class="form-group" [ngClass]="{'has-error': clientForm.get('country')?.touched && clientForm.get('country')?.invalid}">
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('country')?.touched && clientForm.get('country')?.invalid}">
           <label for="country">País <span class="required">*</span></label>
           <div class="input-with-icon">
             <mat-icon class="leading-icon">public</mat-icon>

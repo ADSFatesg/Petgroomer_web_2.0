@@ -17,7 +17,7 @@ import { Cep } from '../../../model/cep';
 export class ConsultEmployeeComponent implements OnInit {
   employeeForm!: FormGroup;
   loading = false;
-  employeeId!: number;
+  employeeId:string = "";
   positions = Object.values(EnumPosition);  // Array com os cargos disponíveis
   countries = Object.values(EnumCountry);   // Array com os países disponíveis
 
@@ -86,7 +86,7 @@ export class ConsultEmployeeComponent implements OnInit {
     if (cpf) {
       this.employeeService.getEmployeeByCpf(cpf).subscribe(
         (employee: Employee) => {
-          this.employeeId = employee.id;
+          this.employeeId = employee.id || '';
           this.employeeForm.patchValue({
             cpf: employee.cpf,
             name: employee.name,
@@ -105,6 +105,7 @@ export class ConsultEmployeeComponent implements OnInit {
             wage: employee.wage,
             active: employee.active
           });
+          
           this.loading = false;
         },
         (error) => {
@@ -113,6 +114,7 @@ export class ConsultEmployeeComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          
           this.loading = false;
         }
       );
@@ -151,6 +153,7 @@ export class ConsultEmployeeComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.employeeForm.reset();
           this.loading = false;
         },
         (error) => {

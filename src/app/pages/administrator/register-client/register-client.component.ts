@@ -39,10 +39,9 @@ export class RegisterClientComponent implements OnInit {
       neighborhood: [''],
       city: [''],
       state: [''],
-      country: [''], // Certifique-se de que o campo 'country' esteja no FormGroup
+      country: [''],
       complement: [''],
       active: [true],
-      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 

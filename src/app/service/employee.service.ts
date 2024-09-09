@@ -28,7 +28,7 @@ export class EmployeeService {
   }
 
   // Get a single employee by ID
-  getEmployeeById(id: number): Observable<Employee> {
+  getEmployeeById(id:string): Observable<Employee> {
     return this.http.get<Employee>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
@@ -42,14 +42,14 @@ export class EmployeeService {
   }
 
   // Update an existing employee
-  updateEmployee(id: number, employeeDTO: Employee): Observable<Employee> {
+  updateEmployee(id:string, employeeDTO: Employee): Observable<Employee> {
     return this.http.put<Employee>(`${this.apiUrl}/${id}`, employeeDTO).pipe(
       catchError(this.handleError)
     );
   }
 
   // Delete an employee (usually soft delete by setting active to false)
-  deleteEmployee(id: number): Observable<void> {
+  deleteEmployee(id:string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );

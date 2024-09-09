@@ -1,0 +1,64 @@
+<div class="consult-pet-container">
+  <form [formGroup]="petForm" (ngSubmit)="atualizarPet()">
+    <!-- Seção de CPF e Dono -->
+    <div class="form-sections">
+      <div class="form-section">
+        <label for="cpf">CPF do Dono:</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">badge</mat-icon>
+          <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
+          <button type="button" class="btn-icon" (click)="consultarPets()" tabindex="-1">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <!-- Nome do Dono -->
+        <h3 *ngIf="ownerName">Dono: {{ ownerName }}</h3>
+      </div>
+
+      <!-- Pets Relacionados -->
+      <div class="form-section">
+        <h3>Pets Relacionados:</h3>
+        <ul>
+          <li *ngFor="let pet of pets" (click)="selecionarPet(pet)">
+            {{ pet.name }} ({{ pet.race }} - {{ pet.size }})
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Seção de Edição de Pet -->
+    <div class="form-sections" *ngIf="selectedPet">
+      <div class="inline-fields">
+        <div class="form-section field">
+          <label for="name">Nome do Pet:</label>
+          <input id="name" formControlName="name" type="text" placeholder="Digite o nome do pet">
+        </div>
+
+        <div class="form-section field">
+          <label for="race">Raça:</label>
+          <select id="race" formControlName="race">
+            <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+          </select>
+        </div>
+
+        <div class="form-section field">
+          <label for="size">Porte:</label>
+          <select id="size" formControlName="size">
+            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section">
+       <label for="active">Ativo</label>
+          <input id="active" formControlName="active" type="checkbox">
+      </div>
+
+      <!-- Botão de Atualizar -->
+      <button type="submit" class="btn-save" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ loading ? 'Salvando...' : 'Atualizar Pet' }}
+      </button>
+    </div>
+  </form>
+</div>

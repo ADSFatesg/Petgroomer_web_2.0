@@ -33,7 +33,7 @@ export class RegisterPetComponent implements OnInit {
       name: ['', [Validators.required]],
       race: ['', [Validators.required]],
       size: ['', [Validators.required]],
-      isActive: [true, [Validators.required]],
+      active: [true, [Validators.required]],
       clientName: [{ value: '', disabled: true }]
     });
   }

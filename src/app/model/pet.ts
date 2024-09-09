@@ -10,5 +10,5 @@ export interface Pet {
   name: string;
   race: RacaPetENUM;
   size: PortePetENUM;
-  isActive: boolean;
+  active: boolean;
 }

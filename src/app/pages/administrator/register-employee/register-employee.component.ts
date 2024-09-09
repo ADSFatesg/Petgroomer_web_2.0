@@ -44,7 +44,6 @@ export class RegisterEmployeeComponent implements OnInit{
       wage: ['', [Validators.required]],
       commission: [''],
       position: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
       active: [true]
     });
   }

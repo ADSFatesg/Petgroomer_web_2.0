@@ -27,7 +27,7 @@ export class ClientService {
     );
   }
 
-  findById(id: number): Observable<Client> {
+  findById(id: string): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
@@ -39,13 +39,13 @@ export class ClientService {
     );
   }
 
-  update(id: number, client: Client): Observable<Client> {
+  update(id: string, client: Client): Observable<Client> {
     return this.http.put<Client>(`${this.apiUrl}/${id}`, client).pipe(
       catchError(this.handleError)
     );
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
