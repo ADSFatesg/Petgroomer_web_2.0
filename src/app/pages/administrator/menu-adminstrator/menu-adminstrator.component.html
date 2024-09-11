@@ -10,7 +10,7 @@
   <!-- Botão de menu com ícone e seta, visível em telas grandes -->
    
   <div class="menu-buttons">
-    <button mat-button routerLink="/" class="inicio-button">
+    <button mat-button routerLink="/agenda" class="inicio-button">
       <mat-icon>home</mat-icon>
       Início
     </button>
@@ -170,9 +170,7 @@
     </mat-menu>
 
     <!-- Sair -->
-    <button mat-menu-item routerLink="/">
-      <mat-icon>exit_to_app</mat-icon> Sair
-    </button>
+    <button (click)="logout()">Sair</button>
   </mat-menu>
 </mat-toolbar>
 
