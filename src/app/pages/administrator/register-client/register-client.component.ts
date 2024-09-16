@@ -19,6 +19,7 @@ export class RegisterClientComponent implements OnInit {
   hide = true;
   loading = false;
   countries = Object.values(EnumCountry);
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +43,7 @@ export class RegisterClientComponent implements OnInit {
       country: [''],
       complement: [''],
       active: [true],
+      password:['',[Validators.required, Validators.minLength(6)]]
     });
   }
 

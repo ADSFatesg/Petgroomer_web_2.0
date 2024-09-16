@@ -58,6 +58,20 @@
             Telefone é obrigatório.
           </div>
         </div>
+        <div class="form-group"
+        [ngClass]="{'has-error': employeeForm.get('password')?.touched && employeeForm.get('password')?.invalid}">
+        <label for="password">Senha <span class="required">*</span></label>
+        <div class="input-with-icon">
+          <input id="password" formControlName="password" [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Digite sua senha">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="employeeForm.get('password')?.touched && employeeForm.get('password')?.invalid" class="error-message">
+          Senha é obrigatória.
+        </div>
+      </div>
       </div>
 
       <!-- Seção 2: Endereço -->
@@ -206,17 +220,6 @@
             Salário é obrigatório.
           </div>
         </div>
-
-        <!-- Campo Comissão -->
-        <div class="form-group">
-          <label for="commission">Comissão</label>
-          <div class="input-with-icon">
-            <mat-icon class="leading-icon">monetization_on</mat-icon>
-            <input id="commission" formControlName="commission" type="text" placeholder="Comissão">
-          </div>
-        </div>
-
-
       </div>
     </div>
 

@@ -58,6 +58,20 @@
             Telefone é obrigatório.
           </div>
         </div>
+        <div class="form-group"
+          [ngClass]="{'has-error': clientForm.get('password')?.touched && clientForm.get('password')?.invalid}">
+          <label for="password">Senha <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input id="password" formControlName="password" [type]="hidePassword ? 'password' : 'text'"
+              placeholder="Digite sua senha">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="clientForm.get('password')?.touched && clientForm.get('password')?.invalid" class="error-message">
+            Senha é obrigatória.
+          </div>
+        </div>
       </div>
 
       <!-- Seção 2: Endereço Parte 1 -->

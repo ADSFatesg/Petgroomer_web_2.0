@@ -19,6 +19,7 @@ export class RegisterEmployeeComponent implements OnInit{
   loading = false;
   countries = Object.values(EnumCountry);
   positions = Object.values(EnumPosition);
+  hidePassword  = true;
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +45,8 @@ export class RegisterEmployeeComponent implements OnInit{
       wage: ['', [Validators.required]],
       commission: [''],
       position: ['', [Validators.required]],
-      active: [true]
+      active: [true],
+      password:['',[Validators.required, Validators.minLength(6)]]
     });
   }
 
