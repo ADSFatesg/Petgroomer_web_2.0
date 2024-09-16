@@ -8,7 +8,7 @@
   </button>
 
   <!-- Botão de menu com ícone e seta, visível em telas grandes -->
-   
+
   <div class="menu-buttons">
     <button mat-button routerLink="/agenda" class="inicio-button">
       <mat-icon>home</mat-icon>
@@ -92,7 +92,7 @@
       </button>
     </mat-menu>
 
-    <button mat-button routerLink="/" class="dropdown-button">
+    <button mat-button routerLink="/" class="dropdown-button" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Sair
     </button>
@@ -103,7 +103,7 @@
     <button mat-menu-item routerLink="/">
       <mat-icon>home</mat-icon> Início
     </button>
-    
+
     <!-- Cliente -->
     <button mat-menu-item [matMenuTriggerFor]="subMenuCliente">
       <mat-icon>person</mat-icon> Cliente
