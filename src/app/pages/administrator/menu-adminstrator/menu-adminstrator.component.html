@@ -7,15 +7,16 @@
     <mat-icon>more_vert</mat-icon>
   </button>
 
-  <!-- Botão de menu com ícone e seta, visível em telas grandes -->
-
+  <!-- Botões de menu com ícones e setas, visíveis em telas grandes -->
   <div class="menu-buttons">
     <button mat-button routerLink="/agenda" class="inicio-button">
       <mat-icon>home</mat-icon>
       Início
     </button>
+
+    <!-- Cliente -->
     <button mat-button [matMenuTriggerFor]="clienteMenu" class="dropdown-button">
-   <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>person</mat-icon>
+      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>person</mat-icon>
       Cliente
     </button>
     <mat-menu #clienteMenu="matMenu">
@@ -23,13 +24,13 @@
         <mat-icon>person_add</mat-icon>
         Cadastrar
       </button>
-      
       <button mat-menu-item routerLink="/consultClient">
         <mat-icon>list</mat-icon>
-        listar
+        Listar
       </button>
     </mat-menu>
 
+    <!-- Funcionário -->
     <button mat-button [matMenuTriggerFor]="funcionarioMenu" class="dropdown-button">
       <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>work</mat-icon>
       Funcionário
@@ -37,28 +38,47 @@
     <mat-menu #funcionarioMenu="matMenu">
       <button mat-menu-item routerLink="/registerEmployee">
         <mat-icon>person_add</mat-icon>
-        Cadastro
+        Cadastrar
       </button>
-      <button mat-menu-item routerLink="/consultEployee">
-        <mat-icon>edit</mat-icon>
-        Alterar
+      <button mat-menu-item routerLink="/consultEmployee">
+        <mat-icon>list</mat-icon>
+        Listar
       </button>
     </mat-menu>
 
+    <!-- Pet -->
     <button mat-button [matMenuTriggerFor]="petMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon> <mat-icon>pets</mat-icon>
+      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>pets</mat-icon>
       Pet
     </button>
     <mat-menu #petMenu="matMenu">
       <button mat-menu-item routerLink="/registerPet">
         <mat-icon>add_circle</mat-icon>
-        Cadastro
+        Cadastrar
       </button>
-      <button mat-menu-item routerLink="/ConsultPet">
-        <mat-icon>edit</mat-icon>
-        Alterar
+      <button mat-menu-item routerLink="/consultPet">
+        <mat-icon>search</mat-icon>
+        Consultar
       </button>
     </mat-menu>
+
+    <!-- Serviço -->
+    <button mat-button [matMenuTriggerFor]="serviceMenu" class="dropdown-button">
+      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>build_circle</mat-icon>
+      Serviço
+    </button>
+    <mat-menu #serviceMenu="matMenu">
+      <button mat-menu-item routerLink="/registerService">
+        <mat-icon>add_circle</mat-icon>
+        Cadastrar
+      </button>
+      <button mat-menu-item routerLink="/listService">
+        <mat-icon>list</mat-icon>
+        Listar
+      </button>
+    </mat-menu>
+
+    <!-- Administrativo -->
     <button mat-button [matMenuTriggerFor]="administrativoMenu" class="dropdown-button">
       <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>admin_panel_settings</mat-icon>
       Administrativo
@@ -74,6 +94,7 @@
       </button>
     </mat-menu>
 
+    <!-- Relatórios -->
     <button mat-button [matMenuTriggerFor]="relatoriosMenu" class="dropdown-button">
       <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>report</mat-icon>
       Relatórios
@@ -89,6 +110,7 @@
       </button>
     </mat-menu>
 
+    <!-- Sair -->
     <button mat-button routerLink="/" class="dropdown-button" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Sair
@@ -109,7 +131,7 @@
       <button mat-menu-item routerLink="/registerClient">
         <mat-icon>person_add</mat-icon> Cadastro Cliente
       </button>
-      <button mat-menu-item routerLink="/cliente/consulta">
+      <button mat-menu-item routerLink="/consultClient">
         <mat-icon>search</mat-icon> Consulta Cliente
       </button>
     </mat-menu>
@@ -119,11 +141,11 @@
       <mat-icon>work</mat-icon> Funcionário
     </button>
     <mat-menu #subMenuFuncionario="matMenu">
-      <button mat-menu-item routerLink="/funcionario/cadastro">
+      <button mat-menu-item routerLink="/registerEmployee">
         <mat-icon>person_add</mat-icon> Cadastro Funcionário
       </button>
-      <button mat-menu-item routerLink="/funcionario/relatorios">
-        <mat-icon>bar_chart</mat-icon> Relatórios Funcionário
+      <button mat-menu-item routerLink="/consultEmployee">
+        <mat-icon>search</mat-icon> Consulta Funcionário
       </button>
     </mat-menu>
 
@@ -132,11 +154,24 @@
       <mat-icon>pets</mat-icon> Pet
     </button>
     <mat-menu #subMenuPet="matMenu">
-      <button mat-menu-item routerLink="/pet/cadastro">
+      <button mat-menu-item routerLink="/registerPet">
         <mat-icon>add_circle</mat-icon> Cadastro Pet
       </button>
-      <button mat-menu-item routerLink="/pet/consulta">
+      <button mat-menu-item routerLink="/consultPet">
         <mat-icon>search</mat-icon> Consulta Pet
+      </button>
+    </mat-menu>
+
+    <!-- Serviço -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuService">
+      <mat-icon>build_circle</mat-icon> Serviço
+    </button>
+    <mat-menu #subMenuService="matMenu">
+      <button mat-menu-item routerLink="/registerService">
+        <mat-icon>add_circle</mat-icon> Cadastro Serviço
+      </button>
+      <button mat-menu-item routerLink="/consultService">
+        <mat-icon>search</mat-icon> Consulta Serviço
       </button>
     </mat-menu>
 
@@ -167,12 +202,16 @@
     </mat-menu>
 
     <!-- Sair -->
-    <button (click)="logout()">Sair</button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon> Sair
+    </button>
   </mat-menu>
 </mat-toolbar>
 
 <!-- Conteúdo principal -->
 <router-outlet></router-outlet>
+
+<!-- Rodapé -->
 <footer class="footer">
   <span class="signature">© 2024 Petgroomer - Todos os direitos reservados.</span>
 </footer>

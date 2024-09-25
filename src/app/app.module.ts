@@ -9,6 +9,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './exceptions/erro-interceptor.service';
 import { TokenInterceptorService } from './authentication/token-interceptor.service';
 import { LoginModule } from './pages/login/login.module';
+import { EmployeeModalComponent } from './pages/modals/employee-modal/employee-modal.component';
+import { ServiceModalComponent } from './pages/modals/service-modal/service-modal.component';
 
 @NgModule({
   declarations: [

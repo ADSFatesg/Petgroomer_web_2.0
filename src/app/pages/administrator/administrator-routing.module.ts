@@ -11,12 +11,14 @@ import { ConsultEmployeeComponent } from './consult-employee/consult-employee.co
 import { RegisterPetComponent } from './register-pet/register-pet.component';
 import { ConsultPetComponent } from './consult-pet/consult-pet.component';
 import { AuthGuard } from '../../authentication/auth.guard';
+import { ServiceComponent } from './service/service.component';
+import { ListServiceComponent } from './list-service/list-service.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MenuAdminstratorComponent,
-    canActivate: [AuthGuard],  // Protege o acesso à rota principal
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: AgendaComponent, canActivate: [AuthGuard]},
       { path: 'registerClient', component: RegisterClientComponent, canActivate: [AuthGuard]},
@@ -25,7 +27,9 @@ const routes: Routes = [
       { path: 'consultEmployee', component: ConsultEmployeeComponent, canActivate: [AuthGuard],},
       { path: 'registerPet', component: RegisterPetComponent, canActivate: [AuthGuard],},
       { path: 'consultPet', component: ConsultPetComponent, canActivate: [AuthGuard]},
-      { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuard],}
+      { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuard]},
+      { path: 'registerService', component: ServiceComponent, canActivate: [AuthGuard]},
+      { path: 'listService', component: ListServiceComponent, canActivate: [AuthGuard]}
     ]
   },
 ];

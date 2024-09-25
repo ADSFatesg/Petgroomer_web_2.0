@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EnumPosition } from '../../../model/enum-position';
 import { Employee } from '../../../model/employee';
-import { Address } from '../../../model/address';
-import { EnumCountry } from '../../../model/enum-country';
-import { CepService } from '../../../service/cep.service';
-import { Cep } from '../../../model/cep';
+import { EmployeeModalComponent } from '../../modals/employee-modal/employee-modal.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-consult-employee',
@@ -15,162 +13,197 @@ import { Cep } from '../../../model/cep';
   styleUrl: './consult-employee.component.scss'
 })
 export class ConsultEmployeeComponent implements OnInit {
-  employeeForm!: FormGroup;
-  loading = false;
-  employeeId:string = "";
-  positions = Object.values(EnumPosition);  // Array com os cargos disponíveis
-  countries = Object.values(EnumCountry);   // Array com os países disponíveis
+  employees: Employee[] = [];
+  filteredEmployees: Employee[] = [];
+  statusFilter: string = 'all'; // Filtro de status
+  cpfFilter: string = ''; // Filtro de CPF
+  sortOrder: string = 'name'; // Ordem padrão
+  loading: boolean = false;
+
+  dataSource = new MatTableDataSource<Employee>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private fb: FormBuilder,
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar,
-    private cepService: CepService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.employeeForm = this.fb.group({
-      cpf: ['', [Validators.required]],  // Validador padrão
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      street: [''],
-      number: ['', [Validators.required]],
-      neighborhood: [''],
-      city: [''],
-      state: [''],
-      country: ['', [Validators.required]],
-      complement: [''],
-      position: ['', [Validators.required]],
-      commission: ['', [Validators.required]],
-      wage: ['', [Validators.required]],
-      active: [true]
+    this.loadEmployees();
+  }
+
+  loadEmployees(): void {
+    this.loading = true;
+    this.employeeService.getEmployees().subscribe(
+      (employees: Employee[]) => {
+        this.employees = employees;
+        this.filteredEmployees = employees;
+        this.applySort();
+        this.dataSource.paginator = this.paginator;
+        this.loading = false;
+      },
+      (error) => {
+        this.snackBar.open('Erro ao carregar empregados.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+          panelClass: ['snack-error']
+        });
+        this.loading = false;
+      }
+    );
+  }
+
+  applySort(): void {
+    switch (this.sortOrder) {
+      case 'name':
+        this.filteredEmployees.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'nameDesc':
+        this.filteredEmployees.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'cpf':
+        this.filteredEmployees.sort((a, b) => a.cpf.localeCompare(b.cpf));
+        break;
+      case 'cpfDesc':
+        this.filteredEmployees.sort((a, b) => b.cpf.localeCompare(a.cpf));
+        break;
+      case 'position':
+        this.filteredEmployees.sort((a, b) => a.position.localeCompare(b.position));
+        break;
+      case 'positionDesc':
+        this.filteredEmployees.sort((a, b) => b.position.localeCompare(a.position));
+        break;
+      case 'status':
+        this.filteredEmployees.sort((a, b) => Number(b.active) - Number(a.active));
+        break;
+      case 'statusDesc':
+        this.filteredEmployees.sort((a, b) => Number(a.active) - Number(b.active));
+        break;
+      default:
+        this.filteredEmployees.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    this.dataSource.data = this.filteredEmployees;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  applyFilter(): void {
+    if (this.statusFilter === 'active') {
+      this.filteredEmployees = this.employees.filter(employee => employee.active);
+    } else if (this.statusFilter === 'inactive') {
+      this.filteredEmployees = this.employees.filter(employee => !employee.active);
+    } else {
+      this.filteredEmployees = this.employees;
+    }
+    this.applySort();
+  }
+
+  applyCpfFilter(): void {
+    const cpf = this.cpfFilter.trim();
+
+    if (cpf === '') {
+      this.snackBar.open('Digite um CPF.', 'Fechar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+        panelClass: ['snack-error']
+      });
+      this.clearCpfAndReload();
+      return;
+    }
+
+    this.filteredEmployees = this.employees.filter(employee => employee.cpf.includes(cpf));
+
+    if (this.filteredEmployees.length === 0) {
+      this.snackBar.open('CPF não encontrado.', 'Fechar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+        panelClass: ['snack-error']
+      });
+      this.clearCpfAndReload();
+    }
+
+    this.dataSource.data = this.filteredEmployees;
+    this.dataSource.paginator = this.paginator;
+    this.cpfFilter = ''; // Limpa o campo de CPF após a busca
+  }
+
+  clearCpfAndReload(): void {
+    this.filteredEmployees = this.employees;
+    this.dataSource.data = this.filteredEmployees;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  openEmployeeModal(employee: Employee): void {
+    const dialogRef = this.dialog.open(EmployeeModalComponent, {
+      width: '600px',
+      data: { employee }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.employees.findIndex(e => e.id === result.id);
+        if (index > -1) {
+          this.employees[index] = result;
+          this.applyFilter();
+        }
+      }
     });
   }
 
-  consultarCEP(): void {
-    const cep = this.employeeForm.get('postalCode')?.value;
-    if (cep) {
-      this.cepService.getCepInfo(cep).subscribe(
-        (data: Cep) => {
-          if (data) {
-            this.employeeForm.patchValue({
-              street: data.logradouro,
-              neighborhood: data.bairro,
-              city: data.localidade,
-              state: data.uf,
-            });
-          }
-        },
-        (error) => {
-          this.snackBar.open('Erro ao consultar CEP.', 'Fechar', {
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-        }
-      );
-    } else {
-      this.snackBar.open('Por favor, insira um CEP válido.', 'Fechar', {
-        duration: 5000,
-        verticalPosition: 'top',
-        horizontalPosition: 'right'
-      });
-    }
+  deactivateEmployee(employee: Employee): void {
+    this.employeeService.deleteEmployee(employee.id).subscribe(
+      () => {
+        employee.active = false;
+        this.applyFilter();
+        this.snackBar.open('Empregado desativado com sucesso!', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      },
+      (error) => {
+        this.snackBar.open('Erro ao desativar o empregado.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
+    );
   }
 
-  consultarFuncionario(): void {
-    this.loading = true;
-    const cpf = this.employeeForm.get('cpf')?.value.replace(/\D/g, ''); // Remove a máscara antes de consultar
-    if (cpf) {
-      this.employeeService.getEmployeeByCpf(cpf).subscribe(
-        (employee: Employee) => {
-          this.employeeId = employee.id || '';
-          this.employeeForm.patchValue({
-            cpf: employee.cpf,
-            name: employee.name,
-            email: employee.email,
-            phone: employee.phone,
-            postalCode: employee.address.postalCode,
-            street: employee.address.street,
-            number: employee.address.number,
-            neighborhood: employee.address.neighborhood,
-            city: employee.address.city,
-            state: employee.address.state,
-            country: employee.address.country || '',
-            complement: employee.address.complement,
-            position: employee.position || '',
-            commission: employee.commission,
-            wage: employee.wage,
-            active: employee.active
-          });
-          
-          this.loading = false;
-        },
-        (error) => {
-          this.snackBar.open(error.message || 'Erro ao consultar funcionário.', 'Fechar', {
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-          
-          this.loading = false;
-        }
-      );
-    } else {
-      this.snackBar.open('Por favor, insira um CPF válido.', 'Fechar', {
-        duration: 5000,
-        verticalPosition: 'top',
-        horizontalPosition: 'right'
-      });
-      this.loading = false;
-    }
+  activateEmployee(employee: Employee): void {
+    employee.active = true;
+
+    this.employeeService.updateEmployee(employee.id, employee).subscribe(
+      () => {
+        this.applyFilter();
+        this.snackBar.open(`Empregado ${employee.name} ativado com sucesso!`, 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      },
+      (error) => {
+        this.snackBar.open('Erro ao ativar o empregado.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
+    );
   }
 
-  atualizarFuncionario(): void {
-    if (this.employeeForm.valid) {
-      this.loading = true;
-      const employeeDTO: Employee = {
-        ...this.employeeForm.value,
-        address: {
-          street: this.employeeForm.get('street')!.value,
-          number: this.employeeForm.get('number')!.value,
-          complement: this.employeeForm.get('complement')!.value,
-          neighborhood: this.employeeForm.get('neighborhood')!.value,
-          city: this.employeeForm.get('city')!.value,
-          state: this.employeeForm.get('state')!.value,
-          country: this.employeeForm.get('country')!.value,
-          postalCode: this.employeeForm.get('postalCode')!.value
-        } as Address,
-        position: this.employeeForm.get('position')!.value
-      };
+  formatCPF(cpf: string): string {
+    if (!cpf) return '';
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  }
 
-      this.employeeService.updateEmployee(this.employeeId, employeeDTO).subscribe(
-        () => {
-          this.snackBar.open('Funcionário atualizado com sucesso!', 'Fechar', {
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-          this.employeeForm.reset();
-          this.loading = false;
-        },
-        (error) => {
-          this.snackBar.open(error.message || 'Erro ao atualizar funcionário.', 'Fechar', {
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-          this.loading = false;
-        }
-      );
-    } else {
-      this.snackBar.open('Por favor, corrija os erros do formulário.', 'Fechar', {
-        duration: 5000,
-        verticalPosition: 'top',
-        horizontalPosition: 'right'
-      });
-    }
+  formatPhone(phone: string): string {
+    if (!phone) return '';
+    return phone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
   }
 }

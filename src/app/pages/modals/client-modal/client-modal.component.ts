@@ -64,7 +64,7 @@ export class ClientModalComponent {
       // Combina os dados do cliente e o endereço
       const updatedClient = { 
         ...this.data.client, 
-        address // Inclui o objeto de endereço no cliente
+        address
       };
 
       // Chama o método update da API através do clientService

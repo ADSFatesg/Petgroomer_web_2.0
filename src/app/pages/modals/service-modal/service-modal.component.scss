@@ -1,0 +1,244 @@
+/* Container principal do formulário */
+form {
+    padding: 20px; /* Aumenta o espaçamento interno do formulário */
+  }
+  
+  /* Container para as seções do modal */
+  .sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Espaço entre as seções */
+  }
+  
+  /* Cada seção terá 48% da largura */
+  .section {
+    flex: 1;
+    min-width: 45%;
+  }
+  
+  /* Estilização para os grupos de formulário */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-with-icon {
+    display: flex;
+    align-items: center;
+    width: 100%; /* O campo de entrada ocupará a largura total */
+  }
+  
+  .input-with-icon mat-icon {
+    margin-right: 8px;
+  }
+  
+  .input-with-icon input {
+    flex: 1;
+    width: 100%; /* O input ocupa o restante do espaço */
+    padding: 12px 16px; /* Aumenta o espaçamento interno dos inputs */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Garantir que padding não quebre o layout */
+  }
+  
+  /* Ajuste para o botão de busca no campo de CEP */
+  .btn-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 10px; /* Espaço entre o botão e o input */
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Estilo para os botões de ação */
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 20px; /* Espaço acima dos botões */
+  }
+  
+  .btn-save {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 24px; /* Aumenta o tamanho do botão */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px; /* Fonte maior para melhorar a leitura */
+    transition: background-color 0.3s ease; /* Efeito suave no hover */
+  }
+  
+  .btn-save:hover {
+    background-color: #45a049; /* Cor mais escura ao passar o mouse */
+  }
+  
+  .btn-cancel {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 24px; /* Aumenta o tamanho do botão */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px; /* Fonte maior para melhorar a leitura */
+    transition: background-color 0.3s ease; /* Efeito suave no hover */
+  }
+  
+  .btn-cancel:hover {
+    background-color: #d32f2f; /* Cor mais escura ao passar o mouse */
+  }
+  
+  /* Estilização personalizada para a mat-select (combobox de País) */
+  .mat-form-field {
+    width: 100%; /* Garante que o campo mat-form-field ocupe toda a largura */
+  }
+  
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #f5f5f5; /* Cor de fundo leve */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 0 12px; /* Preenchimento interno */
+    border: 1px solid #ccc; /* Borda fina */
+  }
+  
+  .mat-form-field-appearance-fill .mat-form-field-flex:focus-within {
+    background-color: #e0e0e0;
+    border-color: #3f51b5; 
+  }
+  .mat-option {
+    font-size: 14px; /* Tamanho da fonte das opções */
+    padding: 10px 16px; /* Preenchimento das opções */
+  }
+  
+  .mat-option:hover {
+    background-color: #eeeeee; /* Alteração de cor ao passar o mouse */
+  }
+  
+  .mat-option.mat-selected {
+    background-color: #3f51b5; /* Cor de fundo ao selecionar uma opção */
+    color: white; /* Cor do texto da opção selecionada */
+  }
+  
+  .mat-form-field-underline {
+    display: none; /* Remove o sublinhado padrão do Angular Material */
+  }
+  
+  /* Para campos com erro */
+  .mat-form-field-invalid .mat-form-field-flex {
+    border-color: #f44336; /* Cor vermelha em caso de erro */
+  }
+  
+  .error-message {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Responsividade para telas menores */
+  @media screen and (max-width: 768px) {
+    .sections {
+      flex-direction: column;
+    }
+  
+    .section {
+      width: 100%;
+    }
+  }
+  
+  /* Estilização da caixa de seleção do País (combobox de país) */
+  .mat-select {
+    padding: 8px 12px; /* Espaçamento interno do campo de seleção */
+    border-radius: 4px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+  }
+  
+  /* Placeholder do mat-select */
+  .mat-select-placeholder {
+    color: #757575; /* Cor do texto placeholder */
+  }
+  
+  /* Valor selecionado no mat-select */
+  .mat-select-value {
+    color: #000; /* Cor do texto selecionado */
+  }
+  
+  /* Ícone de seta no dropdown */
+  .mat-select-arrow {
+    color: #000;
+  }
+  
+  /* Cor de fundo ao focar no campo de seleção */
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #f5f5f5;
+  }
+  
+  .mat-form-field-appearance-fill .mat-form-field-flex:focus-within {
+    background-color: #e0e0e0; /* Cor ao focar */
+  }
+  
+  /* Painel de opções do mat-select */
+  .mat-select-panel {
+    max-height: 200px; /* Limita a altura das opções */
+    overflow-y: auto; /* Rolagem se as opções excederem a altura */
+  }
+  
+  /* Estilização das opções no dropdown */
+  .mat-option {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  /* Cor de fundo ao passar o mouse sobre uma opção */
+  .mat-option:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Estilização para erro */
+  .mat-form-field-invalid {
+    border-color: #f44336; /* Vermelho ao indicar erro */
+  }
+  
+  .error-message {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  /* Alinhamento do ícone com o select */
+  .input-with-icon {
+    display: flex;
+    align-items: center;
+    width: 100%; /* O campo de entrada ocupará a largura total */
+  }
+  
+  .input-with-icon mat-icon {
+    margin-right: 8px;
+  }
+  
+  .input-with-icon select {
+    flex: 1;
+    padding: 12px 16px; /* Aumenta o espaçamento interno dos inputs */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Garantir que padding não quebre o layout */
+    width: 100%; /* O select ocupa o restante do espaço */
+  }
+  
+  /* Remover setas padrão do select em navegadores como Chrome */
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #f5f5f5; /* Cor de fundo */
+  }
+  
+  /* Seta customizada para o select */
+  select::-ms-expand {
+    display: none; /* Remover seta padrão do IE */
+  }
+  

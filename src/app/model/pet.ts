@@ -6,7 +6,7 @@ import { RacaPetENUM } from './enum-racaPet';
 
 export interface Pet {
   id?: string;
-  client: Client; // Cliente proprietário do pet
+  client: Client;
   name: string;
   race: RacaPetENUM;
   size: PortePetENUM;
