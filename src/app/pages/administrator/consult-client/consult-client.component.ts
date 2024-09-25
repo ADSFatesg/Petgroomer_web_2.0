@@ -1,11 +1,11 @@
-import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClientService } from '../../../service/client.service';
 import { Client } from '../../../model/client';
-import { EnumCountry } from '../../../model/enum-country';
-import { CepService } from '../../../service/cep.service';
-import { Cep } from '../../../model/cep';
+import { ClientModalComponent } from '../../modals/client-modal/client-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-consult-client',
@@ -13,156 +13,197 @@ import { Cep } from '../../../model/cep';
   styleUrls: ['./consult-client.component.scss']
 })
 export class ConsultClientComponent implements OnInit{
-  cpf: string = '';
-  clientForm!: FormGroup;
+  clients: Client[] = [];
+  filteredClients: Client[] = [];
+  statusFilter: string = 'all';
+  cpfFilter: string = '';
   loading: boolean = false;
-  client: Client | null = null;
-  clientId: string | null = null; // Store the client ID here
-  countries = Object.values(EnumCountry);
+  sortOrder: string = 'name'; // Default sort order
+
+  dataSource = new MatTableDataSource<Client>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private fb: FormBuilder,
     private clientService: ClientService,
     private snackBar: MatSnackBar,
-    private cepService: CepService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.clientForm = this.fb.group({
-      cpf: ['', [Validators.required, Validators.pattern('\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}')]],  // Verifique se a máscara ou padrão está correto
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      street: [''],
-      number: [''],
-      complement: [''],
-      neighborhood: [''],
-      city: [''],
-      state: [''],
-      country: ['', Validators.required],
-      active: [false]
-    });
+    this.loadClients(); // Carregar clientes ao inicializar o componente
   }
-  consultarCEP(): void {
-    const cep = this.clientForm.get('postalCode')?.value;
-    if (cep) {
-      this.cepService.getCepInfo(cep).subscribe(
-        (data: Cep) => {
-          if (data) {
-            this.clientForm.patchValue({
-              street: data.logradouro,
-              neighborhood: data.bairro,
-              city: data.localidade,
-              state: data.uf,
-            });
-          }
-        },
-        (error) => {
-          this.snackBar.open('Erro ao consultar CEP.', 'Fechar', {
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-        }
-      );
-    } else {
-      this.snackBar.open('Por favor, insira um CEP válido.', 'Fechar', {
-        duration: 5000,
-        verticalPosition: 'top',
-        horizontalPosition: 'right'
-      });
-    }
-  }
-  consultarCliente() {
-    const cpf = this.clientForm.get('cpf')?.value;
-  
-    if (!cpf || cpf.trim() === '') {
-      this.snackBar.open('CPF não foi informado.', 'Fechar', {
-        duration: 3000,
-      });
-      return;
-    }
-  
+
+  // Função para carregar a lista de clientes
+  loadClients(): void {
     this.loading = true;
-  
-    this.clientService.findByCpf(cpf).subscribe(
-      (cliente: Client) => {
+    this.clientService.findAll().subscribe(
+      (clientes: Client[]) => {
+        this.clients = clientes;
+        this.filteredClients = clientes; // Inicialmente, todos os clientes são exibidos
+        this.applySort(); // Aplica a ordenação
+        this.dataSource.paginator = this.paginator; // Conecta o paginator
         this.loading = false;
-  
-        if (cliente) {
-          // Armazena o cliente encontrado para posterior atualização
-          this.client = cliente;
-          this.clientId = cliente.id || '';
-  
-          // Atualiza o formulário com os dados do cliente
-          this.clientForm.patchValue({
-            cpf: cliente.cpf,
-            name: cliente.name,
-            email: cliente.email,
-            phone: cliente.phone,
-            postalCode: cliente.address.postalCode,
-            street: cliente.address.street,
-            number: cliente.address.number,
-            complement: cliente.address.complement,
-            neighborhood: cliente.address.neighborhood,
-            city: cliente.address.city,
-            state: cliente.address.state,
-            country: cliente.address.country,
-            active: cliente.active
-          });
-        } else {
-          this.snackBar.open('Cliente não encontrado.', 'Fechar', {
-            duration: 3000,
-          });
-        }
       },
       (error) => {
-        this.loading = false;
-        this.snackBar.open(error.message || 'Erro ao consultar cliente.', 'Fechar', {
+        this.snackBar.open('Erro ao carregar lista de clientes.', 'Fechar', {
           duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+          panelClass: ['snack-error']
+        });
+        this.loading = false;
+      }
+    );
+  }
+
+  // Aplicar a ordenação com base no critério escolhido
+  applySort(): void {
+    switch (this.sortOrder) {
+      case 'name':
+        this.filteredClients.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'nameDesc':
+        this.filteredClients.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'cpf':
+        this.filteredClients.sort((a, b) => a.cpf.localeCompare(b.cpf));
+        break;
+      case 'cpfDesc':
+        this.filteredClients.sort((a, b) => b.cpf.localeCompare(a.cpf));
+        break;
+      case 'status':
+        this.filteredClients.sort((a, b) => Number(b.active) - Number(a.active));
+        break;
+      case 'statusDesc':
+        this.filteredClients.sort((a, b) => Number(a.active) - Number(b.active));
+        break;
+      default:
+        this.filteredClients.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    // Atualiza a tabela após aplicar a ordenação
+    this.dataSource.data = this.filteredClients;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  // Método para aplicar o filtro de status (Ativo/Inativo) INDEPENDENTE do CPF
+  applyFilter(): void {
+    if (this.statusFilter === 'active') {
+      this.filteredClients = this.clients.filter(client => client.active);
+    } else if (this.statusFilter === 'inactive') {
+      this.filteredClients = this.clients.filter(client => !client.active);
+    } else {
+      this.filteredClients = this.clients; // 'all' mostra todos os clientes
+    }
+
+    this.applySort(); // Reaplica a ordenação após o filtro
+    this.dataSource.paginator = this.paginator;
+  }
+
+  // Método para filtrar clientes pelo CPF INDEPENDENTE do status
+  applyCpfFilter(): void {
+    const cpf = this.cpfFilter.trim();
+
+    if (cpf === '') {
+      this.snackBar.open('Digite um CPF.', 'Fechar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+        panelClass: ['snack-error']
+      });
+      this.clearCpfAndReload();
+      return;
+    }
+
+    this.filteredClients = this.clients.filter(client => client.cpf.includes(cpf));
+
+    if (this.filteredClients.length === 0) {
+      this.snackBar.open('CPF não encontrado.', 'Fechar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+        panelClass: ['snack-error']
+      });
+      this.clearCpfAndReload();
+    }
+
+    this.applySort(); // Reaplica a ordenação após o filtro de CPF
+    this.cpfFilter = ''; // Limpa o campo de CPF após a busca
+  }
+
+  clearCpfAndReload(): void {
+    this.filteredClients = this.clients; // Recarrega todos os clientes
+    this.applySort(); // Reaplica a ordenação
+    this.dataSource.paginator = this.paginator; // Reaplica a paginação
+  }
+
+  // Função para abrir o modal de edição de cliente
+  openClientModal(client: Client): void {
+    const dialogRef = this.dialog.open(ClientModalComponent, {
+      width: '600px',
+      data: { client }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.clients.findIndex(c => c.id === result.id);
+        if (index > -1) {
+          this.clients[index] = result;
+          this.applyFilter(); // Reaplica o filtro após a atualização
+        }
+      }
+    });
+  }
+
+  deactivateClient(client: Client): void {
+    this.clientService.delete(client.id).subscribe(
+      () => {
+        client.active = false;
+        this.applyFilter();
+        this.snackBar.open('Cliente desativado com sucesso!', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      },
+      (error) => {
+        this.snackBar.open('Erro ao desativar o cliente.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
         });
       }
     );
   }
-  
-  
-  atualizarCliente() {
-    // Verifica se o cliente foi carregado corretamente
-    if (this.client && this.clientId !== null) {
-      const updatedClient: Client = {
-        ...this.client,  // Mantém os dados existentes do cliente
-        ...this.clientForm.getRawValue(),  // Sobrescreve com os novos valores do formulário
-      };
-  
-      this.loading = true;
-  
-      this.clientService.update(this.clientId, updatedClient).subscribe(
-        (cliente: Client) => {
-          this.snackBar.open('Cliente atualizado com sucesso!', 'Fechar', {
-            duration: 3000,
-          });
-  
-          // Atualiza o formulário com os dados atualizados do cliente
-          this.client = cliente; 
-          this.clientForm.patchValue(cliente);
-          this.loading = false;
-  
-          // Reseta o formulário após a atualização bem-sucedida
-          this.clientForm.reset();
-        },
-        (error) => {
-          this.snackBar.open(error.message || 'Erro ao atualizar cliente.', 'Fechar', {
-            duration: 3000,
-          });
-          this.loading = false;
-        }
-      );
-    } else {
-      // Caso o cliente não tenha sido carregado, exibe uma mensagem de erro
-      this.snackBar.open('Nenhum cliente foi carregado.', 'Fechar', {
-        duration: 3000,
-      });
-    }
+
+  activateClient(client: Client): void {
+    client.active = true;
+    this.clientService.update(client.id, client).subscribe(
+      () => {
+        this.applyFilter();
+        this.snackBar.open(`Cliente ${client.name} ativado com sucesso!`, 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      },
+      (error) => {
+        this.snackBar.open('Erro ao ativar o cliente.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
+    );
   }
-}  
+
+  formatCPF(cpf: string): string {
+    if (!cpf) return '';
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  }
+
+  formatPhone(phone: string): string {
+    if (!phone) return '';
+    return phone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  }
+}

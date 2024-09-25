@@ -1,0 +1,89 @@
+<div class="register-service-container">
+    <h2>Cadastro de Serviço</h2>
+    <form [formGroup]="serviceForm" (ngSubmit)="registerService()">
+        <div class="form-sections">
+
+            <!-- Seção de Busca de Funcionário -->
+            <div class="form-section">
+                <h3>Buscar Funcionário</h3>
+
+                <div class="form-group"
+                    [ngClass]="{'has-error': serviceForm.get('cpf')?.touched && serviceForm.get('cpf')?.invalid}">
+                    <label for="cpf">CPF do Funcionário</label>
+                    <div class="input-with-icon">
+                        <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF"
+                            mask="000.000.000-00">
+                        <!-- Lupa dentro do campo -->
+                        <button type="button" class="btn-icon" (click)="searchEmployeeByCpf()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                    <div *ngIf="serviceForm.get('cpf')?.touched && serviceForm.get('cpf')?.invalid"
+                        class="error-message">
+                        CPF é obrigatório.
+                    </div>
+                </div>
+
+                <!-- Nome do Funcionário (Preenchido automaticamente após busca) -->
+                <div class="form-group">
+                    <label for="employeeName">Nome do Funcionário</label>
+                    <input id="employeeName" formControlName="employeeName" type="text" isdisabled>
+                </div>
+            </div>
+
+            <!-- Seção de Informações do Serviço -->
+            <div class="form-section">
+                <h3>Informações do Serviço</h3>
+
+                <!-- Nome do Serviço -->
+                <div class="form-group"
+                    [ngClass]="{'has-error': serviceForm.get('name')?.touched && serviceForm.get('name')?.invalid}">
+                    <label for="name">Nome do Serviço <span class="required">*</span></label>
+                    <input id="name" formControlName="name" type="text" placeholder="Nome do Serviço">
+                    <div *ngIf="serviceForm.get('name')?.touched && serviceForm.get('name')?.invalid"
+                        class="error-message">
+                        Nome do serviço é obrigatório.
+                    </div>
+                </div>
+
+                <!-- Preço (Com Máscara de Moeda) -->
+                <div class="form-group"
+                    [ngClass]="{'has-error': serviceForm.get('price')?.touched && serviceForm.get('price')?.invalid}">
+                    <label for="price">Preço <span class="required">*</span></label>
+                    <input id="price" formControlName="price" type="text" placeholder="Preço" mask="separator.2"
+                        prefix="R$ ">
+                    <div *ngIf="serviceForm.get('price')?.touched && serviceForm.get('price')?.invalid"
+                        class="error-message">
+                        Preço é obrigatório.
+                    </div>
+                </div>
+
+                <!-- Tempo Estimado (Com Relógio) -->
+                <div class="form-group"
+                    [ngClass]="{'has-error': serviceForm.get('estimated')?.touched && serviceForm.get('estimated')?.invalid}">
+                    <label for="estimated">Tempo Estimado <span class="required">*</span></label>
+                    <input id="estimated" formControlName="estimated" type="time" class="form-control">
+                    <div *ngIf="serviceForm.get('estimated')?.touched && serviceForm.get('estimated')?.invalid"
+                        class="error-message">
+                        Tempo estimado é obrigatório.
+                    </div>
+                </div>
+
+
+                <!-- Comissão -->
+                <div class="form-group"
+                    [ngClass]="{'has-error': serviceForm.get('commission')?.touched && serviceForm.get('commission')?.invalid}">
+                    <label for="commission">Comissão (%) <span class="required">*</span></label>
+                    <input id="commission" formControlName="commission" type="text" class="form-control"
+                        mask="separator.0" prefix="" placeholder="Comissão">
+                    <div *ngIf="serviceForm.get('commission')?.touched && serviceForm.get('commission')?.invalid"
+                        class="error-message">
+                        Comissão deve ser entre 0 e 100.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-save" [disabled]="serviceForm.invalid">Cadastrar Serviço</button>
+    </form>
+</div>

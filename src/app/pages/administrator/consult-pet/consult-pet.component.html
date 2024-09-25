@@ -1,4 +1,5 @@
 <div class="consult-pet-container">
+  <h2>Pets</h2>
   <form [formGroup]="petForm" (ngSubmit)="atualizarPet()">
     <!-- Seção de CPF e Dono -->
     <div class="form-sections">
@@ -49,11 +50,13 @@
         </div>
       </div>
 
+      <!-- Exibição do Status do Pet -->
       <div class="form-section">
-       <label for="active">Ativo</label>
-          <input id="active" formControlName="active" type="checkbox">
+        <label>Status:</label>
+        <mat-slide-toggle formControlName="active">
+          {{ petForm.get('active')?.value ? 'Ativo' : 'Desativado' }}
+        </mat-slide-toggle>
       </div>
-
       <!-- Botão de Atualizar -->
       <button type="submit" class="btn-save" [disabled]="loading">
         <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

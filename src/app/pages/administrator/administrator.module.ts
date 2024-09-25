@@ -10,12 +10,14 @@ import { RegisterEmployeeModule } from './register-employee/register-employee.mo
 import { ConsultEmployeeModule } from './consult-employee/consult-employee.module';
 import { RegisterPetModule } from './register-pet/register-pet.module';
 import { ConsultPetModule } from './consult-pet/consult-pet.module';
+import { ServiceModule } from './service/service.module';
+import { ListServiceComponent } from './list-service/list-service.component';
+import { ListServiceModule } from './list-service/list-service.module';
 
 
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     AdministratorRoutingModule,
@@ -27,7 +29,9 @@ import { ConsultPetModule } from './consult-pet/consult-pet.module';
     RegisterEmployeeModule,
     ConsultEmployeeModule,
     RegisterPetModule,
-    ConsultPetModule
+    ConsultPetModule,
+    ServiceModule,
+    ListServiceModule
   ]
 })
 export class AdministratorModule { }

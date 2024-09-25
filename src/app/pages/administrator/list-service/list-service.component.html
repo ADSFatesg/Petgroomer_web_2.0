@@ -1,0 +1,108 @@
+<div class="consult-service-container">
+  <h2>Lista de Serviços</h2>
+
+  <!-- Filtros e Busca -->
+  <div class="filter-section">
+    <!-- Filtro de Status -->
+    <div class="form-group">
+      <label for="statusFilter">Filtrar por Status:</label>
+      <select id="statusFilter" [(ngModel)]="statusFilter" (change)="applyFilter()">
+        <option value="all">Todos</option>
+        <option value="active">Ativos</option>
+        <option value="inactive">Inativos</option>
+      </select>
+    </div>
+
+    <!-- Campo de busca por Nome do Serviço -->
+    <div class="form-group name-search">
+      <label for="searchName">Buscar por Nome</label>
+      <div class="input-with-icon">
+        <input id="searchName" type="text" [(ngModel)]="nameFilter" placeholder="Nome do Serviço">
+        <button class="btn-icon" (click)="applyNameFilter()">
+          <mat-icon class="mat-18">search</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Ordenar por -->
+    <div class="form-group">
+      <label for="sortOrder">Ordenar por:</label>
+      <select id="sortOrder" [(ngModel)]="sortOrder" (change)="applySort()">
+        <option value="name">Nome (A-Z)</option>
+        <option value="nameDesc">Nome (Z-A)</option>
+        <option value="price">Preço (Crescente)</option>
+        <option value="priceDesc">Preço (Decrescente)</option>
+        <option value="status">Status (Ativos Primeiro)</option>
+        <option value="statusDesc">Status (Inativos Primeiro)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Indicador de carregamento -->
+  <div *ngIf="loading" class="loading">Carregando serviços...</div>
+
+  <!-- Tabela de serviços -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Nome -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome do Serviço </th>
+      <td mat-cell *matCellDef="let service"> {{ service.name }} </td>
+    </ng-container>
+
+    <!-- Preço formatado -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Preço </th>
+      <td mat-cell *matCellDef="let service"> {{ formatPrice(service.price) }} </td>
+    </ng-container>
+
+    <!-- Comissão -->
+    <ng-container matColumnDef="commission">
+      <th mat-header-cell *matHeaderCellDef> Comissão (%) </th>
+      <td mat-cell *matCellDef="let service"> {{ service.commission }}% </td>
+    </ng-container>
+
+    <!-- Tempo Estimado -->
+    <ng-container matColumnDef="estimated">
+      <th mat-header-cell *matHeaderCellDef> Tempo Estimado </th>
+      <td mat-cell *matCellDef="let service"> {{ convertMinutesToTime(service.estimated) }} </td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let service"> {{ service.active ? 'Ativo' : 'Inativo' }} </td>
+    </ng-container>
+
+    <!-- Ações: Editar e Ativar/Desativar -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Ação </th>
+      <td mat-cell *matCellDef="let service">
+        <!-- Ícone de editar serviço -->
+        <button (click)="openServiceModal(service)" class="btn-icon">
+          <mat-icon class="mat-18">edit</mat-icon>
+        </button>
+
+        <!-- Ícone de desativar serviço (se ativo) -->
+        <button *ngIf="service.active" (click)="deactivateService(service)" class="btn-icon">
+          <mat-icon class="mat-18 active-icon">power_settings_new</mat-icon>
+        </button>
+
+        <!-- Ícone de ativar serviço (se inativo) -->
+        <button *ngIf="!service.active" (click)="activateService(service)" class="btn-icon">
+          <mat-icon class="mat-18 inactive-icon">power_settings_new</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Cabeçalhos da tabela -->
+    <tr mat-header-row *matHeaderRowDef="['name', 'price', 'commission', 'estimated', 'status', 'action']"></tr>
+    <!-- Linhas da tabela -->
+    <tr mat-row *matRowDef="let row; columns: ['name', 'price', 'commission', 'estimated', 'status', 'action']"></tr>
+  </table>
+
+  <!-- Paginação -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+  <!-- Mensagem caso não haja serviços -->
+  <div *ngIf="!loading && filteredServices.length === 0">Nenhum serviço encontrado.</div>
+</div>

@@ -1,0 +1,99 @@
+<h2>Editar Serviço</h2>
+
+<form [formGroup]="serviceForm" (ngSubmit)="save()">
+  <!-- Agrupa as seções em um contêiner flexbox -->
+  <div class="sections">
+    <!-- Seção 1: Informações do Serviço -->
+    <div class="section service-info">
+      <h3>Informações do Serviço</h3>
+
+      <!-- Campo Nome -->
+      <div class="form-group">
+        <label for="name">Nome do Serviço</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">build</mat-icon>
+          <input id="name" formControlName="name" type="text" placeholder="Nome do serviço">
+        </div>
+        <div *ngIf="serviceForm.get('name')?.touched && serviceForm.get('name')?.invalid" class="error-message">
+          Nome do serviço é obrigatório.
+        </div>
+      </div>
+
+      <!-- Campo Preço -->
+      <div class="form-group">
+        <label for="price">Preço</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">attach_money</mat-icon>
+          <input id="price" formControlName="price" type="number" placeholder="Preço">
+        </div>
+        <div *ngIf="serviceForm.get('price')?.touched && serviceForm.get('price')?.invalid" class="error-message">
+          Preço é obrigatório.
+        </div>
+      </div>
+
+      <!-- Campo Comissão -->
+      <div class="form-group">
+        <label for="commission">Comissão (%)</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">percent</mat-icon>
+          <input id="commission" formControlName="commission" type="number" placeholder="Comissão (%)" min="0" max="100">
+        </div>
+        <div *ngIf="serviceForm.get('commission')?.touched && serviceForm.get('commission')?.invalid" class="error-message">
+          Comissão é obrigatória e deve ser entre 0 e 100.
+        </div>
+      </div>
+
+      <!-- Campo Tempo Estimado -->
+      <div class="form-group">
+        <label for="estimated">Tempo Estimado (hh:mm)</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">schedule</mat-icon>
+          <input id="estimated" formControlName="estimated" type="time" placeholder="Tempo estimado">
+        </div>
+        <div *ngIf="serviceForm.get('estimated')?.touched && serviceForm.get('estimated')?.invalid" class="error-message">
+          Tempo estimado é obrigatório.
+        </div>
+      </div>
+
+      <!-- Campo Status -->
+      <div class="form-group">
+        <mat-slide-toggle formControlName="active">Ativo</mat-slide-toggle>
+      </div>
+    </div>
+
+    <!-- Seção 2: Funcionário Responsável -->
+    <div class="section employee-info">
+      <h3>Funcionário Responsável</h3>
+
+      <!-- Campo CPF do Funcionário -->
+      <div class="form-group">
+        <label for="employeeCpf">CPF do Funcionário</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">badge</mat-icon>
+          <input id="employeeCpf" formControlName="cpf" type="text" placeholder="CPF do funcionário" mask="000.000.000-00">
+          <button type="button" class="btn-icon" (click)="searchEmployeeByCpf()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="serviceForm.get('cpf')?.touched && serviceForm.get('cpf')?.invalid" class="error-message">
+          CPF é obrigatório.
+        </div>
+      </div>
+
+      <!-- Campo Nome do Funcionário -->
+      <div class="form-group">
+        <label for="employeeName">Nome do Funcionário</label>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">person</mat-icon>
+          <input id="employeeName" formControlName="employeeName" type="text" placeholder="Nome do funcionário" isdisabled>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botões de Ação -->
+  <div class="modal-actions">
+    <button type="submit" class="btn-save" [disabled]="serviceForm.invalid">Salvar</button>
+    <button type="button" class="btn-cancel" (click)="close()">Cancelar</button>
+  </div>
+</form>

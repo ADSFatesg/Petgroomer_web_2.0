@@ -2,7 +2,7 @@ import { Address } from "./address";
 import { EnumPosition } from "./enum-position";
 
 export interface Employee {
-    id?: string;
+    id: string;
   cpf: string;
   name: string;
   email: string;
