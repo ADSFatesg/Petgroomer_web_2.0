@@ -1,11 +1,22 @@
-import { Employee } from "./employee";
+import {employeeRetrive } from "./employee";
 
-export interface Service {
-    id: string;
+export interface ServiceDTO {
+    employee: EntityId; 
     name: string;
-    price: number;
-    estimated: number; 
+    price: number; 
+    estimated: number;
+    commission: number; 
+    active: boolean; 
+}
+export interface EntityId {
+    id: string; 
+}
+export interface ServiceRetrieve {
+    id: string;
+    employee: employeeRetrive; 
+    name: string;
+    price: number; 
+    estimated: number;
     commission: number;
     active: boolean;
-    employee: Employee;
 }

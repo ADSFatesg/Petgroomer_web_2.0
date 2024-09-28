@@ -13,6 +13,7 @@ import { ConsultPetComponent } from './consult-pet/consult-pet.component';
 import { AuthGuard } from '../../authentication/auth.guard';
 import { ServiceComponent } from './service/service.component';
 import { ListServiceComponent } from './list-service/list-service.component';
+import { SchedulingComponent } from './scheduling/scheduling.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'consultPet', component: ConsultPetComponent, canActivate: [AuthGuard]},
       { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuard]},
       { path: 'registerService', component: ServiceComponent, canActivate: [AuthGuard]},
-      { path: 'listService', component: ListServiceComponent, canActivate: [AuthGuard]}
+      { path: 'listService', component: ListServiceComponent, canActivate: [AuthGuard]},
+      { path: 'agendar', component: SchedulingComponent, canActivate: [AuthGuard]}
     ]
   },
 ];

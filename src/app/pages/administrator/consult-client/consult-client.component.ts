@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClientService } from '../../../service/client.service';
-import { Client } from '../../../model/client';
 import { ClientModalComponent } from '../../modals/client-modal/client-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { ClientRetrive } from '../../../model/client';
 
 @Component({
   selector: 'app-consult-client',
@@ -13,14 +13,14 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./consult-client.component.scss']
 })
 export class ConsultClientComponent implements OnInit{
-  clients: Client[] = [];
-  filteredClients: Client[] = [];
+  clients: ClientRetrive[] = [];
+  filteredClients: ClientRetrive[] = [];
   statusFilter: string = 'all';
   cpfFilter: string = '';
   loading: boolean = false;
-  sortOrder: string = 'name'; // Default sort order
+  sortOrder: string = 'name';
 
-  dataSource = new MatTableDataSource<Client>();
+  dataSource = new MatTableDataSource<ClientRetrive>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -30,22 +30,22 @@ export class ConsultClientComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.loadClients(); // Carregar clientes ao inicializar o componente
+    this.loadClients();
   }
 
   // Função para carregar a lista de clientes
   loadClients(): void {
     this.loading = true;
     this.clientService.findAll().subscribe(
-      (clientes: Client[]) => {
+      (clientes: ClientRetrive[]) => {
         this.clients = clientes;
-        this.filteredClients = clientes; // Inicialmente, todos os clientes são exibidos
-        this.applySort(); // Aplica a ordenação
-        this.dataSource.paginator = this.paginator; // Conecta o paginator
+        this.filteredClients = clientes;
+        this.applySort();
+        this.dataSource.paginator = this.paginator;
         this.loading = false;
       },
       (error) => {
-        this.snackBar.open('Erro ao carregar lista de clientes.', 'Fechar', {
+        this.snackBar.open(error.message ||'Erro ao carregar lista de clientes.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right',
@@ -96,7 +96,7 @@ export class ConsultClientComponent implements OnInit{
       this.filteredClients = this.clients; // 'all' mostra todos os clientes
     }
 
-    this.applySort(); // Reaplica a ordenação após o filtro
+    this.applySort();
     this.dataSource.paginator = this.paginator;
   }
 
@@ -127,18 +127,18 @@ export class ConsultClientComponent implements OnInit{
       this.clearCpfAndReload();
     }
 
-    this.applySort(); // Reaplica a ordenação após o filtro de CPF
-    this.cpfFilter = ''; // Limpa o campo de CPF após a busca
+    this.applySort();
+    this.cpfFilter = '';
   }
 
   clearCpfAndReload(): void {
-    this.filteredClients = this.clients; // Recarrega todos os clientes
-    this.applySort(); // Reaplica a ordenação
-    this.dataSource.paginator = this.paginator; // Reaplica a paginação
+    this.filteredClients = this.clients;
+    this.applySort();
+    this.dataSource.paginator = this.paginator;
   }
 
   // Função para abrir o modal de edição de cliente
-  openClientModal(client: Client): void {
+  openClientModal(client: ClientRetrive): void {
     const dialogRef = this.dialog.open(ClientModalComponent, {
       width: '600px',
       data: { client }
@@ -149,13 +149,13 @@ export class ConsultClientComponent implements OnInit{
         const index = this.clients.findIndex(c => c.id === result.id);
         if (index > -1) {
           this.clients[index] = result;
-          this.applyFilter(); // Reaplica o filtro após a atualização
+          this.applyFilter();
         }
       }
     });
   }
 
-  deactivateClient(client: Client): void {
+  deactivateClient(client: ClientRetrive): void {
     this.clientService.delete(client.id).subscribe(
       () => {
         client.active = false;
@@ -176,7 +176,7 @@ export class ConsultClientComponent implements OnInit{
     );
   }
 
-  activateClient(client: Client): void {
+  activateClient(client: ClientRetrive): void {
     client.active = true;
     this.clientService.update(client.id, client).subscribe(
       () => {

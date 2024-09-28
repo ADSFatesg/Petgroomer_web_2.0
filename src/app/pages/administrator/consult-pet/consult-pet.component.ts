@@ -1,14 +1,13 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Pet } from '../../../model/pet';
 import { RacaPetENUM } from '../../../model/enum-racaPet';
 import { PortePetENUM } from '../../../model/enum-portePet';
-
 import { ClientService } from '../../../service/client.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PetService } from '../../../service/pet.service';
-import { Client } from '../../../model/client';
+import { PetRetrive } from '../../../model/pet';
+import { ClientRetrive } from '../../../model/client';
 
 @Component({
   selector: 'app-consult-pet',
@@ -17,9 +16,9 @@ import { Client } from '../../../model/client';
 })
 export class ConsultPetComponent implements OnInit {
   petForm!: FormGroup;
-  pets: Pet[] = [];
-  selectedPet: Pet | null = null;
-  ownerName: string = '';  // Nome do dono do pet
+  pets: PetRetrive[] = [];
+  selectedPet: PetRetrive | null = null;
+  ownerName: string = ''; 
   loading = false;
   races = Object.values(RacaPetENUM);
   sizes = Object.values(PortePetENUM);
@@ -33,7 +32,7 @@ export class ConsultPetComponent implements OnInit {
 
   ngOnInit(): void {
     this.petForm = this.fb.group({
-      cpf: ['', [Validators.required, Validators.pattern('\\d{11}')]],  // Valida CPF com 11 dígitos
+      cpf: ['', [Validators.required, Validators.pattern('\\d{11}')]], 
       name: ['', Validators.required],
       race: ['', Validators.required],
       size: ['', Validators.required],
@@ -56,17 +55,17 @@ export class ConsultPetComponent implements OnInit {
     this.loading = true;
 
     this.clientService.findByCpf(cpf).subscribe(
-      (client: Client) => {
+      (client: ClientRetrive) => {
         if (client && client.id) {
-          this.ownerName = client.name; // Exibe o nome do dono
+          this.ownerName = client.name;
 
           this.petService.getPetsByClientId(client.id).subscribe(
-            (pets: Pet[]) => {
+            (pets: PetRetrive[]) => {
               this.pets = pets;
               this.loading = false;
             },
             (error) => {
-              this.snackBar.open('Erro ao buscar pets.', 'Fechar', {
+              this.snackBar.open(error.message ||'Erro ao buscar pets.', 'Fechar', {
                 duration: 3000,
                 verticalPosition: 'top',
                 horizontalPosition: 'right'
@@ -77,7 +76,7 @@ export class ConsultPetComponent implements OnInit {
         }
       },
       (error) => {
-        this.snackBar.open('Erro ao consultar cliente.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao consultar cliente.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -87,7 +86,7 @@ export class ConsultPetComponent implements OnInit {
     );
   }
 
-  selecionarPet(pet: Pet): void {
+  selecionarPet(pet: PetRetrive): void {
     this.selectedPet = pet;
     this.petForm.patchValue({
       name: pet.name,
@@ -99,7 +98,7 @@ export class ConsultPetComponent implements OnInit {
 
   atualizarPet(): void {
     if (this.selectedPet && this.petForm.valid) {
-      const updatedPet: Pet = {
+      const updatedPet: PetRetrive = {
         ...this.selectedPet,
         ...this.petForm.value
 
@@ -107,7 +106,7 @@ export class ConsultPetComponent implements OnInit {
 
       this.loading = true;
 
-      this.petService.update(updatedPet.id!, updatedPet).subscribe(
+      this.petService.update(updatedPet.id, updatedPet).subscribe(
         () => {
           this.snackBar.open('Pet atualizado com sucesso!', 'Fechar', {
             duration: 3000,
@@ -115,11 +114,10 @@ export class ConsultPetComponent implements OnInit {
             horizontalPosition: 'right'
           });
 
-          // Limpa o formulário, a seleção de pets e a lista de pets relacionados
           this.petForm.reset();
           this.selectedPet = null;
           this.pets = [];
-          this.ownerName = ''; // Remove o nome do dono
+          this.ownerName = ''; 
           this.loading = false;
         },
         (error) => {

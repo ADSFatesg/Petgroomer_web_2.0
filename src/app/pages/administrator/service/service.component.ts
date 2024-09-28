@@ -1,10 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Employee } from '../../../model/employee';
 import { ServicesService } from '../../../service/services.service';
 import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Service } from '../../../model/service';
+import { employeeRetrive } from '../../../model/employee';
+import { ServiceDTO } from '../../../model/service';
 
 @Component({
   selector: 'app-service',
@@ -13,7 +14,7 @@ import { Service } from '../../../model/service';
 })
 export class ServiceComponent implements OnInit {
   serviceForm!: FormGroup;
-  selectedEmployee: Employee | null = null;
+  selectedEmployee: employeeRetrive | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +49,7 @@ export class ServiceComponent implements OnInit {
     }
 
     this.employeeService.getEmployeeByCpf(cpf).subscribe(
-      (employee: Employee) => {
+      (employee: employeeRetrive) => {
         if (employee) {
           this.selectedEmployee = employee;
 
@@ -92,7 +93,7 @@ export class ServiceComponent implements OnInit {
       const estimatedTime = this.serviceForm.get('estimated')?.value;
       const estimatedInMinutes = this.convertTimeToMinutes(estimatedTime);
 
-      const serviceData: Service = {
+      const serviceData: ServiceDTO = {
         ...this.serviceForm.value,
         estimated: estimatedInMinutes,
         employee: this.selectedEmployee

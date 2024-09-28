@@ -6,8 +6,9 @@ import { EmployeeService } from '../../../service/employee.service';
 import { CepService } from '../../../service/cep.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Cep } from '../../../model/cep';
-import { Employee } from '../../../model/employee';
-import { Address } from '../../../model/address';
+import { EmployeeDTO } from '../../../model/employee';
+import { AddressDTO } from '../../../model/address';
+
 
 @Component({
   selector: 'app-register-employee',
@@ -40,7 +41,7 @@ export class RegisterEmployeeComponent implements OnInit{
       neighborhood: [''],
       city: [''],
       state: [''],
-      country: ['', Validators.required], // Certifique-se de que o campo 'country' esteja no FormGroup
+      country: ['', Validators.required],
       complement: [''],
       wage: ['', [Validators.required]],
       commission: [''],
@@ -91,7 +92,7 @@ export class RegisterEmployeeComponent implements OnInit{
   onSubmit(): void {
     if (this.employeeForm.valid) {
       this.loading = true;
-      const employee: Employee = {
+      const employee: EmployeeDTO = {
         ...this.employeeForm.value,
         address: {
           street: this.employeeForm.get('street')!.value,
@@ -102,7 +103,7 @@ export class RegisterEmployeeComponent implements OnInit{
           state: this.employeeForm.get('state')!.value,
           country: this.employeeForm.get('country')!.value,
           postalCode: this.employeeForm.get('postalCode')!.value
-        } as Address
+        } as AddressDTO
       };
 
       this.employeeService.createEmployee(employee).subscribe(

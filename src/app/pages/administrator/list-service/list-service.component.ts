@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Service } from '../../../model/service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServicesService } from '../../../service/services.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ServiceModalComponent } from '../../modals/service-modal/service-modal.component';
+import { ServiceRetrieve } from '../../../model/service';
 
 @Component({
   selector: 'app-list-service',
@@ -12,9 +12,9 @@ import { ServiceModalComponent } from '../../modals/service-modal/service-modal.
   styleUrl: './list-service.component.scss'
 })
 export class ListServiceComponent implements OnInit {
-  services: Service[] = [];
-  filteredServices: Service[] = [];
-  dataSource = new MatTableDataSource<Service>(this.services);
+  services: ServiceRetrieve[] = [];
+  filteredServices: ServiceRetrieve[] = [];
+  dataSource = new MatTableDataSource<ServiceRetrieve>(this.services);
   loading = false;
 
   // Filtros
@@ -36,7 +36,7 @@ export class ListServiceComponent implements OnInit {
   loadServices(): void {
     this.loading = true;
     this.serviceService.findAll().subscribe(
-      (services: Service[]) => {
+      (services: ServiceRetrieve[]) => {
         this.services = services;
         this.applyFilter(); // Aplica os filtros iniciais ao carregar os serviços
         this.loading = false;
@@ -96,7 +96,7 @@ export class ListServiceComponent implements OnInit {
   }
 
   // Ativar serviço
-  activateService(service: Service): void {
+  activateService(service: ServiceRetrieve): void {
     service.active = true;
 
     this.serviceService.update(service.id, service).subscribe(
@@ -119,7 +119,7 @@ export class ListServiceComponent implements OnInit {
   }
 
   // Desativar serviço
-  deactivateService(service: Service): void {
+  deactivateService(service: ServiceRetrieve): void {
     service.active = false;
 
     this.serviceService.update(service.id, service).subscribe(
@@ -142,7 +142,7 @@ export class ListServiceComponent implements OnInit {
   }
 
   // Abrir o modal de edição de serviço
-  openServiceModal(service: Service): void {
+  openServiceModal(service: ServiceRetrieve): void {
     const dialogRef = this.dialog.open(ServiceModalComponent, {
       width: '800px',
       data: { service } // Passa o serviço selecionado para o modal

@@ -78,6 +78,22 @@
       </button>
     </mat-menu>
 
+      <!-- Agendamento -->
+      <button mat-button [matMenuTriggerFor]="schedulingMenu" class="dropdown-button">
+        <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>schedule</mat-icon>
+        Agendamento
+      </button>
+      <mat-menu #schedulingMenu="matMenu">
+        <button mat-menu-item routerLink="/agendar">
+          <mat-icon>add_circle</mat-icon>
+          Agendar
+        </button>
+        <button mat-menu-item routerLink="/listAgendamento">
+          <mat-icon>list</mat-icon>
+          Listar
+        </button>
+      </mat-menu>
+
     <!-- Administrativo -->
     <button mat-button [matMenuTriggerFor]="administrativoMenu" class="dropdown-button">
       <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>admin_panel_settings</mat-icon>

@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Client } from '../model/client';
+import { ClientDTO, ClientRetrive } from '../model/client';
 
 
 
@@ -11,36 +11,36 @@ import { Client } from '../model/client';
 })
 export class ClientService {
 
-  private apiUrl = 'http://localhost:8080/api/client'; // Substitua pela URL da sua API
+  private apiUrl = 'http://localhost:8080/api/client';
 
   constructor(private http: HttpClient ) {}
 
-  create(client: Client): Observable<Client> {
-    return this.http.post<Client>(this.apiUrl, client).pipe(
+  create(client: ClientDTO): Observable<ClientDTO> {
+    return this.http.post<ClientDTO>(this.apiUrl, client).pipe(
       catchError(this.handleError)
     );
   }
 
-  findAll(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.apiUrl).pipe(
+  findAll(): Observable<ClientRetrive[]> {
+    return this.http.get<ClientRetrive[]>(this.apiUrl).pipe(
       catchError(this.handleError)
     );
   }
 
-  findById(id: string): Observable<Client> {
-    return this.http.get<Client>(`${this.apiUrl}/${id}`).pipe(
+  findById(id: string): Observable<ClientRetrive> {
+    return this.http.get<ClientRetrive>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  findByCpf(cpf: string): Observable<Client> {
-    return this.http.get<Client>(`${this.apiUrl}/findCpf/${cpf}`).pipe(
+  findByCpf(cpf: string): Observable<ClientRetrive> {
+    return this.http.get<ClientRetrive>(`${this.apiUrl}/findCpf/${cpf}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  update(id: string, client: Client): Observable<Client> {
-    return this.http.put<Client>(`${this.apiUrl}/${id}`, client).pipe(
+  update(id: string, client: ClientDTO): Observable<ClientDTO> {
+    return this.http.put<ClientDTO>(`${this.apiUrl}/${id}`, client).pipe(
       catchError(this.handleError)
     );
   }

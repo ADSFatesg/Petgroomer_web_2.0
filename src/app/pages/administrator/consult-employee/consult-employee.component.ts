@@ -1,7 +1,7 @@
+import { employeeRetrive } from './../../../model/employee';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Employee } from '../../../model/employee';
 import { EmployeeModalComponent } from '../../modals/employee-modal/employee-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,14 +13,14 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './consult-employee.component.scss'
 })
 export class ConsultEmployeeComponent implements OnInit {
-  employees: Employee[] = [];
-  filteredEmployees: Employee[] = [];
-  statusFilter: string = 'all'; // Filtro de status
-  cpfFilter: string = ''; // Filtro de CPF
-  sortOrder: string = 'name'; // Ordem padrão
+  employees: employeeRetrive[] = [];
+  filteredEmployees: employeeRetrive[] = [];
+  statusFilter: string = 'all';
+  cpfFilter: string = '';
+  sortOrder: string = 'name';
   loading: boolean = false;
 
-  dataSource = new MatTableDataSource<Employee>();
+  dataSource = new MatTableDataSource<employeeRetrive>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -36,7 +36,7 @@ export class ConsultEmployeeComponent implements OnInit {
   loadEmployees(): void {
     this.loading = true;
     this.employeeService.getEmployees().subscribe(
-      (employees: Employee[]) => {
+      (employees: employeeRetrive[]) => {
         this.employees = employees;
         this.filteredEmployees = employees;
         this.applySort();
@@ -137,7 +137,7 @@ export class ConsultEmployeeComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openEmployeeModal(employee: Employee): void {
+  openEmployeeModal(employee: employeeRetrive): void {
     const dialogRef = this.dialog.open(EmployeeModalComponent, {
       width: '600px',
       data: { employee }
@@ -154,7 +154,7 @@ export class ConsultEmployeeComponent implements OnInit {
     });
   }
 
-  deactivateEmployee(employee: Employee): void {
+  deactivateEmployee(employee: employeeRetrive): void {
     this.employeeService.deleteEmployee(employee.id).subscribe(
       () => {
         employee.active = false;
@@ -175,7 +175,7 @@ export class ConsultEmployeeComponent implements OnInit {
     );
   }
 
-  activateEmployee(employee: Employee): void {
+  activateEmployee(employee: employeeRetrive): void {
     employee.active = true;
 
     this.employeeService.updateEmployee(employee.id, employee).subscribe(

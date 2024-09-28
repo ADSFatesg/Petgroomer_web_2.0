@@ -1,7 +1,8 @@
-import { Service } from './../model/service';
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ServiceDTO, ServiceRetrieve } from '../model/service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +13,23 @@ export class ServicesService {
 
   constructor(private http: HttpClient) { }
 
-  create(service: Service): Observable<Service> {
-    return this.http.post<Service>(this.urlApi, service).pipe(
+  create(service: ServiceDTO): Observable<ServiceDTO> {
+    return this.http.post<ServiceDTO>(this.urlApi, service).pipe(
       catchError(this.handleError)
     );
   }
-  findAll(): Observable<Service[]> {
-    return this.http.get<Service[]>(this.urlApi).pipe(
+  findAll(): Observable<ServiceRetrieve[]> {
+    return this.http.get<ServiceRetrieve[]>(this.urlApi).pipe(
       catchError(this.handleError)
     );
   }
-  findById(id: string): Observable<Service> {
-    return this.http.get<Service>(`${this.urlApi}/${id}`).pipe(
+  findById(id: string): Observable<ServiceRetrieve> {
+    return this.http.get<ServiceRetrieve>(`${this.urlApi}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
-  update(id: string, service: Service): Observable<Service> {
-    return this.http.put<Service>(`${this.urlApi}/${id}`, service).pipe(
+  update(id: string, service: ServiceRetrieve): Observable<ServiceRetrieve> {
+    return this.http.put<ServiceRetrieve>(`${this.urlApi}/${id}`, service).pipe(
       catchError(this.handleError)
     );
   }

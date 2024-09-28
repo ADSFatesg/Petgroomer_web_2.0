@@ -13,6 +13,7 @@ import { ConsultPetModule } from './consult-pet/consult-pet.module';
 import { ServiceModule } from './service/service.module';
 import { ListServiceComponent } from './list-service/list-service.component';
 import { ListServiceModule } from './list-service/list-service.module';
+import { SchedulingModule } from './scheduling/scheduling.module';
 
 
 
@@ -31,7 +32,8 @@ import { ListServiceModule } from './list-service/list-service.module';
     RegisterPetModule,
     ConsultPetModule,
     ServiceModule,
-    ListServiceModule
+    ListServiceModule,
+    SchedulingModule
   ]
 })
 export class AdministratorModule { }

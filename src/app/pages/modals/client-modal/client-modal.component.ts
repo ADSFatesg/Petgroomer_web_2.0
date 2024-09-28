@@ -2,11 +2,12 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Client } from '../../../model/client';
 import { CepService } from '../../../service/cep.service';
 import { EnumCountry } from '../../../model/enum-country';
 import { ClientService } from '../../../service/client.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClientRetrive } from '../../../model/client';
+import { AddressDTO, AddressRetrive } from '../../../model/address';
 
 @Component({
   selector: 'app-client-modal',
@@ -15,24 +16,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ClientModalComponent {
   clientForm!: FormGroup;
-  countries = Object.values(EnumCountry); // Lista de países para o formulário
+  countries = Object.values(EnumCountry);
 
   constructor(
     public dialogRef: MatDialogRef<ClientModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { client: Client }, // Dados do cliente selecionado
+    @Inject(MAT_DIALOG_DATA) public data: { client: ClientRetrive },
     private fb: FormBuilder,
     private cepService: CepService,
-    private clientService: ClientService, // Injeção do serviço ClientService
-    private snackBar: MatSnackBar // Para exibir notificações
+    private clientService: ClientService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    // Inicializa o formulário com os dados do cliente selecionado
     this.clientForm = this.fb.group({
       name: [this.data.client.name, Validators.required],
       email: [this.data.client.email, [Validators.required, Validators.email]],
       phone: [this.data.client.phone, Validators.required],
-      cpf: [{ value: this.data.client.cpf, disabled: true }, Validators.required], // CPF desabilitado
+      cpf: [{ value: this.data.client.cpf, disabled: true }, Validators.required],
       
       // Campos de endereço separados
       postalCode: [this.data.client.address.postalCode, Validators.required],
@@ -42,14 +42,13 @@ export class ClientModalComponent {
       neighborhood: [this.data.client.address.neighborhood],
       city: [this.data.client.address.city],
       state: [this.data.client.address.state],
-      country: [this.data.client.address.country, Validators.required] // Campo de seleção de país
+      country: [this.data.client.address.country, Validators.required]
     });
   }
 
   // Método para salvar o cliente
   save(): void {
     if (this.clientForm.valid) {
-      // Cria o objeto de endereço a partir dos dados do formulário
       const address = {
         postalCode: this.clientForm.get('postalCode')!.value,
         street: this.clientForm.get('street')!.value,
@@ -59,7 +58,7 @@ export class ClientModalComponent {
         city: this.clientForm.get('city')!.value,
         state: this.clientForm.get('state')!.value,
         country: this.clientForm.get('country')!.value
-      };
+      } as AddressRetrive
 
       // Combina os dados do cliente e o endereço
       const updatedClient = { 

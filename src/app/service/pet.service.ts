@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Pet } from '../model/pet';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Client } from '../model/client';
+import { PetDTO, PetRetrive } from '../model/pet';
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +12,23 @@ export class PetService {
 
   constructor(private http: HttpClient) { }
 
-  create(pet: Pet): Observable<Pet> {
-    return this.http.post<Pet>(this.apiUrl, pet).pipe(
+  create(pet: PetDTO): Observable<PetDTO> {
+    return this.http.post<PetDTO>(this.apiUrl, pet).pipe(
       catchError(this.handleError)
     )
   }
-  findAll(): Observable<Pet[]> {
-    return this.http.get<Pet[]>(this.apiUrl).pipe(
+  findAll(): Observable<PetRetrive[]> {
+    return this.http.get<PetRetrive[]>(this.apiUrl).pipe(
       catchError(this.handleError)
     )
   }
-  findById(id: string): Observable<Pet> {
-    return this.http.get<Pet>(`${this.apiUrl}/${id}`).pipe(
+  findById(id: string): Observable<PetRetrive> {
+    return this.http.get<PetRetrive>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     )
   }
-  update(id: string, pet: Pet): Observable<Pet> {
-    return this.http.put<Pet>(`${this.apiUrl}/${id}`, pet).pipe(
+  update(id: string, pet: PetDTO): Observable<PetDTO> {
+    return this.http.put<PetDTO>(`${this.apiUrl}/${id}`, pet).pipe(
       catchError(this.handleError)
     )
   }
@@ -39,8 +38,8 @@ export class PetService {
     );
   }
 
-getPetsByClientId(clientId: string): Observable<Pet[]> {
-  return this.http.get<Pet[]>(`${this.apiUrl}/client/${clientId}`).pipe(
+getPetsByClientId(clientId: string): Observable<PetRetrive[]> {
+  return this.http.get<PetRetrive[]>(`${this.apiUrl}/client/${clientId}`).pipe(
     catchError(this.handleError)
   );
 }

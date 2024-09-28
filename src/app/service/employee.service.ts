@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Employee } from '../model/employee';
+import { EmployeeDTO, employeeRetrive } from '../model/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -14,36 +14,36 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   // Create a new employee
-  createEmployee(employeeDTO: Employee): Observable<Employee> {
-    return this.http.post<Employee>(this.apiUrl, employeeDTO).pipe(
+  createEmployee(employeeDTO: EmployeeDTO): Observable<EmployeeDTO> {
+    return this.http.post<EmployeeDTO>(this.apiUrl, employeeDTO).pipe(
       catchError(this.handleError)
     );
   }
 
   // Get all employees
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrl).pipe(
+  getEmployees(): Observable<employeeRetrive[]> {
+    return this.http.get<employeeRetrive[]>(this.apiUrl).pipe(
       catchError(this.handleError)
     );
   }
 
   // Get a single employee by ID
-  getEmployeeById(id:string): Observable<Employee> {
-    return this.http.get<Employee>(`${this.apiUrl}/${id}`).pipe(
+  getEmployeeById(id:string): Observable<employeeRetrive> {
+    return this.http.get<employeeRetrive>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
   // Get a single employee by CPF
-  getEmployeeByCpf(cpf: string): Observable<Employee> {
-    return this.http.get<Employee>(`${this.apiUrl}/findCpf/${cpf}`).pipe(
+  getEmployeeByCpf(cpf: string): Observable<employeeRetrive> {
+    return this.http.get<employeeRetrive>(`${this.apiUrl}/findCpf/${cpf}`).pipe(
       catchError(this.handleError)
     );
   }
 
   // Update an existing employee
-  updateEmployee(id:string, employeeDTO: Employee): Observable<Employee> {
-    return this.http.put<Employee>(`${this.apiUrl}/${id}`, employeeDTO).pipe(
+  updateEmployee(id:string, employeeDTO: EmployeeDTO): Observable<EmployeeDTO> {
+    return this.http.put<EmployeeDTO>(`${this.apiUrl}/${id}`, employeeDTO).pipe(
       catchError(this.handleError)
     );
   }

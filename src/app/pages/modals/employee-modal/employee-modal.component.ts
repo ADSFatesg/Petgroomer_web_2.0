@@ -1,13 +1,13 @@
-import { Address } from './../../../model/address';
-import { Component, Inject, OnInit } from '@angular/core';
+import{ Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnumPosition } from '../../../model/enum-position';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Employee } from '../../../model/employee';
 import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CepService } from '../../../service/cep.service';
 import { EnumCountry } from '../../../model/enum-country';
+import { employeeRetrive } from '../../../model/employee';
+import { AddressRetrive } from '../../../model/address';
 
 @Component({
   selector: 'app-employee-modal',
@@ -21,7 +21,7 @@ export class EmployeeModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EmployeeModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { employee: Employee },
+    @Inject(MAT_DIALOG_DATA) public data: { employee: employeeRetrive},
     private fb: FormBuilder,
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar,
@@ -53,7 +53,7 @@ export class EmployeeModalComponent implements OnInit {
   save(): void {
     if (this.employeeForm.valid) {
       // Cria o objeto de endereço a partir dos dados do formulário
-      const address: Address = {
+      const address = {
         postalCode: this.employeeForm.get('postalCode')!.value,
         street: this.employeeForm.get('street')!.value,
         number: this.employeeForm.get('number')!.value,
@@ -62,10 +62,10 @@ export class EmployeeModalComponent implements OnInit {
         city: this.employeeForm.get('city')!.value,
         state: this.employeeForm.get('state')!.value,
         country: this.employeeForm.get('country')!.value
-      };
+      } as AddressRetrive
 
       // Combina os dados do empregado e o endereço
-      const updatedEmployee: Employee = { 
+      const updatedEmployee: employeeRetrive = { 
         ...this.data.employee,
         address,
         wage: this.employeeForm.get('wage')!.value,

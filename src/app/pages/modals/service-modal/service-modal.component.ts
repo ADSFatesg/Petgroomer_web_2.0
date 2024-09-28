@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Service } from '../../../model/service';
 import { ServicesService } from '../../../service/services.service';
 import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ServiceDTO, ServiceRetrieve } from '../../../model/service';
 
 @Component({
   selector: 'app-service-modal',
@@ -18,7 +18,7 @@ export class ServiceModalComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ServiceModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { service: Service }, // Recebe o serviço selecionado
+    @Inject(MAT_DIALOG_DATA) public data: { service: ServiceRetrieve }, // Recebe o serviço selecionado
     private servicesService: ServicesService,
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar
@@ -73,7 +73,7 @@ export class ServiceModalComponent implements OnInit{
         }
       },
       (error) => {
-        this.snackBar.open('Erro ao consultar funcionário.', 'Fechar', {
+        this.snackBar.open(error.message ||'Erro ao consultar funcionário.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -84,11 +84,11 @@ export class ServiceModalComponent implements OnInit{
 
   save(): void {
     if (this.serviceForm.valid) {
-      const updatedService: Service = {
-        ...this.data.service, // Mantenha o ID e os dados existentes
-        ...this.serviceForm.value, // Sobrescreva com os dados do formulário
-        estimated: this.convertTimeToMinutes(this.serviceForm.get('estimated')?.value), // Converte para minutos antes de enviar
-        employee: this.selectedEmployee // Associa o funcionário selecionado
+      const updatedService: ServiceRetrieve = {
+        ...this.data.service,
+        ...this.serviceForm.value,
+        estimated: this.convertTimeToMinutes(this.serviceForm.get('estimated')?.value),
+        employee: this.selectedEmployee
       };
 
       this.servicesService.update(updatedService.id, updatedService).subscribe(
@@ -96,7 +96,7 @@ export class ServiceModalComponent implements OnInit{
           this.snackBar.open('Serviço atualizado com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.dialogRef.close(updatedService); // Fecha o modal e retorna o serviço atualizado
+          this.dialogRef.close(updatedService);
         },
         (error) => {
           this.snackBar.open('Erro ao atualizar o serviço.', 'Fechar', {

@@ -1,12 +1,12 @@
 import { ClientService } from './../../../service/client.service';
-import { Client } from './../../../model/client';
+import { ClientRetrive } from './../../../model/client';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RacaPetENUM } from '../../../model/enum-racaPet';
 import { PortePetENUM } from '../../../model/enum-portePet';
 import { PetService } from '../../../service/pet.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Pet } from '../../../model/pet';
+import { PetDTO } from '../../../model/pet';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { Pet } from '../../../model/pet';
 })
 export class RegisterPetComponent implements OnInit {
   petForm!: FormGroup;
-  selectedClient: Client | null = null;
+  selectedClient: ClientRetrive | null = null;
   races = Object.values(RacaPetENUM);
   sizes = Object.values(PortePetENUM);
 
@@ -52,7 +52,7 @@ export class RegisterPetComponent implements OnInit {
     }
 
     this.clientService.findByCpf(cpf).subscribe(
-      (client: Client) => {
+      (client: ClientRetrive) => {
         if (client) {
           this.selectedClient = client;  // Armazena o cliente retornado
           
@@ -87,7 +87,7 @@ export class RegisterPetComponent implements OnInit {
   // Enviar o formulário para cadastrar o pet
   onSubmit(): void {
     if (this.petForm.valid && this.selectedClient) {
-      const petData: Pet = {
+      const petData: PetDTO = {
         ...this.petForm.value,
         client: this.selectedClient  // Associar o cliente selecionado ao pet
       };

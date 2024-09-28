@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Cep } from './../../../model/cep';
 import { CepService } from './../../../service/cep.service';
 import { ClientService } from '../../../service/client.service';
-import { Client } from '../../../model/client';
-import { Address } from '../../../model/address';
 import { EnumCountry } from '../../../model/enum-country';
+import { ClientDTO } from '../../../model/client';
+import { AddressDTO } from '../../../model/address';
 
 @Component({
   selector: 'app-register-client',
@@ -89,7 +89,7 @@ export class RegisterClientComponent implements OnInit {
   onSubmit(): void {
     if (this.clientForm.valid) {
       this.loading = true;
-      const client: Client = {
+      const client: ClientDTO = {
         ...this.clientForm.value,
         address: {
           street: this.clientForm.get('street')!.value,
@@ -100,7 +100,7 @@ export class RegisterClientComponent implements OnInit {
           state: this.clientForm.get('state')!.value,
           country: this.clientForm.get('country')!.value,
           postalCode: this.clientForm.get('postalCode')!.value
-        } as Address
+        } as AddressDTO
       };
   
       this.clientService.create(client).subscribe(
