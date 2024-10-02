@@ -52,16 +52,20 @@
                 <div class="form-section">
                     <h3>Informações do Serviço</h3>
                     <div class="form-group"
-                        [ngClass]="{'has-error': schedulingForm.get('service')?.touched && schedulingForm.get('service')?.invalid}">
+                         [ngClass]="{'has-error': schedulingForm.get('service')?.touched && schedulingForm.get('service')?.invalid}">
                         <label for="service">Selecionar Serviço <span class="required">*</span></label>
                         <select id="service" formControlName="service">
-                            <option *ngFor="let service of services" [value]="service.id">{{ service.name }} - R$ {{ service.price }}</option>
+                            <option *ngFor="let service of services" [value]="service.id">
+                                {{ service.name }} - R$ {{ service.price }}
+                            </option>
                         </select>
                         <div *ngIf="schedulingForm.get('service')?.touched && schedulingForm.get('service')?.invalid"
-                            class="error-message">
+                             class="error-message">
                             Serviço é obrigatório.
                         </div>
-                        <!-- Botão para adicionar o serviço ao carrinho -->
+                        <div *ngIf="noActiveService" class="no-service-message">
+                            Nenhum serviço registrado ou ativo.
+                        </div>
                         <button type="button" class="btn-add" (click)="addService(schedulingForm.get('service')?.value)">
                             Adicionar ao Carrinho
                         </button>

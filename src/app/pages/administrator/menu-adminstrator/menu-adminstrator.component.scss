@@ -1,87 +1,58 @@
-/* Estilo geral da barra de ferramentas */
 .toolbar {
-  background-color: #3f51b5; /* Cor de fundo */
-  color: #fff; /* Cor do texto */
-}
-
-.spacer {
-  flex: 1 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .menu-buttons {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
 }
 
-/* Estilo para os botões com dropdown */
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mobile-menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu-buttons {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: inline-flex;
+  }
+}
 .dropdown-button {
-  color: #fff; /* Cor do texto */
-  font-size: 16px; /* Tamanho do texto */
-  text-transform: none; /* Evitar letras maiúsculas */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Garante que o conteúdo se distribua */
-
-  padding: 0 8px; /* Espaçamento interno para o botão */
-
-  mat-icon:first-child {
-    margin-right: 8px; /* Espaçamento entre o ícone do tipo e o texto */
-  }
-
-  mat-icon:last-child {
-    margin-left: auto; /* Empurra a seta para o lado direito do botão */
+  mat-icon {
+    margin-right: 4px;
   }
 }
 
-/* Estilo para os botões padrão */
-button[mat-button] {
-  color: #fff;
-  font-size: 16px;
-  display: flex; /* Garante que os ícones e o texto estejam alinhados */
-  align-items: center; /* Centraliza verticalmente os ícones e o texto */
-}
-
-button[mat-button]:hover {
-  background-color: #303f9f; /* Cor de fundo ao passar o mouse */
-}
-
-/* Ajuste de estilo dos itens do menu */
-mat-menu button[mat-menu-item] {
-  display: flex;
-  align-items: center;
-}
-
-mat-menu button[mat-menu-item] mat-icon {
-  margin-right: 8px; /* Espaço entre o ícone e o texto no menu */
-}
-
-/* Design responsivo */
 @media (max-width: 600px) {
   .menu-buttons {
-    display: none; /* Esconde os botões do menu em telas pequenas */
+    display: none;
   }
-
   .mobile-menu-button {
-    display: inline-block; /* Exibe o botão de menu responsivo em telas pequenas */
+    display: block;
   }
 }
 
-@media (min-width: 601px) {
-  .mobile-menu-button {
-    display: none; /* Esconde o botão de menu responsivo em telas maiores */
-  }
-}
 /* Estilo para o rodapé */
 .footer {
-  text-align: center; /* Centraliza o texto do rodapé */
-  padding: 16px 0; /* Espaçamento vertical */
-  position: fixed; /* Fixa o rodapé na parte inferior */
-  bottom: 0; /* Alinha na parte inferior da página */
-  width: 100%; /* Largura total da página */
-  font-size: 14px; /* Tamanho da fonte */
+  text-align: center; 
+  padding: 16px 0; 
+  bottom: 0;
+  position:relative;
+  width: 100%;
+  font-size: 14px;
 }
 
 .signature {
-  color: inherit; /* Usa a cor de texto padrão da página */
+  color: inherit;
 }

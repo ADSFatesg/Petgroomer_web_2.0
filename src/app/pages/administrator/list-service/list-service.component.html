@@ -78,18 +78,18 @@
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let service">
         <!-- Ícone de editar serviço -->
-        <button (click)="openServiceModal(service)" class="btn-icon">
+        <button (click)="openServiceModal(service)" class="btn-icon-open">
           <mat-icon class="mat-18">edit</mat-icon>
         </button>
 
         <!-- Ícone de desativar serviço (se ativo) -->
-        <button *ngIf="service.active" (click)="deactivateService(service)" class="btn-icon">
-          <mat-icon class="mat-18 active-icon">power_settings_new</mat-icon>
+        <button *ngIf="service.active" (click)="deactivateService(service)" class="btn-icon-block">
+          <mat-icon class="mat-18 active-icon">block</mat-icon>
         </button>
 
         <!-- Ícone de ativar serviço (se inativo) -->
-        <button *ngIf="!service.active" (click)="activateService(service)" class="btn-icon">
-          <mat-icon class="mat-18 inactive-icon">power_settings_new</mat-icon>
+        <button *ngIf="!service.active" (click)="activateService(service)" class="btn-icon-block">
+          <mat-icon class="mat-18 inactive-icon">block</mat-icon>
         </button>
       </td>
     </ng-container>

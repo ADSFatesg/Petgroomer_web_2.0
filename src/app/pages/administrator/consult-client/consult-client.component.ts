@@ -93,14 +93,14 @@ export class ConsultClientComponent implements OnInit{
     } else if (this.statusFilter === 'inactive') {
       this.filteredClients = this.clients.filter(client => !client.active);
     } else {
-      this.filteredClients = this.clients; // 'all' mostra todos os clientes
+      this.filteredClients = this.clients;
     }
 
     this.applySort();
     this.dataSource.paginator = this.paginator;
   }
 
-  // Método para filtrar clientes pelo CPF INDEPENDENTE do status
+  
   applyCpfFilter(): void {
     const cpf = this.cpfFilter.trim();
 
@@ -140,7 +140,7 @@ export class ConsultClientComponent implements OnInit{
   // Função para abrir o modal de edição de cliente
   openClientModal(client: ClientRetrive): void {
     const dialogRef = this.dialog.open(ClientModalComponent, {
-      width: '600px',
+      width: '800px',
       data: { client }
     });
 
@@ -167,7 +167,7 @@ export class ConsultClientComponent implements OnInit{
         });
       },
       (error) => {
-        this.snackBar.open('Erro ao desativar o cliente.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao desativar o cliente.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -188,7 +188,7 @@ export class ConsultClientComponent implements OnInit{
         });
       },
       (error) => {
-        this.snackBar.open('Erro ao ativar o cliente.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao ativar o cliente.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'

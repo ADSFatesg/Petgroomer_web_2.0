@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PetRetrive } from '../../../model/pet';
 import { PetService } from '../../../service/pet.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ServiceRetrieve } from '../../../model/service';
+import { EntityId, ServiceRetrieve } from '../../../model/service';
 import { PaymentMethodEnum } from '../../../model/payment-method-enum';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { ClientRetrive } from '../../../model/client';
@@ -24,6 +24,7 @@ export class SchedulingComponent implements OnInit {
   paymentMethods = Object.values(PaymentMethodEnum);
   selectedClient: string = '';
   noActivePets: boolean = false;
+  noActiveService: boolean = false;
   clientActive: boolean = true;
   selectedServices: { id: string, name: string, price: number }[] = [];
   total: number = 0; // Total dos serviços
@@ -59,6 +60,8 @@ export class SchedulingComponent implements OnInit {
     this.serviceService.findAll().subscribe(
       (services) => {
         this.services = services;
+        this.services = this.services.filter(service => service.active);
+        this.noActiveService = this.services.length === 0;
       },
       (error) => {
         this.snackBar.open(error.message || 'Erro ao carregar serviços.', 'Fechar', {
@@ -148,10 +151,11 @@ export class SchedulingComponent implements OnInit {
   registerScheduling(): void {
     if (this.schedulingForm.valid && this.selectedClient) {
       const { cpf, clientName, ...formValues } = this.schedulingForm.value;
+      const selectedServiceIds: EntityId[] = this.selectedServices.map(service => service.id as unknown as EntityId);
 
       const schedulingData: SchedulingDTO = {
         pet: { id: formValues.pet },
-        service: [{ id: formValues.service }],
+        service: selectedServiceIds,
         date: formValues.date,
         time: formValues.time,
         observations: formValues.observations,
@@ -167,6 +171,9 @@ export class SchedulingComponent implements OnInit {
             horizontalPosition: 'right'
           });
           this.schedulingForm.reset();
+          this.selectedServices = [];
+          this.total = 0;
+        
         },
         (error) => {
           this.snackBar.open(error.message || 'Erro ao cadastrar agendamento.', 'Fechar', {
@@ -186,7 +193,7 @@ export class SchedulingComponent implements OnInit {
   }
   // Método para adicionar o serviço ao carrinho
   addService(serviceId: string): void {
-  const service = this.services.find(s => s.id === serviceId); // Usar o ID convertido
+  const service = this.services.find(s => s.id === serviceId);
 
   if (service) {
     this.selectedServices.push({ id: service.id,name: service.name, price: service.price });

@@ -1,8 +1,8 @@
 import { SchedulingDTO, SchedulingRetrieve } from './../model/scheduling';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, Observable, throwError } from 'rxjs';
+import { StatusSchedulingEnum } from '../model/status-scheduling-enum';
 
 
 
@@ -13,8 +13,7 @@ export class SchedulingService {
   private apiUrl = 'http://localhost:8080/api/scheduling';
 
   constructor(
-    private http: HttpClient,
-    private snackBar: MatSnackBar
+    private http: HttpClient
   ) {}
 
  
@@ -37,10 +36,16 @@ export class SchedulingService {
     );
   }
 
-  update(id: string, scheduling: SchedulingDTO): Observable<SchedulingDTO> {
-    return this.http.put<SchedulingDTO>(`${this.apiUrl}/${id}`, scheduling).pipe(
+  update(id: string, scheduling: SchedulingRetrieve): Observable<SchedulingRetrieve> {
+    return this.http.put<SchedulingRetrieve>(`${this.apiUrl}/${id}`, scheduling).pipe(
       catchError((error) => this.handleError(error))
     );
+  }
+  updateStatus(id: string, status: StatusSchedulingEnum): Observable<any> {
+    const statusUpdateRequest = { status }; 
+  return this.http.put<SchedulingRetrieve>(`${this.apiUrl}/changestatus/${id}`, statusUpdateRequest).pipe(
+    catchError((error) => this.handleError(error))
+  );
   }
 
   delete(id: string): Observable<void> {
@@ -48,6 +53,7 @@ export class SchedulingService {
       catchError((error) => this.handleError(error))
     );
   }
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

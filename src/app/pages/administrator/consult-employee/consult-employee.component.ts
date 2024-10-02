@@ -44,7 +44,7 @@ export class ConsultEmployeeComponent implements OnInit {
         this.loading = false;
       },
       (error) => {
-        this.snackBar.open('Erro ao carregar empregados.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao carregar empregados.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right',
@@ -139,7 +139,7 @@ export class ConsultEmployeeComponent implements OnInit {
 
   openEmployeeModal(employee: employeeRetrive): void {
     const dialogRef = this.dialog.open(EmployeeModalComponent, {
-      width: '600px',
+      width: '800px',
       data: { employee }
     });
 
@@ -166,7 +166,7 @@ export class ConsultEmployeeComponent implements OnInit {
         });
       },
       (error) => {
-        this.snackBar.open('Erro ao desativar o empregado.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao desativar o empregado.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -188,7 +188,7 @@ export class ConsultEmployeeComponent implements OnInit {
         });
       },
       (error) => {
-        this.snackBar.open('Erro ao ativar o empregado.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao ativar o empregado.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'

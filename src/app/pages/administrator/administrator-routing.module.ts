@@ -1,3 +1,4 @@
+import { ListSchedulingComponent } from './list-scheduling/list-scheduling.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuard]},
       { path: 'registerService', component: ServiceComponent, canActivate: [AuthGuard]},
       { path: 'listService', component: ListServiceComponent, canActivate: [AuthGuard]},
-      { path: 'agendar', component: SchedulingComponent, canActivate: [AuthGuard]}
+      { path: 'scheduling', component: SchedulingComponent, canActivate: [AuthGuard]},
+      { path: 'listScheduling', component: ListSchedulingComponent, canActivate: [AuthGuard]}
     ]
   },
 ];

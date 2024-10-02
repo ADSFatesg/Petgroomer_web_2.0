@@ -1,5 +1,5 @@
 .register-scheduling-container {
-    max-width: 100%; // Mantém a largura total disponível
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     background-color: #f7f7f7;
@@ -7,136 +7,101 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   
     h3 {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
     }
   
     form {
+      display: flex;
+      flex-direction: column;
+  
+      .form-sections {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+  
+        .form-section {
+          flex: 1;
+          min-width: 350px;
+          margin: 0 10px;
+  
+          h3 {
+            margin-bottom: 10px;
+          }
+        }
+      }
+  
+      .form-group {
         display: flex;
         flex-direction: column;
+        margin-bottom: 15px;
   
-        .form-sections {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap; // Para adaptar ao espaço disponível
-            gap: 20px; // Espaçamento entre as seções
-  
-            .form-section {
-                flex: 1;
-                min-width: 350px; // Garante que as seções tenham pelo menos 350px
-                margin: 0 10px;
-  
-                h3 {
-                    margin-bottom: 10px;
-                }
-            }
+        label {
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 5px;
         }
   
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
+        input,
+        select {
+          padding: 10px;
+          font-size: 14px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          outline: none;
+          transition: border-color 0.3s;
   
-            label {
-                font-weight: bold;
-                color: #333;
-                margin-bottom: 5px;
-            }
-  
-            input,
-            select {
-                padding: 10px;
-                font-size: 14px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                outline: none;
-                transition: border-color 0.3s;
-  
-                &:focus {
-                    border-color: #66afe9;
-                    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
-                }
-            }
-  
-            input[type="checkbox"] {
-                width: auto;
-                margin-top: 10px;
-            }
-  
-            .has-error input,
-            .has-error select {
-                border-color: #e74c3c;
-            }
-  
-            .error-message {
-                font-size: 12px;
-                color: #e74c3c;
-                margin-top: 5px;
-            }
-  
-            .input-with-icon {
-                position: relative;
-  
-                input {
-                    padding-right: 35px; /* Espaço extra à direita para o ícone */
-                }
-  
-                mat-icon {
-                    position: absolute;
-                    left: 10px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    font-size: 20px;
-                    color: #666;
-                }
-  
-                button.btn-icon {
-                    position: absolute;
-                    right: 55%;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background: transparent;
-                    border: none;
-                    cursor: pointer;
-  
-                    mat-icon {
-                        color: #666;
-                        font-size: 24px;
-                    }
-  
-                    &:hover mat-icon {
-                        color: #007bff;
-                    }
-                }
-            }
+          &:focus {
+            border-color: #66afe9;
+            box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+          }
         }
   
-        .btn-save {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
+        .input-with-icon {
+          position: absolute; 
+  
+          input {
+            padding-right: 45px;
+          }
+  
+          button.btn-icon {
+            position: absolute;
+            right: 5px;
+            top: 60%;
+            transform: translateY(-50%);
+            background: transparent;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 20px;
   
-            &:hover {
-                background-color: #218838;
+            mat-icon {
+              color: #666;
+              font-size: 20px;
             }
   
-            &:disabled {
-                background-color: #ccc;
-                cursor: not-allowed;
+            &:hover mat-icon {
+              color: #007bff;
             }
+          }
         }
-    }
-    .btn-add{
+  
+        .has-error input,
+        .has-error select {
+          border-color: #e74c3c;
+        }
+  
+        .error-message {
+          font-size: 12px;
+          color: #e74c3c;
+          margin-top: 5px;
+        }
+      }
+  
+      .btn-save {
         background-color: #28a745;
         color: white;
         padding: 10px 20px;
@@ -146,33 +111,55 @@
         cursor: pointer;
         transition: background-color 0.3s;
         margin-top: 20px;
-    }
-    .btn-remove {
+  
+        &:hover {
+          background-color: #218838;
+        }
+  
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+  
+      .btn-add {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+      }
+  
+      .btn-remove {
         background-color: transparent;
         border: none;
-        cursor: pointer; 
-        display:inline;
+        cursor: pointer;
+        display: inline;
         align-items: center;
         transition: transform 0.3s;
-    
+  
         mat-icon {
-            color: #e74c3c;
-            font-size: 24px;
-            transition: color 0.3s;
-    
-            &:hover {
-                color: #c0392b;
-            }
+          color: #e74c3c;
+          font-size: 24px;
+          transition: color 0.3s;
+  
+          &:hover {
+            color: #c0392b;
+          }
         }
-    
+  
         &:hover {
-            transform: scale(1.1);
+          transform: scale(1.1);
         }
-    
+  
         &:focus {
-            outline: none; 
+          outline: none;
         }
+      }
     }
-    
   }
   

@@ -72,7 +72,7 @@
     <!-- Status -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let employee"> {{ employee.active ? 'Ativo' : 'Desativado' }} </td>
+      <td mat-cell *matCellDef="let employee"> {{ employee.active ? 'Ativo' : 'Inativo' }} </td>
     </ng-container>
 
     <!-- Ações: Editar e Ativar/Desativar -->
@@ -80,18 +80,18 @@
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let employee">
         <!-- Ícone de editar empregado -->
-        <button (click)="openEmployeeModal(employee)" class="btn-icon">
+        <button (click)="openEmployeeModal(employee)" class="btn-icon-open">
           <mat-icon class="mat-18">edit</mat-icon>
         </button>
 
         <!-- Ícone de desativar empregado (se ativo) -->
-        <button *ngIf="employee.active" (click)="deactivateEmployee(employee)" class="btn-icon">
-          <mat-icon class="mat-18 active-icon">power_settings_new</mat-icon>
+        <button *ngIf="employee.active" (click)="deactivateEmployee(employee)" class="btn-icon-block">
+          <mat-icon class="mat-18 active-icon">block</mat-icon>
         </button>
 
         <!-- Ícone de ativar empregado (se desativado) -->
-        <button *ngIf="!employee.active" (click)="activateEmployee(employee)" class="btn-icon">
-          <mat-icon class="mat-18 inactive-icon">power_settings_new</mat-icon>
+        <button *ngIf="!employee.active" (click)="activateEmployee(employee)" class="btn-icon-block">
+          <mat-icon class="mat-18 inactive-icon">block</mat-icon>
         </button>
       </td>
     </ng-container>

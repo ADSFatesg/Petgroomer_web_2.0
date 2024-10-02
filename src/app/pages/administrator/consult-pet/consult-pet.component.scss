@@ -19,7 +19,7 @@
   .form-section {
     flex: 1;
     margin-bottom: 15px;
-    margin-right: 20px; /* Adiciona espaçamento entre os campos */
+    margin-right: 20px;
   }
   
   .form-section label {
@@ -48,12 +48,26 @@
   }
   
   .btn-icon {
-    background-color: transparent;
+    position: relative;
+    background: none;
     border: none;
-    position: absolute;
-    right: 30px;
-    top: 5px;
     cursor: pointer;
+    margin-left: 5px;
+    padding: 8px;
+    right: 37px;
+    bottom: 5px;
+      &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  .btn-icon mat-icon {
+    color: #333;
+    font-size: 24px;
+  }
+  .btn-icon:hover mat-icon {
+    color: #007bff;
+    transition: color 0.2s ease;
   }
   
   ul {
@@ -78,12 +92,12 @@
   .inline-fields {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Espaçamento entre os campos */
+    gap: 20px;
   }
   
   .field {
     flex: 1;
-    margin-bottom: 15px; /* Adiciona espaço abaixo dos campos */
+    margin-bottom: 15px;
   }
   
   .field select, .field input {
@@ -103,7 +117,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%; /* Ocupa toda a largura */
+    width: 100%;
     text-align: center;
     margin-top: 20px;
   }
@@ -126,9 +140,9 @@
     margin-left: 10px;
   }
   
-  /* Ajustando campo CPF para evitar que fique colado no título "Pets Relacionados" */
+ 
   #cpf {
-    max-width: 300px; /* Define um tamanho menor para o campo CPF */
+    max-width: 200px; /* Define um tamanho menor para o campo CPF */
     margin-bottom: 15px;
   }
   

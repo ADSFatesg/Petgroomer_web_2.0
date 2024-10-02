@@ -14,6 +14,8 @@ import { ServiceModule } from './service/service.module';
 import { ListServiceComponent } from './list-service/list-service.component';
 import { ListServiceModule } from './list-service/list-service.module';
 import { SchedulingModule } from './scheduling/scheduling.module';
+import { ListSchedulingComponent } from './list-scheduling/list-scheduling.component';
+import { ListSchedulingModule } from './list-scheduling/list-scheduling.module';
 
 
 
@@ -33,7 +35,8 @@ import { SchedulingModule } from './scheduling/scheduling.module';
     ConsultPetModule,
     ServiceModule,
     ListServiceModule,
-    SchedulingModule
+    SchedulingModule,
+    ListSchedulingModule
   ]
 })
 export class AdministratorModule { }
