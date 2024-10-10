@@ -1,139 +1,16 @@
 <mat-toolbar color="primary" class="toolbar">
-  <span>Petgroomer</span>
-  <span class="spacer"></span>
-
-  <!-- Botão de menu responsivo (visível apenas em telas pequenas) -->
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile-menu-button">
-    <mat-icon>more_vert</mat-icon>
+  <!-- Botão de menu (esquerda) -->
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-list-button">
+    <mat-icon>menu</mat-icon>
   </button>
 
-  <!-- Botões de menu com ícones e setas, visíveis em telas grandes -->
-  <div class="menu-buttons">
-    <button mat-button routerLink="/agenda" class="inicio-button">
-      <mat-icon>home</mat-icon>
-      Início
-    </button>
+  <!-- Espaçador central -->
+  <span class="spacer"></span>
 
-    <!-- Cliente -->
-    <button mat-button [matMenuTriggerFor]="clienteMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>person</mat-icon>
-      Cliente
-    </button>
-    <mat-menu #clienteMenu="matMenu">
-      <button mat-menu-item routerLink="/registerClient">
-        <mat-icon>person_add</mat-icon>
-        Cadastrar
-      </button>
-      <button mat-menu-item routerLink="/consultClient">
-        <mat-icon>list</mat-icon>
-        Listar
-      </button>
-    </mat-menu>
+  <!-- Nome do sistema (direita) -->
+  <span class="app-name">Petgroomer</span>
 
-    <!-- Funcionário -->
-    <button mat-button [matMenuTriggerFor]="funcionarioMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>work</mat-icon>
-      Funcionário
-    </button>
-    <mat-menu #funcionarioMenu="matMenu">
-      <button mat-menu-item routerLink="/registerEmployee">
-        <mat-icon>person_add</mat-icon>
-        Cadastrar
-      </button>
-      <button mat-menu-item routerLink="/consultEmployee">
-        <mat-icon>list</mat-icon>
-        Listar
-      </button>
-    </mat-menu>
-
-    <!-- Pet -->
-    <button mat-button [matMenuTriggerFor]="petMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>pets</mat-icon>
-      Pet
-    </button>
-    <mat-menu #petMenu="matMenu">
-      <button mat-menu-item routerLink="/registerPet">
-        <mat-icon>add_circle</mat-icon>
-        Cadastrar
-      </button>
-      <button mat-menu-item routerLink="/consultPet">
-        <mat-icon>search</mat-icon>
-        Consultar
-      </button>
-    </mat-menu>
-
-    <!-- Serviço -->
-    <button mat-button [matMenuTriggerFor]="serviceMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>build_circle</mat-icon>
-      Serviço
-    </button>
-    <mat-menu #serviceMenu="matMenu">
-      <button mat-menu-item routerLink="/registerService">
-        <mat-icon>add_circle</mat-icon>
-        Cadastrar
-      </button>
-      <button mat-menu-item routerLink="/listService">
-        <mat-icon>list</mat-icon>
-        Listar
-      </button>
-    </mat-menu>
-
-      <!-- Agendamento -->
-      <button mat-button [matMenuTriggerFor]="schedulingMenu" class="dropdown-button">
-        <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>schedule</mat-icon>
-        Agendamento
-      </button>
-      <mat-menu #schedulingMenu="matMenu">
-        <button mat-menu-item routerLink="/scheduling">
-          <mat-icon>add_circle</mat-icon>
-          Agendar
-        </button>
-        <button mat-menu-item routerLink="/listScheduling">
-          <mat-icon>list</mat-icon>
-          Listar
-        </button>
-      </mat-menu>
-
-    <!-- Administrativo -->
-    <button mat-button [matMenuTriggerFor]="administrativoMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>admin_panel_settings</mat-icon>
-      Administrativo
-    </button>
-    <mat-menu #administrativoMenu="matMenu">
-      <button mat-menu-item routerLink="/administrativo/usuarios">
-        <mat-icon>people</mat-icon>
-        Usuários
-      </button>
-      <button mat-menu-item routerLink="/administrativo/configuracoes">
-        <mat-icon>settings</mat-icon>
-        Configurações
-      </button>
-    </mat-menu>
-
-    <!-- Relatórios -->
-    <button mat-button [matMenuTriggerFor]="relatoriosMenu" class="dropdown-button">
-      <mat-icon>keyboard_arrow_down</mat-icon><mat-icon>report</mat-icon>
-      Relatórios
-    </button>
-    <mat-menu #relatoriosMenu="matMenu">
-      <button mat-menu-item routerLink="/relatorios/financeiros">
-        <mat-icon>attach_money</mat-icon>
-        Financeiros
-      </button>
-      <button mat-menu-item routerLink="/relatorios/operacionais">
-        <mat-icon>assessment</mat-icon>
-        Operacionais
-      </button>
-    </mat-menu>
-
-    <!-- Sair -->
-    <button mat-button routerLink="/" class="dropdown-button" (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-      Sair
-    </button>
-  </div>
-
-  <!-- Mat Menu (visível apenas em telas menores) -->
+  <!-- Definição do Menu -->
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/">
       <mat-icon>home</mat-icon> Início
@@ -186,22 +63,22 @@
       <button mat-menu-item routerLink="/registerService">
         <mat-icon>add_circle</mat-icon> Cadastro Serviço
       </button>
-      <button mat-menu-item routerLink="/consultService">
+      <button mat-menu-item routerLink="/listService">
         <mat-icon>search</mat-icon> Consulta Serviço
       </button>
     </mat-menu>
-    <!-- Serviço -->
-    <button mat-menu-item [matMenuTriggerFor]="subMenuScheduling">
-      <mat-icon>build_circle</mat-icon> Agendamento
-    </button>
-    <mat-menu #subMenuScheduling="matMenu">
-      <button mat-menu-item routerLink="/scheduling">
-        <mat-icon>add_circle</mat-icon> Agendar
+       <!-- Serviço -->
+       <button mat-menu-item [matMenuTriggerFor]="subMenuScheduling">
+        <mat-icon>calendar_today</mat-icon> Angendamento
       </button>
-      <button mat-menu-item routerLink="/listScheduling">
-        <mat-icon>list</mat-icon> lista de Agendamento
-      </button>
-    </mat-menu>
+      <mat-menu #subMenuScheduling="matMenu">
+        <button mat-menu-item routerLink="/scheduling">
+          <mat-icon>add_circle</mat-icon>angendar
+        </button>
+        <button mat-menu-item routerLink="/listScheduling">
+          <mat-icon>search</mat-icon> Consultar Agendamento
+        </button>
+      </mat-menu>
     <!-- Administrativo -->
     <button mat-menu-item [matMenuTriggerFor]="subMenuAdministrativo">
       <mat-icon>admin_panel_settings</mat-icon> Administrativo

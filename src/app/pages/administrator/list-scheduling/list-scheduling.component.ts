@@ -4,6 +4,7 @@ import { SchedulingService } from '../../../service/scheduling.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { SchedulingModalComponent } from '../../modals/scheduling-modal/scheduling-modal.component';
 
 @Component({
   selector: 'app-list-scheduling',
@@ -116,6 +117,19 @@ export class ListSchedulingComponent implements OnInit{
   
   // Abrir modal de edição de agendamento
   openEditModal(scheduling: SchedulingRetrieve): void {
-   
+    const dialogRef = this.dialog.open(SchedulingModalComponent, {
+      width: '800px',
+      data: { scheduling}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.schedulings.findIndex(c => c.id === result.id);
+        if (index > -1) {
+          this.schedulings[index] = result;
+          this.applyFilter();
+        }
+      }
+    });
   }
 }

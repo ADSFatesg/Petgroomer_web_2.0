@@ -9,8 +9,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './exceptions/erro-interceptor.service';
 import { TokenInterceptorService } from './authentication/token-interceptor.service';
 import { LoginModule } from './pages/login/login.module';
-import { EmployeeModalComponent } from './pages/modals/employee-modal/employee-modal.component';
-import { ServiceModalComponent } from './pages/modals/service-modal/service-modal.component';
+import { MenuClientComponent } from './pages/Client/menu-client/menu-client.component';
+import {MatIcon} from "@angular/material/icon";
+import {MatToolbar} from "@angular/material/toolbar";
+import {SharedModule} from "./shared/shared.module";
+import {ClientModule} from "./pages/Client/client.module";
+
 
 @NgModule({
   declarations: [
@@ -20,8 +24,10 @@ import { ServiceModalComponent } from './pages/modals/service-modal/service-moda
     BrowserModule,
     AppRoutingModule,
     AdministratorModule,
+    ClientModule,
     HttpClientModule,
-    LoginModule
+    LoginModule,
+    SharedModule
   ],
   providers: [
     provideAnimationsAsync(),

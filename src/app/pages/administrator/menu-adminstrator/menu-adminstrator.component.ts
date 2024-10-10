@@ -1,6 +1,8 @@
 import { AuthService } from './../../../authentication/auth.service';
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
+import {MatSidenav} from "@angular/material/sidenav";
+import {MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'app-menu-adminstrator',
@@ -8,12 +10,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu-adminstrator.component.scss'],
 })
 export class MenuAdminstratorComponent {
+  isMenuOpened = false;
+  constructor(private router: Router, private authService: AuthService) {}
 
- 
-  constructor(private authService: AuthService, private router: Router) {}
-
+  
+  // Método de logout
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/login'], { replaceUrl: true });
-    }
+    this.router.navigate(['/login']);
+  }
 }

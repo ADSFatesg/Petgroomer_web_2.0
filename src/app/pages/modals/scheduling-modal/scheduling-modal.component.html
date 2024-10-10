@@ -1,0 +1,18 @@
+<!-- edit-payment-modal.component.html -->
+<div class="modal-overlay">
+    <div class="modal-content">
+      <h2>Editar Método de Pagamento</h2>
+      <form [formGroup]="paymentForm" (ngSubmit)="onSave()">
+        <label for="paymentMethod">Método de Pagamento:</label>
+        <select id="paymentMethod" formControlName="paymentMethod">
+          <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+        </select>
+        
+        <div class="actions">
+          <button type="button" class="cancel-button" (click)="onCancel()">Cancelar</button>
+          <button type="submit" class="save-button">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

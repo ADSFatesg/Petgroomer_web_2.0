@@ -80,12 +80,18 @@
       <th mat-header-cell *matHeaderCellDef> Hora </th>
       <td mat-cell *matCellDef="let scheduling"> {{ scheduling.time }} </td>
     </ng-container>
+    <!-- Coluna de Pagamento -->
+    <ng-container matColumnDef="paymentMethod">
+      <th mat-header-cell *matHeaderCellDef> Pagamento </th>
+      <td mat-cell *matCellDef="let scheduling"> {{ scheduling.paymentMethod }} </td>
+    </ng-container>
 
-    <!-- Status -->
+    <!-- Coluna de Status -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let scheduling">
-        <mat-radio-group [(ngModel)]="scheduling.statusScheduling" (change)="update(scheduling)">
+        <mat-radio-group [(ngModel)]="scheduling.statusScheduling" (change)="update(scheduling)"
+          [disabled]="scheduling.statusScheduling === 'CONCLUIDO' || scheduling.statusScheduling === 'CANCELADO'">
           <mat-radio-button value="AGENDADO">AGENDADO</mat-radio-button>
           <mat-radio-button value="EM_ANDAMENTO">EM ANDAMENTO</mat-radio-button>
           <mat-radio-button value="CONCLUIDO">CONCLUÍDO</mat-radio-button>
@@ -94,21 +100,22 @@
       </td>
     </ng-container>
 
-
-    <!-- Ações: Editar -->
+    <!-- Botão de Ação: Editar -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let scheduling">
-        <button (click)="openEditModal(scheduling)" class="btn-icon-open">
+        <button (click)="openEditModal(scheduling)"
+          [disabled]="scheduling.statusScheduling === 'CONCLUIDO' || scheduling.statusScheduling === 'CANCELADO'"
+          class="btn-icon-open">
           <mat-icon class="mat-18">edit</mat-icon>
         </button>
       </td>
     </ng-container>
 
-    <!-- Cabeçalhos da tabela -->
-    <tr mat-header-row *matHeaderRowDef="['clientName', 'petName','service', 'date', 'time', 'status', 'action']"></tr>
-    <!-- Linhas da tabela -->
-    <tr mat-row *matRowDef="let row; columns: ['clientName', 'petName','service', 'date', 'time', 'status', 'action']">
+    <tr mat-header-row
+      *matHeaderRowDef="['clientName', 'petName', 'service', 'date', 'time', 'paymentMethod', 'status', 'action']"></tr>
+    <tr mat-row
+      *matRowDef="let row; columns: ['clientName', 'petName', 'service', 'date', 'time', 'paymentMethod', 'status', 'action']">
     </tr>
   </table>
 

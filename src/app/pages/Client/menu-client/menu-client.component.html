@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span>Petgroomer - Cliente</span>
+  <span class="spacer"></span>
+
+  <!-- Cadastrar Pet -->
+  <button mat-button routerLink="/registerPet">
+    <mat-icon>pets</mat-icon> Cadastrar Pet
+  </button>
+
+  <!-- Meus Pets -->
+  <button mat-button routerLink="/cliente/consultPet">
+    <mat-icon>search</mat-icon> Meus Pets
+  </button>
+
+  <!-- Agendar Serviço -->
+  <button mat-button routerLink="/cliente/scheduling">
+    <mat-icon>schedule</mat-icon> Agendar
+  </button>
+
+  <!-- Meus Agendamentos -->
+  <button mat-button routerLink="/cliente/listScheduling">
+    <mat-icon>list</mat-icon> Meus Agendamentos
+  </button>
+
+  <!-- Botão de Logout -->
+  <button mat-button (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon> Sair
+  </button>
+</mat-toolbar>
+
+<!-- Conteúdo principal do cliente -->
+<router-outlet></router-outlet>
