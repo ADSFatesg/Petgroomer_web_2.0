@@ -14,35 +14,38 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
+    private snackBar: MatSnackBar,
     private router: Router
-  ) {
-  }
+  ) { }
 
-  // Método para realizar o login
   loginUser() {
     this.authService.login(this.login, this.password).subscribe(
       success => {
         if (success) {
           const roles = this.authService.getUserRoles();
-          console.log('Roles:', roles);
 
-          // Redireciona para o papel prioritário
           if (roles.includes('ROLE_ADMIN')) {
             this.router.navigate(['/administrator']);
           } else if (roles.includes('ROLE_EMPLOYEE')) {
-            this.router.navigate(['/funcionario']);
+            this.router.navigate(['/employee']);
           } else if (roles.includes('ROLE_USER')) {
             this.router.navigate(['/client']);
           } else {
-            // Caso nenhum papel correspondente seja encontrado
-            console.error('Nenhum papel correspondente encontrado:', roles);
+            this.snackBar.open('Nenhuma role encontrada. Entre em contato com o administrador.', 'Fechar', {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
             this.authService.logout();
             this.router.navigate(['/login']);
           }
         }
       },
       error => {
-        console.error('Login failed', error);
+        console.error('Login falhou', error);
+        this.snackBar.open('Erro ao realizar login. Verifique suas credenciais.', 'Fechar', {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
       }
     );
   }

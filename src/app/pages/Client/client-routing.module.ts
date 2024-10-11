@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {RegisterPetComponent} from "../administrator/register-pet/register-pet.component";
-import {ConsultPetComponent} from "../administrator/consult-pet/consult-pet.component";
-import {SchedulingComponent} from "../administrator/scheduling/scheduling.component";
-import {ListSchedulingComponent} from "../administrator/list-scheduling/list-scheduling.component";
+import {RegisterPetComponent} from "../enterprise/register-pet/register-pet.component";
+import {ConsultPetComponent} from "../enterprise/consult-pet/consult-pet.component";
+import {SchedulingComponent} from "../enterprise/scheduling/scheduling.component";
+import {ListSchedulingComponent} from "../enterprise/list-scheduling/list-scheduling.component";
 import {MenuClientComponent} from "./menu-client/menu-client.component";
 
 const routes: Routes = [

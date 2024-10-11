@@ -11,11 +11,10 @@ import { ConsultEmployeeModule } from './consult-employee/consult-employee.modul
 import { RegisterPetModule } from './register-pet/register-pet.module';
 import { ConsultPetModule } from './consult-pet/consult-pet.module';
 import { ServiceModule } from './service/service.module';
-import { ListServiceComponent } from './list-service/list-service.component';
 import { ListServiceModule } from './list-service/list-service.module';
 import { SchedulingModule } from './scheduling/scheduling.module';
-import { ListSchedulingComponent } from './list-scheduling/list-scheduling.component';
 import { ListSchedulingModule } from './list-scheduling/list-scheduling.module';
+
 
 
 

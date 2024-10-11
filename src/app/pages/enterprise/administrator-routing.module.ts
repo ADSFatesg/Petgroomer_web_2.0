@@ -21,6 +21,7 @@ const routes: Routes = [
     path: '',
     component: MenuAdminstratorComponent,
     canActivate: [AuthGuard],
+    data: { role: 'ROLE_ADMIN' },
     children: [
       { path: '', component: AgendaComponent, canActivate: [AuthGuard]},
       { path: 'registerClient', component: RegisterClientComponent, canActivate: [AuthGuard]},

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdministratorModule } from './pages/administrator/administrator.module';
+import { AdministratorModule } from './pages/enterprise/administrator.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './exceptions/erro-interceptor.service';
@@ -14,6 +14,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatToolbar} from "@angular/material/toolbar";
 import {SharedModule} from "./shared/shared.module";
 import {ClientModule} from "./pages/Client/client.module";
+import {EmployeesModule} from "./pages/enterprise/employees.module";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {ClientModule} from "./pages/Client/client.module";
     AppRoutingModule,
     AdministratorModule,
     ClientModule,
+    EmployeesModule,
     HttpClientModule,
     LoginModule,
     SharedModule
