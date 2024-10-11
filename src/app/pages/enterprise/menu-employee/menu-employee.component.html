@@ -1,0 +1,81 @@
+<mat-toolbar color="primary" class="toolbar">
+  <!-- Botão de menu (esquerda) -->
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-list-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Espaçador central -->
+  <span class="spacer"></span>
+
+  <!-- Nome do sistema (direita) -->
+  <span class="app-name">Petgroomer</span>
+
+  <!-- Definição do Menu -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/agend">
+      <mat-icon>home</mat-icon> Início
+    </button>
+
+    <!-- Cliente -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuCliente">
+      <mat-icon>person</mat-icon> Cliente
+    </button>
+    <mat-menu #subMenuCliente="matMenu">
+      <button mat-menu-item routerLink="/clientRegister">
+        <mat-icon>person_add</mat-icon> Cadastro Cliente
+      </button>
+      <button mat-menu-item routerLink="/clientConsult">
+        <mat-icon>search</mat-icon> Consulta Cliente
+      </button>
+    </mat-menu>
+    <!-- Pet -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuPet">
+      <mat-icon>pets</mat-icon> Pet
+    </button>
+    <mat-menu #subMenuPet="matMenu">
+      <button mat-menu-item routerLink="/petRegister">
+        <mat-icon>add_circle</mat-icon> Cadastro Pet
+      </button>
+      <button mat-menu-item routerLink="/petConsult">
+        <mat-icon>search</mat-icon> Consulta Pet
+      </button>
+    </mat-menu>
+
+    <!-- Serviço -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuService">
+      <mat-icon>build_circle</mat-icon> Serviço
+    </button>
+    <mat-menu #subMenuService="matMenu">
+      <button mat-menu-item routerLink="/serviceRegister">
+        <mat-icon>add_circle</mat-icon> Cadastro Serviço
+      </button>
+      <button mat-menu-item routerLink="/serviceList">
+        <mat-icon>search</mat-icon> Consulta Serviço
+      </button>
+    </mat-menu>
+    <!-- Serviço -->
+    <button mat-menu-item [matMenuTriggerFor]="subMenuScheduling">
+      <mat-icon>calendar_today</mat-icon> Angendamento
+    </button>
+    <mat-menu #subMenuScheduling="matMenu">
+      <button mat-menu-item routerLink="/schedulingRegister">
+        <mat-icon>add_circle</mat-icon>angendar
+      </button>
+      <button mat-menu-item routerLink="/schedulingList">
+        <mat-icon>search</mat-icon> Consultar Agendamento
+      </button>
+    </mat-menu>
+    <!-- Sair -->
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon> Sair
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<!-- Conteúdo principal -->
+<router-outlet></router-outlet>
+
+<!-- Rodapé -->
+<footer class="footer">
+  <span class="signature">© 2024 Petgroomer - Todos os direitos reservados.</span>
+</footer>
