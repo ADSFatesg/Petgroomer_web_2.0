@@ -11,6 +11,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080/auth';
   private tokenKey = 'authToken';
   private roleKey = 'userRole';
+  private clientIdKey = 'clientId';
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -19,10 +20,12 @@ export class AuthService {
       map(response => {
         const token = response.token;
         const roles = response.roles;
+        const clientId = response.clientId;
 
         if (token) {
           localStorage.setItem(this.tokenKey, token);
           localStorage.setItem(this.roleKey, roles);
+          localStorage.setItem(this.clientIdKey, clientId);
           return true;
         }
         return false;
@@ -50,9 +53,14 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.roleKey);
+    localStorage.removeItem(this.clientIdKey);
   }
 
   isAuthenticated(): boolean {
     return this.getToken() != null;
   }
+  getClientId(): string | null {
+    return localStorage.getItem(this.clientIdKey);
+  }
+
 }

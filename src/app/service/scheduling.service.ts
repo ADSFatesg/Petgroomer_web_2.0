@@ -59,7 +59,11 @@ export class SchedulingService {
       catchError((error) => this.handleError(error))
     );
   }
-
+  findByClientId(clientId: string): Observable<SchedulingRetrieve[]> {
+    return this.http.get<SchedulingRetrieve[]>(`${this.apiUrl}/client/${clientId}`).pipe(
+      catchError((error) => this.handleError(error))
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

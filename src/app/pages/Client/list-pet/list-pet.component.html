@@ -1,0 +1,54 @@
+<div class="consult-pet-container">
+  <h2>Pets</h2>
+  <form [formGroup]="petForm" (ngSubmit)="atualizarPet()">
+
+    <!-- Pets Relacionados -->
+    <div class="form-section">
+      <h3>Pets Relacionados:</h3>
+      <ul>
+        <li *ngFor="let pet of pets" (click)="selecionarPet(pet)">
+          {{ pet.name }} ({{ pet.race }} - {{ pet.size }})
+        </li>
+      </ul>
+    </div>
+
+    <!-- Seção de Edição de Pet -->
+    <div class="form-sections" *ngIf="selectedPet">
+      <h3>Edição de Pet</h3>
+      <div class="inline-fields">
+        <div class="form-section field">
+          <label for="name">Nome do Pet:</label>
+          <input id="name" formControlName="name" type="text" placeholder="Digite o nome do pet">
+        </div>
+
+        <div class="form-section field">
+          <label for="race">Raça:</label>
+          <select id="race" formControlName="race">
+            <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+          </select>
+        </div>
+
+        <div class="form-section field">
+          <label for="size">Porte:</label>
+          <select id="size" formControlName="size">
+            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Exibição do Status do Pet -->
+      <div class="form-section">
+        <label>Status:</label>
+        <mat-slide-toggle formControlName="active">
+          {{ petForm.get('active')?.value ? 'Ativo' : 'Desativado' }}
+        </mat-slide-toggle>
+      </div>
+
+      <!-- Botão de Atualizar -->
+      <button type="submit" class="btn-save" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ loading ? 'Salvando...' : 'Atualizar Pet' }}
+      </button>
+    </div>
+  </form>
+</div>

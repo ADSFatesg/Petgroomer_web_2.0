@@ -1,21 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {RegisterPetComponent} from "../enterprise/register-pet/register-pet.component";
-import {ConsultPetComponent} from "../enterprise/consult-pet/consult-pet.component";
-import {SchedulingComponent} from "../enterprise/scheduling/scheduling.component";
-import {ListSchedulingComponent} from "../enterprise/list-scheduling/list-scheduling.component";
 import {MenuClientComponent} from "./menu-client/menu-client.component";
+import {ListPetComponent} from "./list-pet/list-pet.component";
+import {ClientRegisterPetComponent} from "./client-register-pet/client-register-pet.component";
+import {ClientSchedulingComponent} from "./client-scheduling/client-scheduling.component";
+import {ListSchedulingClientComponent} from "./list-scheduling-client/list-scheduling-client.component";
+import {AuthGuard} from "../../authentication/auth.guard";
+
 
 const routes: Routes = [
   {
     path: '',
     component:MenuClientComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: 'registerPet', component: RegisterPetComponent },
-      { path: 'consultPet', component: ConsultPetComponent },
-      { path: 'scheduling', component: SchedulingComponent},
-      { path: 'listScheduling', component: ListSchedulingComponent },
-      { path: '', redirectTo: 'consultPet', pathMatch: 'full' }
+      { path: 'clientPetRegister', component: ClientRegisterPetComponent, canActivate: [AuthGuard] },
+      { path: 'listPet', component: ListPetComponent, canActivate: [AuthGuard]},
+      { path: 'clientScheduling', component:ClientSchedulingComponent, canActivate: [AuthGuard]},
+     { path: 'listSchedulingClient', component: ListSchedulingClientComponent, canActivate: [AuthGuard]},
+      { path: '', redirectTo: 'listPet', pathMatch: 'full' }
     ]
   }
 ];

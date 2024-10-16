@@ -49,10 +49,13 @@
     </ng-container>
 
     <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> E-mail </th>
+      <td mat-cell *matCellDef="let client"> {{ client.email }} </td>
+    </ng-container>
+    <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef> Telefone </th>
       <td mat-cell *matCellDef="let client"> {{ formatPhone(client.phone) }} </td>
     </ng-container>
-
     <ng-container matColumnDef="cpf">
       <th mat-header-cell *matHeaderCellDef> CPF </th>
       <td mat-cell *matCellDef="let client"> {{ formatCPF(client.cpf) }} </td>
@@ -80,8 +83,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['name', 'phone', 'cpf', 'status', 'action']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['name', 'phone', 'cpf', 'status', 'action']"></tr>
+    <tr mat-header-row *matHeaderRowDef="['name', 'phone','email', 'cpf', 'status', 'action']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'phone','email', 'cpf', 'status', 'action']"></tr>
   </table>
 
   <!-- Paginação -->

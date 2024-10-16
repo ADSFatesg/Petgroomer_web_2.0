@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { SchedulingDTO, SchedulingRetrieve } from '../../../model/scheduling';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { SchedulingModalComponent } from '../../modals/scheduling-modal/scheduling-modal.component';
+import {interval, Subscription, switchMap} from "rxjs";
 
 @Component({
-  selector: 'app-list-scheduling',
+  selector: 'app-list-scheduling-client',
   templateUrl: './list-scheduling.component.html',
   styleUrl: './list-scheduling.component.scss'
 })
-export class ListSchedulingComponent implements OnInit{
+export class ListSchedulingComponent implements OnInit,OnDestroy{
   schedulings: SchedulingRetrieve[] = [];
   filteredSchedulings: SchedulingRetrieve[] = [];
   dataSource = new MatTableDataSource<SchedulingRetrieve>(this.filteredSchedulings);
@@ -22,7 +23,7 @@ export class ListSchedulingComponent implements OnInit{
   statusFilter = 'all';
   sortOrder = 'date';
   statusOptions = ['Agendado','Em Andamento', 'Concluido','Cancelado'];
-
+  private statusSubscription!: Subscription;
   constructor(
     private schedulingService: SchedulingService,
     private snackBar: MatSnackBar,
@@ -31,6 +32,31 @@ export class ListSchedulingComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadSchedulings();
+
+    // Inicia a atualização automática de agendamentos a cada 5 segundos
+    this.statusSubscription = interval(5000).pipe(
+      switchMap(() => this.schedulingService.findAll())
+    ).subscribe(
+      (schedulings: SchedulingRetrieve[]) => {
+        this.schedulings = schedulings;
+        this.applyFilter();
+        this.applySort();
+      },
+      (error) => {
+        this.snackBar.open(error.message || 'Erro ao atualizar agendamentos.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    // Cancela a inscrição no intervalo para evitar vazamentos de memória
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
   }
 
   // Carregar agendamentos
@@ -45,7 +71,7 @@ export class ListSchedulingComponent implements OnInit{
         this.loading = false;
       },
       (error) => {
-        this.snackBar.open(error.message ||'Erro ao carregar agendamentos.', 'Fechar', { 
+        this.snackBar.open(error.message ||'Erro ao carregar agendamentos.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -60,10 +86,10 @@ export class ListSchedulingComponent implements OnInit{
     this.filteredSchedulings = this.schedulings.filter(scheduling => {
       const matchesCpf = this.cpfFilter ? scheduling.pet[0].client.name.includes(this.cpfFilter) : true;
       const matchesStatus = this.statusFilter === 'all' || scheduling.statusScheduling === this.statusFilter.toUpperCase();
-  
+
       return matchesCpf && matchesStatus;
     });
-    
+
     this.applySort();
     this.dataSource.data = this.filteredSchedulings;
   }
@@ -92,12 +118,12 @@ export class ListSchedulingComponent implements OnInit{
     }
     this.dataSource.data = this.filteredSchedulings;
   }
-  
+
 
   update(scheduling: SchedulingRetrieve): void {
   this.schedulingService.updateStatus(scheduling.id, scheduling.statusScheduling).subscribe(
     () => {
-      this.snackBar.open('Status do agendamento atualizado com sucesso!', 'Fechar', { 
+      this.snackBar.open('Status do agendamento atualizado com sucesso!', 'Fechar', {
         duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -106,7 +132,7 @@ export class ListSchedulingComponent implements OnInit{
       this.applyFilter();
     },
     (error) => {
-      this.snackBar.open(error.message ||'Erro ao atualizar status do agendamento.', 'Fechar', { 
+      this.snackBar.open(error.message ||'Erro ao atualizar status do agendamento.', 'Fechar', {
         duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -114,7 +140,7 @@ export class ListSchedulingComponent implements OnInit{
     }
   );
   }
-  
+
   // Abrir modal de edição de agendamento
   openEditModal(scheduling: SchedulingRetrieve): void {
     const dialogRef = this.dialog.open(SchedulingModalComponent, {
