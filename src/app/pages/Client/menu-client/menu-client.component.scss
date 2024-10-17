@@ -1,13 +1,66 @@
+/* Estilo da barra de ferramentas */
 .toolbar {
   display: flex;
   justify-content: space-between;
-  padding: 0 1rem;
-}
+  align-items: center;
+  padding: 0 20px;
 
+}
+/* Estilo do container principal */
+.main-content {
+  background-color: #f4f6f8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  min-height: 80vh; /* Garante que a área principal ocupe a maior parte da tela */
+}
 .spacer {
   flex: 1;
 }
 
-button {
-  margin-right: 1rem;
+/* Nome do aplicativo alinhado à direita */
+.app-name {
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+}
+
+/* Botão de menu e nome do cliente alinhados à esquerda */
+.menu-container {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+/* Ajuste de cor para os botões dentro da toolbar */
+button[mat-button] {
+  color: #fff;
+}
+
+/* Estilo para o nome do cliente */
+.client-name {
+  margin-left: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Estilo dos itens do menu */
+.mat-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.mat-menu-item mat-icon {
+  margin-right: 8px;
+}
+
+/* Cor diferenciada para o botão de logout */
+.mat-menu-item:last-child {
+  color: #ff5c5c; /* Cor para o botão de Sair */
+}
+.footer {
+  text-align: center;
+  padding: 16px 0;
+  font-size: 14px;
 }

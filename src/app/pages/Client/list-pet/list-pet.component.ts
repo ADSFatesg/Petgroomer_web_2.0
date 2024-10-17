@@ -61,7 +61,7 @@ export class ListPetComponent {
               this.loading = false;
             },
             (error) => {
-              this.snackBar.open(error.message || 'Erro ao buscar pets.', 'Fechar', {
+              this.snackBar.open(error.message || 'Nenhum Pet cadastrado.', 'Fechar', {
                 duration: 3000,
                 verticalPosition: 'top',
                 horizontalPosition: 'right'

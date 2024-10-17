@@ -6,6 +6,7 @@ import {ClientRegisterPetComponent} from "./client-register-pet/client-register-
 import {ClientSchedulingComponent} from "./client-scheduling/client-scheduling.component";
 import {ListSchedulingClientComponent} from "./list-scheduling-client/list-scheduling-client.component";
 import {AuthGuard} from "../../authentication/auth.guard";
+import {ClientHomeComponent} from "./client-home/client-home.component";
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
       { path: 'listPet', component: ListPetComponent, canActivate: [AuthGuard]},
       { path: 'clientScheduling', component:ClientSchedulingComponent, canActivate: [AuthGuard]},
      { path: 'listSchedulingClient', component: ListSchedulingClientComponent, canActivate: [AuthGuard]},
-      { path: '', redirectTo: 'listPet', pathMatch: 'full' }
+      { path: 'clientHome', component: ClientHomeComponent, canActivate: [AuthGuard]},
+      { path: '', redirectTo: 'clientHome', pathMatch: 'full' }
     ]
   }
 ];

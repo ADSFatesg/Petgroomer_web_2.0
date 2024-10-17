@@ -1,32 +1,44 @@
 <mat-toolbar color="primary" class="toolbar">
-  <span>Petgroomer - Cliente</span>
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="app-name">Petgroomer</span>
   <span class="spacer"></span>
-
-  <!-- Cadastrar Pet -->
-  <button mat-button routerLink="/clientPetRegister">
-    <mat-icon>pets</mat-icon> Cadastrar Pet
-  </button>
-
-  <!-- Meus Pets -->
-  <button mat-button routerLink="/listPet">
-    <mat-icon>search</mat-icon> Meus Pets
-  </button>
-
-  <!-- Agendar Serviço -->
-  <button mat-button routerLink="/clientScheduling">
-    <mat-icon>schedule</mat-icon> Agendar
-  </button>
-
-  <!-- Meus Agendamentos -->
-  <button mat-button routerLink="/listSchedulingClient">
-    <mat-icon>list</mat-icon> Meus Agendamentos
-  </button>
-
-  <!-- Botão de Logout -->
-  <button mat-button (click)="logout()">
-    <mat-icon>exit_to_app</mat-icon> Sair
+  <span class="client-name">{{ clientName }}</span>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
   </button>
 </mat-toolbar>
 
-<!-- Conteúdo principal do cliente -->
-<router-outlet></router-outlet>
+<div class="menu-container">
+  <!-- Menu em lista -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/clientHome">
+      <mat-icon>home</mat-icon>
+      <span>Inicio</span>
+    </button>
+    <button mat-menu-item routerLink="/clientPetRegister">
+      <mat-icon>pets</mat-icon>
+      <span>Cadastrar Pet</span>
+    </button>
+    <button mat-menu-item routerLink="/listPet">
+      <mat-icon>search</mat-icon>
+      <span>Meus Pets</span>
+    </button>
+    <button mat-menu-item routerLink="/clientScheduling">
+      <mat-icon>schedule</mat-icon>
+      <span>Agendar</span>
+    </button>
+    <button mat-menu-item routerLink="/listSchedulingClient">
+      <mat-icon>list</mat-icon>
+      <span>Meus Agendamentos</span>
+    </button>
+
+  </mat-menu>
+</div>
+<div class="main-content">
+  <router-outlet></router-outlet>
+  <footer class="footer">
+    <span class="signature">© 2024 Petgroomer - Todos os direitos reservados.</span>
+  </footer>
+</div>

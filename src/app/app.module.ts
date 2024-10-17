@@ -15,11 +15,13 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {SharedModule} from "./shared/shared.module";
 import {ClientModule} from "./pages/Client/client.module";
 import {EmployeesModule} from "./pages/enterprise/employees.module";
+import { HomeMainComponent } from './pages/homeMain/home-main/home-main.component';
+import {HomeMainModule} from "./pages/homeMain/home-main.module";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import {EmployeesModule} from "./pages/enterprise/employees.module";
     EmployeesModule,
     HttpClientModule,
     LoginModule,
-    SharedModule
+    SharedModule,
+    HomeMainModule
   ],
   providers: [
     provideAnimationsAsync(),

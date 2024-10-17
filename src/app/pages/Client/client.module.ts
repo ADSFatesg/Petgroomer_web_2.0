@@ -6,12 +6,12 @@ import {ListPetModule} from "./list-pet/list-pet.module";
 import {ClientRegisterPetModule} from "./client-register-pet/client-register-pet.module";
 import {ClientSchedulingModule} from "./client-scheduling/client-scheduling.module";
 import {ListSchedulingClientModule} from "./list-scheduling-client/list-scheduling-client.module";
+import { ClientHomeComponent } from './client-home/client-home.component';
+import {ClientHomeModule} from "./client-home/client-home.module";
 
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -19,7 +19,8 @@ import {ListSchedulingClientModule} from "./list-scheduling-client/list-scheduli
     ListPetModule,
     ClientRegisterPetModule,
     ClientSchedulingModule,
-    ListSchedulingClientModule
+    ListSchedulingClientModule,
+    ClientHomeModule
   ]
 })
 export class ClientModule { }

@@ -119,7 +119,7 @@ export class ClientSchedulingComponent {
         this.noActivePets = this.pets.length === 0;
       },
       (error) => {
-        this.snackBar.open(error.message || 'Erro ao carregar pets.', 'Fechar', {
+        this.snackBar.open(error.message || 'Nenhum Pet encontrado.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'

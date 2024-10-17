@@ -1,10 +1,10 @@
 <div class="consult-pet-container">
-  <h2>Pets</h2>
+  <h2>Meus Pets</h2>
   <form [formGroup]="petForm" (ngSubmit)="atualizarPet()">
 
     <!-- Pets Relacionados -->
     <div class="form-section">
-      <h3>Pets Relacionados:</h3>
+      <h3>Aqui estão seus Pets:</h3>
       <ul>
         <li *ngFor="let pet of pets" (click)="selecionarPet(pet)">
           {{ pet.name }} ({{ pet.race }} - {{ pet.size }})

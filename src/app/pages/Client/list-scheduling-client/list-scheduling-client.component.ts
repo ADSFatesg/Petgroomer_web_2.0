@@ -86,7 +86,7 @@ export class ListSchedulingClientComponent implements  OnInit,OnDestroy{
             this.loading = false;
           },
           (error) => {
-            this.snackBar.open(error.message || 'Erro ao carregar agendamentos.', 'Fechar', {
+            this.snackBar.open(error.message || 'Nenhum Agendamento realizado.', 'Fechar', {
               duration: 3000,
               verticalPosition: 'top',
               horizontalPosition: 'right'
