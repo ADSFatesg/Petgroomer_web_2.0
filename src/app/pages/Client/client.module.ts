@@ -6,8 +6,8 @@ import {ListPetModule} from "./list-pet/list-pet.module";
 import {ClientRegisterPetModule} from "./client-register-pet/client-register-pet.module";
 import {ClientSchedulingModule} from "./client-scheduling/client-scheduling.module";
 import {ListSchedulingClientModule} from "./list-scheduling-client/list-scheduling-client.module";
-import { ClientHomeComponent } from './client-home/client-home.component';
 import {ClientHomeModule} from "./client-home/client-home.module";
+import {UserAccountModule} from "./user-account/user-account.module";
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import {ClientHomeModule} from "./client-home/client-home.module";
     ClientRegisterPetModule,
     ClientSchedulingModule,
     ListSchedulingClientModule,
-    ClientHomeModule
+    ClientHomeModule,
+    UserAccountModule
   ]
 })
 export class ClientModule { }
