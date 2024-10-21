@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 10px;
 
 }
 /* Estilo do container principal */
@@ -13,7 +13,7 @@
   padding: 20px;
   margin-top: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  min-height: 80vh; /* Garante que a área principal ocupe a maior parte da tela */
+  min-height: 80vh;
 }
 .spacer {
   flex: 1;
@@ -21,7 +21,6 @@
 
 /* Nome do aplicativo alinhado à direita */
 .app-name {
-  font-weight: bold;
   font-size: 20px;
   color: #fff;
 }
@@ -41,7 +40,6 @@ button[mat-button] {
 /* Estilo para o nome do cliente */
 .client-name {
   margin-left: 10px;
-  font-weight: bold;
   color: #fff;
 }
 
@@ -55,9 +53,9 @@ button[mat-button] {
   margin-right: 8px;
 }
 
-/* Cor diferenciada para o botão de logout */
+
 .mat-menu-item:last-child {
-  color: #ff5c5c; /* Cor para o botão de Sair */
+  color: #ff5c5c;
 }
 .footer {
   text-align: center;

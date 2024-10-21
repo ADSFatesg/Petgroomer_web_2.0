@@ -8,6 +8,7 @@ import {ListSchedulingClientComponent} from "./list-scheduling-client/list-sched
 import {AuthGuard} from "../../authentication/auth.guard";
 import {ClientHomeComponent} from "./client-home/client-home.component";
 import { UserAccountComponent } from './user-account/user-account.component';
+import {UpdatePasswordComponent} from "./update-password/update-password.component";
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'clientHome', component: ClientHomeComponent, canActivate: [AuthGuard]},
       { path: 'clientHome', component: ClientHomeComponent, canActivate: [AuthGuard]},
       { path: 'userAccount', component: UserAccountComponent, canActivate: [AuthGuard]},
+      { path: 'updatePassword', component: UpdatePasswordComponent, canActivate: [AuthGuard]},
       { path: '', redirectTo: 'clientHome', pathMatch: 'full' }
     ]
   }

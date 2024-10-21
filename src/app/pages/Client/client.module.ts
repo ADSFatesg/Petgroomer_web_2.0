@@ -8,10 +8,14 @@ import {ClientSchedulingModule} from "./client-scheduling/client-scheduling.modu
 import {ListSchedulingClientModule} from "./list-scheduling-client/list-scheduling-client.module";
 import {ClientHomeModule} from "./client-home/client-home.module";
 import {UserAccountModule} from "./user-account/user-account.module";
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+import {UpdatePasswordModule} from "./update-password/update-password.module";
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -21,7 +25,8 @@ import {UserAccountModule} from "./user-account/user-account.module";
     ClientSchedulingModule,
     ListSchedulingClientModule,
     ClientHomeModule,
-    UserAccountModule
+    UserAccountModule,
+    UpdatePasswordModule,
   ]
 })
 export class ClientModule { }

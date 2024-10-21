@@ -2,54 +2,67 @@
   <!-- Mensagem de boas-vindas -->
   <mat-card class="welcome-card">
     <mat-card-header>
-      <mat-card-title>Olá, {{ clientName }}!</mat-card-title>
-      <mat-card-subtitle>Bem-vindo(a) ao Petgroomer</mat-card-subtitle>
+      <mat-icon class="welcome-icon">sentiment_satisfied_alt</mat-icon>
+      <div class="welcome-text">
+        <mat-card-title>Bem-vindo(a), {{ clientName }}!</mat-card-title>
+      </div>
     </mat-card-header>
     <mat-card-content>
-      <p>Veja abaixo um resumo das suas informações.</p>
+      <p>Gerencie seus agendamentos e pets com facilidade.</p>
     </mat-card-content>
   </mat-card>
 
-  <!-- Resumo dos Agendamentos -->
-  <mat-card class="summary-card">
-    <mat-card-header>
-      <mat-icon>event</mat-icon>
-      <mat-card-title>Próximo Agendamento</mat-card-title>
-    </mat-card-header>
-    <mat-card-content *ngIf="nextScheduling">
-      <div class="date-time">
-        <p><strong>Data:</strong> {{ nextScheduling.date | date: 'dd/MM/yyyy' }}</p>
-        <p><strong>Hora:</strong> {{ nextScheduling.time }}</p>
-      </div>
-      <p><strong>Serviço:</strong> {{ nextScheduling.service[0].name }}</p>
-    </mat-card-content>
+  <!-- Seção de Resumo com Agendamentos e Pets lado a lado -->
+  <div class="summary-container">
+    <!-- Resumo dos Agendamentos -->
+    <mat-card class="summary-card agendamentos">
+      <mat-card-header>
+        <mat-icon>event</mat-icon>
+        <mat-card-title>Próximos Agendamentos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="scheduling-container">
+          <ng-container *ngIf="nextSchedulings && nextSchedulings.length > 0; else noScheduling">
+            <mat-card *ngFor="let scheduling of nextSchedulings" class="scheduling-card">
+              <mat-card-content>
+                <p><strong>Data:</strong> {{ scheduling.date | date: 'dd/MM/yyyy' }}</p>
+                <p><strong>Hora:</strong> {{ scheduling.time }}</p>
+                <p><strong>Serviço:</strong> {{ scheduling.service[0].name }}</p>
+              </mat-card-content>
+            </mat-card>
+          </ng-container>
 
-    <mat-card-content *ngIf="!nextScheduling">
-      <p>Você não tem agendamentos futuros.</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button routerLink="/clientScheduling">Agendar Novo Serviço</button>
-    </mat-card-actions>
-  </mat-card>
+          <ng-template #noScheduling>
+            <p>Você não tem agendamentos futuros.</p>
+          </ng-template>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button routerLink="/clientScheduling">Agendar Novo Serviço</button>
+      </mat-card-actions>
+    </mat-card>
 
-  <!-- Resumo dos Pets -->
-  <mat-card class="summary-card">
-    <mat-card-header>
-      <mat-icon>pets</mat-icon>
-      <mat-card-title>Meus Pets</mat-card-title>
-    </mat-card-header>
-    <mat-card-content *ngIf="pets && pets.length > 0">
-      <ul class="pet-list">
-        <li *ngFor="let pet of pets">
-          <strong>{{ pet.name }}</strong> - {{ pet.race }} - {{ pet.size }}
-        </li>
-      </ul>
-    </mat-card-content>
-    <mat-card-content *ngIf="!pets || pets.length === 0">
-      <p>Você ainda não cadastrou nenhum pet.</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button routerLink="/clientPetRegister">Cadastrar Pet</button>
-    </mat-card-actions>
-  </mat-card>
+    <!-- Resumo dos Pets -->
+    <mat-card class="summary-card pets">
+      <mat-card-header>
+        <mat-icon>pets</mat-icon>
+        <mat-card-title>Meus Pets</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="pets && pets.length > 0">
+        <ul class="pet-list">
+          <li *ngFor="let pet of pets">
+            <strong>{{ pet.name }}</strong> - {{ pet.race }} - {{ pet.size }}
+          </li>
+        </ul>
+      </mat-card-content>
+
+      <mat-card-content *ngIf="!pets || pets.length === 0">
+        <p>Você ainda não cadastrou nenhum pet.</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button routerLink="/clientPetRegister">Cadastrar Pet</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

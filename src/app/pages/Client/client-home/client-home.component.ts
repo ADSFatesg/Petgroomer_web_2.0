@@ -14,7 +14,7 @@ import {ClientService} from "../../../service/client.service";
 })
 export class ClientHomeComponent implements OnInit {
   clientName: string = ''; // Nome do cliente logado
-  nextScheduling: SchedulingRetrieve | null = null; // Próximo agendamento
+  nextSchedulings: SchedulingRetrieve[] = []; // Lista de próximos agendamentos
   pets: PetRetrive[] = []; // Lista dos pets cadastrados
 
   constructor(
@@ -29,10 +29,11 @@ export class ClientHomeComponent implements OnInit {
     this.loadClientData();
   }
 
-  // Carregar os dados do cliente
+  // Carregar os dados do cliente e agendamentos
   loadClientData(): void {
     const clientId = this.authService.getClientId(); // Obtém o ID do cliente do AuthService
     if (clientId) {
+      // Carregar dados do cliente
       this.clientService.findById(clientId).subscribe(
         (client) => {
           this.clientName = client.name; // Define o nome do cliente
@@ -46,14 +47,13 @@ export class ClientHomeComponent implements OnInit {
         }
       );
 
-      // Carregar o próximo agendamento do cliente
+      // Carregar todos os agendamentos futuros do cliente
       this.schedulingService.findByClientId(clientId).subscribe(
         (schedulings: SchedulingRetrieve[]) => {
-          if (schedulings && schedulings.length > 0) {
-            this.nextScheduling = schedulings
-              .filter(scheduling => new Date(scheduling.date) >= new Date()) // Filtro para agendamentos futuros
-              .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0]; // Agendamento mais próximo
-          }
+          // Filtra os agendamentos futuros e ordena por data
+          this.nextSchedulings = schedulings.filter(
+            scheduling => new Date(scheduling.date) >= new Date()
+          ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         },
         (error) => {
           this.snackBar.open('Erro ao carregar agendamentos', 'Fechar', {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClientRetrive} from "../../../model/client";
 import {RacaPetENUM} from "../../../model/enum-racaPet";
@@ -14,7 +14,7 @@ import {PetDTO} from "../../../model/pet";
   templateUrl: './client-register-pet.component.html',
   styleUrl: './client-register-pet.component.scss'
 })
-export class ClientRegisterPetComponent {
+export class ClientRegisterPetComponent implements OnInit{
   petForm!: FormGroup;
   selectedClient: ClientRetrive | null = null;
   races = Object.values(RacaPetENUM);

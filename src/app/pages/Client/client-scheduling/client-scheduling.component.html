@@ -5,23 +5,29 @@
 
       <!-- Seção de Informações do Cliente -->
       <div class="form-section">
-        <h3>Informações do Cliente</h3>
+        <h3><mat-icon>person</mat-icon> Informações do Cliente</h3>
         <!-- Nome do Cliente (Preenchido automaticamente) -->
         <div class="form-group">
           <label for="clientName">Nome do Cliente</label>
-          <input id="clientName" formControlName="clientName" type="text" [disabled]="true">
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">person_outline</mat-icon>
+            <input id="clientName" formControlName="clientName" type="text" [disabled]="true">
+          </div>
         </div>
       </div>
 
       <!-- Seção de Informações do Pet -->
       <div class="form-section">
-        <h3>Informações do Pet</h3>
+        <h3><mat-icon>pets</mat-icon> Informações do Pet</h3>
         <!-- Seleção de Pets -->
         <div class="form-group">
           <label for="pet">Selecionar Pet</label>
-          <select id="pet" formControlName="pet" required>
-            <option *ngFor="let pet of pets" [value]="pet.id">{{ pet.name }}</option>
-          </select>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">pets</mat-icon>
+            <select id="pet" formControlName="pet" required>
+              <option *ngFor="let pet of pets" [value]="pet.id">{{ pet.name }}</option>
+            </select>
+          </div>
           <div *ngIf="noActivePets" class="no-pets-message">
             Nenhum pet registrado ou ativo para o cliente.
           </div>
@@ -30,30 +36,35 @@
 
       <!-- Seção de Informações do Serviço -->
       <div class="form-section">
-        <h3>Informações do Serviço</h3>
+        <h3><mat-icon>build</mat-icon> Informações do Serviço</h3>
         <!-- Seleção de Serviço -->
         <div class="form-group" [ngClass]="{'has-error': schedulingForm.get('service')?.touched && schedulingForm.get('service')?.invalid}">
           <label for="service">Selecionar Serviço <span class="required">*</span></label>
-          <select id="service" formControlName="service">
-            <option *ngFor="let service of services" [value]="service.id">
-              {{ service.name }} - R$ {{ service.price }}
-            </option>
-          </select>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">build_circle</mat-icon>
+            <select id="service" formControlName="service">
+              <option *ngFor="let service of services" [value]="service.id">
+                {{ service.name }} - R$ {{ service.price }}
+              </option>
+            </select>
+          </div>
           <div *ngIf="schedulingForm.get('service')?.touched && schedulingForm.get('service')?.invalid" class="error-message">
             Serviço é obrigatório.
           </div>
           <div *ngIf="noActiveService" class="no-service-message">
             Nenhum serviço registrado ou ativo.
           </div>
-          <button type="button" class="btn-add" (click)="addService(schedulingForm.get('service')?.value)">
-            Adicionar ao Carrinho
+          <button type="button" class="btn-add" (click)="addService(schedulingForm.get('service')?.value)">Adicionar ao Carrinho
           </button>
         </div>
 
         <!-- Data do Serviço -->
         <div class="form-group" [ngClass]="{'has-error': schedulingForm.get('date')?.touched && schedulingForm.get('date')?.invalid}">
           <label for="date">Data do Serviço <span class="required">*</span></label>
-          <input id="date" formControlName="date" type="date" class="form-control">
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">calendar_today</mat-icon>
+            <input id="date" formControlName="date" type="date" class="form-control">
+          </div>
           <div *ngIf="schedulingForm.get('date')?.touched && schedulingForm.get('date')?.invalid" class="error-message">
             Data é obrigatória.
           </div>
@@ -62,7 +73,10 @@
         <!-- Hora do Serviço -->
         <div class="form-group" [ngClass]="{'has-error': schedulingForm.get('time')?.touched && schedulingForm.get('time')?.invalid}">
           <label for="time">Hora do Serviço <span class="required">*</span></label>
-          <input id="time" formControlName="time" type="time" class="form-control">
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">schedule</mat-icon>
+            <input id="time" formControlName="time" type="time" class="form-control">
+          </div>
           <div *ngIf="schedulingForm.get('time')?.touched && schedulingForm.get('time')?.invalid" class="error-message">
             Hora é obrigatória.
           </div>
@@ -71,19 +85,25 @@
 
       <!-- Seção de Observações e Pagamento -->
       <div class="form-section">
-        <h3>Detalhes e Pagamento</h3>
+        <h3><mat-icon>note</mat-icon> Detalhes e Pagamento</h3>
         <!-- Observações -->
         <div class="form-group">
           <label for="observations">Observações</label>
-          <textarea id="observations" formControlName="observations" placeholder="Escreva observações sobre o serviço"></textarea>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">edit_note</mat-icon>
+            <textarea id="observations" formControlName="observations" placeholder="Escreva observações sobre o serviço"></textarea>
+          </div>
         </div>
 
         <!-- Método de Pagamento -->
         <div class="form-group" [ngClass]="{'has-error': schedulingForm.get('paymentMethod')?.touched && schedulingForm.get('paymentMethod')?.invalid}">
           <label for="paymentMethod">Método de Pagamento <span class="required">*</span></label>
-          <select id="paymentMethod" formControlName="paymentMethod">
-            <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
-          </select>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">credit_card</mat-icon>
+            <select id="paymentMethod" formControlName="paymentMethod">
+              <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+            </select>
+          </div>
           <div *ngIf="schedulingForm.get('paymentMethod')?.touched && schedulingForm.get('paymentMethod')?.invalid" class="error-message">
             Método de pagamento é obrigatório.
           </div>
@@ -92,7 +112,7 @@
 
       <!-- Seção de Carrinho de Serviços -->
       <div class="form-section">
-        <h3>Serviços selecionados</h3>
+        <h3><mat-icon>shopping_cart</mat-icon> Serviços selecionados</h3>
         <div class="cart-container">
           <div *ngFor="let service of selectedServices" class="cart-item">
             <span>{{ service.name }} - R$ {{ service.price }}</span>
