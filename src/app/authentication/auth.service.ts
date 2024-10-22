@@ -12,6 +12,7 @@ export class AuthService {
   private tokenKey = 'authToken';
   private roleKey = 'userRole';
   private clientIdKey = 'clientId';
+  private employeeKey = 'employeeId';
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -20,13 +21,13 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, { login, password }).pipe(
       map(response => {
         const token = response.token;
-        const roles = response.roles;
-        const clientId = response.clientId;
+
 
         if (token) {
           localStorage.setItem(this.tokenKey, token);
-          localStorage.setItem(this.roleKey, roles);
-          localStorage.setItem(this.clientIdKey, clientId);
+          localStorage.setItem(this.roleKey, response.roles);
+          localStorage.setItem(this.clientIdKey,response.clientId);
+          localStorage.setItem(this.employeeKey,response.employeeId)
           return true;
         }
         return false;
@@ -63,6 +64,7 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.roleKey);
     localStorage.removeItem(this.clientIdKey);
+    localStorage.removeItem(this.employeeKey)
     this.snackBar.open('Você foi desconectado.', 'Fechar', {
       duration: 3000,
       verticalPosition: 'top',
@@ -85,7 +87,9 @@ export class AuthService {
   getClientId(): string | null {
     return localStorage.getItem(this.clientIdKey);
   }
-
+  getEmployeeId(): string | null {
+    return localStorage.getItem(this.employeeKey);
+  }
   // Método para obter as roles do usuário
   getUserRoles(): string[] {
     const roles = localStorage.getItem(this.roleKey);

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgendaComponent } from './agenda.component';
+import {MatCell, MatHeaderCell} from "@angular/material/table";
+import {SharedModule} from "../../../shared/shared.module";
 
 
 
@@ -9,7 +11,10 @@ import { AgendaComponent } from './agenda.component';
     AgendaComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatHeaderCell,
+    MatCell,
+    SharedModule
   ]
 })
 export class AgendaModule { }
