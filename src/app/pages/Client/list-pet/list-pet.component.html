@@ -1,5 +1,5 @@
 <div class="consult-pet-container">
-  <h2>Meus Pets</h2>
+  <h2>Pets</h2>
   <form [formGroup]="petForm" (ngSubmit)="atualizarPet()">
 
     <!-- Pets Relacionados -->
@@ -7,7 +7,7 @@
       <h3>Aqui estão seus Pets:</h3>
       <ul>
         <li *ngFor="let pet of pets" (click)="selecionarPet(pet)">
-          {{ pet.name }} ({{ pet.race }} - {{ pet.size }})
+          <mat-icon>pets</mat-icon> {{ pet.name }} ({{ pet.race }} - {{ pet.size }})
         </li>
       </ul>
     </div>
@@ -18,21 +18,27 @@
       <div class="inline-fields">
         <div class="form-section field">
           <label for="name">Nome do Pet:</label>
-          <input id="name" formControlName="name" type="text" placeholder="Digite o nome do pet">
+          <div class="input-with-icon">
+            <input id="name" formControlName="name" type="text" placeholder="Digite o nome do pet">
+          </div>
         </div>
 
         <div class="form-section field">
           <label for="race">Raça:</label>
-          <select id="race" formControlName="race">
-            <option *ngFor="let race of races" [value]="race">{{ race }}</option>
-          </select>
+          <div class="input-with-icon">
+            <select id="race" formControlName="race">
+              <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-section field">
           <label for="size">Porte:</label>
-          <select id="size" formControlName="size">
-            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
-          </select>
+          <div class="input-with-icon">
+            <select id="size" formControlName="size">
+              <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+            </select>
+          </div>
         </div>
       </div>
 

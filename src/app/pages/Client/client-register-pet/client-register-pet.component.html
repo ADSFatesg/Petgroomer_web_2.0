@@ -1,7 +1,6 @@
 <div class="register-pet-container">
   <form [formGroup]="petForm" (ngSubmit)="onSubmit()">
     <div class="form-sections">
-
       <!-- Seção de Informações do Pet -->
       <div class="form-section">
         <h3>Registrar meu Pet</h3>
@@ -9,7 +8,10 @@
         <!-- Nome do Pet -->
         <div class="form-group" [ngClass]="{'has-error': petForm.get('name')?.touched && petForm.get('name')?.invalid}">
           <label for="name">Nome do Pet <span class="required">*</span></label>
-          <input id="name" formControlName="name" type="text" placeholder="Nome do Pet">
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">pets</mat-icon>
+            <input id="name" formControlName="name" type="text" placeholder="Nome do Pet">
+          </div>
           <div *ngIf="petForm.get('name')?.touched && petForm.get('name')?.invalid" class="error-message">
             Nome do pet é obrigatório.
           </div>
@@ -18,9 +20,12 @@
         <!-- Raça -->
         <div class="form-group" [ngClass]="{'has-error': petForm.get('race')?.touched && petForm.get('race')?.invalid}">
           <label for="race">Raça <span class="required">*</span></label>
-          <select id="race" formControlName="race">
-            <option *ngFor="let race of races" [value]="race">{{ race }}</option>
-          </select>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">pets</mat-icon>
+            <select id="race" formControlName="race">
+              <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+            </select>
+          </div>
           <div *ngIf="petForm.get('race')?.touched && petForm.get('race')?.invalid" class="error-message">
             Raça é obrigatória.
           </div>
@@ -29,9 +34,12 @@
         <!-- Porte -->
         <div class="form-group" [ngClass]="{'has-error': petForm.get('size')?.touched && petForm.get('size')?.invalid}">
           <label for="size">Porte <span class="required">*</span></label>
-          <select id="size" formControlName="size">
-            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
-          </select>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">height</mat-icon>
+            <select id="size" formControlName="size">
+              <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+            </select>
+          </div>
           <div *ngIf="petForm.get('size')?.touched && petForm.get('size')?.invalid" class="error-message">
             Porte é obrigatório.
           </div>
@@ -39,7 +47,9 @@
       </div>
 
       <!-- Botão para Submeter -->
-      <button type="submit" class="btn-save" [disabled]="petForm.invalid">Cadastrar Pet</button>
+      <button type="submit" class="btn-save" [disabled]="petForm.invalid">
+        Cadastrar Pet
+      </button>
     </div>
   </form>
 </div>

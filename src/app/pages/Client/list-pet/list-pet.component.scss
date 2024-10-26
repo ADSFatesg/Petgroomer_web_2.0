@@ -8,7 +8,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Organizando seções do formulário */
 .form-sections {
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +22,6 @@
 }
 
 .form-section label {
-  font-weight: bold;
   margin-bottom: 5px;
   display: block;
   font-size: 14px;
@@ -35,39 +33,19 @@
   align-items: center;
 }
 
-.input-with-icon mat-icon.leading-icon {
-  margin-right: 5px;
+.input-with-icon mat-icon {
+  margin-right: 10px;
+  color: #007bff;
+  font-size: 24px;
 }
 
-.input-with-icon input {
+.input-with-icon input,
+.input-with-icon select {
   width: 100%;
-  padding: 8px 12px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
-}
-
-.btn-icon {
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 5px;
-  padding: 8px;
-  right: 37px;
-  bottom: 5px;
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
-.btn-icon mat-icon {
-  color: #333;
-  font-size: 24px;
-}
-.btn-icon:hover mat-icon {
-  color: #007bff;
-  transition: color 0.2s ease;
 }
 
 ul {
@@ -82,13 +60,21 @@ ul li {
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+ul li mat-icon {
+  color: #007bff;
+  font-size: 24px;
 }
 
 ul li:hover {
   background-color: #f1f1f1;
 }
 
-/* Seção de campos inline (nome do pet, raça, porte) */
+/* Campos inline (nome do pet, raça, porte) */
 .inline-fields {
   display: flex;
   flex-wrap: wrap;
@@ -102,29 +88,33 @@ ul li:hover {
 
 .field select, .field input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
 }
 
-/* Botão de salvar, ocupa toda a largura disponível */
-.btn-save {
+.btn-save,
+.btn-add {
   background-color: #28a745;
-  color: #fff;
-  padding: 15px;
+  color: white;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 16px;
-  width: 100%;
-  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
   margin-top: 20px;
-}
+  width: 100%;
 
-.btn-save:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  &:hover {
+    background-color: #218838;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
 
 .spinner-border {
@@ -134,34 +124,23 @@ ul li:hover {
 h3 {
   margin-top: 10px;
   font-size: 18px;
-
-}
-h2{
-  font-weight: bold;
 }
 
 input[type="checkbox"] {
   margin-left: 10px;
 }
 
-
-#cpf {
-  max-width: 200px; /* Define um tamanho menor para o campo CPF */
-  margin-bottom: 15px;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
   .inline-fields {
-    flex-direction: column; /* Campos ficam em coluna em telas menores */
+    flex-direction: column;
   }
 
   .form-sections {
-    flex-direction: column; /* Coloca as seções do formulário em coluna */
+    flex-direction: column;
   }
 
   .field, .form-section {
-    margin-right: 0; /* Remove a margem lateral em telas menores */
+    margin-right: 0;
   }
 }
-

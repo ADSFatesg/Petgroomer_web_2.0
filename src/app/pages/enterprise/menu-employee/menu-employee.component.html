@@ -3,12 +3,13 @@
   <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-list-button">
     <mat-icon>menu</mat-icon>
   </button>
-
+  <span class="app-name">Petgroomer</span>
   <!-- Espaçador central -->
   <span class="spacer"></span>
 
-  <!-- Nome do sistema (direita) -->
-  <span class="app-name">Petgroomer</span>
+  <!-- Nome do sistema e saudação do usuário -->
+
+  <span class="user-greeting">Usuário: {{ userName }}</span>
 
   <!-- Definição do Menu -->
   <mat-menu #menu="matMenu">
@@ -71,11 +72,10 @@
     </button>
   </mat-menu>
 </mat-toolbar>
+<!-- Conteúdo principal -->
+<router-outlet></router-outlet>
 <!-- Rodapé -->
 <footer class="footer">
   <span class="signature">© 2024 Petgroomer - Todos os direitos reservados.</span>
 </footer>
-<!-- Conteúdo principal -->
-<router-outlet></router-outlet>
-
 

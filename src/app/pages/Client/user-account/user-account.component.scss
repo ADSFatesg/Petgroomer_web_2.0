@@ -78,36 +78,28 @@ input:focus {
 .input-with-icon .btn-icon:active {
   transform:scale(1.5);
 }
-/* Botão de salvar, ocupa toda a largura disponível */
-.btn-save {
+.btn-save,
+.btn-add {
   background-color: #28a745;
-  color: #fff;
-  padding: 15px;
+  color: white;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 16px;
-  width: 100%;
-  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
   margin-top: 20px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+  width: 100%;
 
-.btn-save:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
-}
+  &:hover {
+    background-color: #218838;
+  }
 
-.btn-save:active {
-  background-color: #1e7e34;
-  transform: translateY(2px);
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
-
-.btn-save:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
 
 /* Responsividade */
 @media screen and (max-width: 768px) {
