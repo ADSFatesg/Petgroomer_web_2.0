@@ -1,0 +1,130 @@
+.report-comission-container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.report-comission-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group .form-control {
+  width: 200px; /* Diminui a largura do campo */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group select.form-control {
+  appearance: none; /* Remove a seta padrão do select */
+  background-color: #fff;
+  padding-right: 24px;
+}
+
+.form-group .required {
+  color: red;
+}
+
+.form-group.has-error .form-control {
+  border-color: #e74c3c;
+}
+
+.form-group .error-message {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.btn-primary:disabled {
+  background-color: #cccccc;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+button[mat-raised-button] {
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #fff;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #0056b3;
+}
+
+.mat-elevation-z8 {
+  background: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+  color: #333;
+}
+
+td ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.no-data-message {
+  margin-top: 20px;
+  padding: 10px;
+  color: #777;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Ajuste específico para exibir o placeholder no select */
+select.form-control option:first-child {
+  display: block;
+  color: #888;
+}
+button{
+  margin-top: 10px;
+}

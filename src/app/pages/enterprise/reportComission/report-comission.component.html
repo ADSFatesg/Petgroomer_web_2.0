@@ -1,0 +1,97 @@
+<div class="report-comission-container">
+  <h2>Relatório de Comissões</h2>
+
+  <form [formGroup]="schedulingForm" (ngSubmit)="submitForm()">
+    <!-- Campo de Data do Serviço -->
+    <div class="form-group"
+         [ngClass]="{'has-error': schedulingForm.get('date')?.touched && schedulingForm.get('date')?.invalid}">
+      <label for="date">Data do Serviço <span class="required">*</span></label>
+      <input
+        id="date"
+        formControlName="date"
+        type="date"
+        class="form-control">
+      <div *ngIf="schedulingForm.get('date')?.touched && schedulingForm.get('date')?.invalid" class="error-message">
+        Data é obrigatória.
+      </div>
+    </div>
+
+    <!-- Seleção de Funcionário -->
+    <div class="form-group">
+      <label for="employee">Selecionar Funcionário</label>
+      <select
+        id="employee"
+        class="form-control"
+        [(ngModel)]="selectedEmployeeId"
+        (change)="applyFilter()"
+      >
+        <!-- Placeholder visível até que uma seleção seja feita -->
+        <option *ngIf="!selectedEmployeeId" [ngValue]="null" disabled>Escolha um funcionário</option>
+        <option *ngFor="let employee of employees" [ngValue]="employee.id">
+          {{ employee.name }}
+        </option>
+      </select>
+    </div>
+
+
+
+    <!-- Botão de Aplicar Filtro -->
+    <button type="submit" class="btn btn-primary" [disabled]="schedulingForm.invalid">Aplicar Filtro</button>
+  </form>
+
+  <!-- Botões de Exportação -->
+  <button mat-raised-button (click)="exportToPDF()">Exportar para PDF</button>
+  <button mat-raised-button (click)="exportToXLS()">Exportar para XLS</button>
+
+  <!-- Tabela de Relatório -->
+  <table mat-table [dataSource]="filteredReports" class="mat-elevation-z8" *ngIf="filteredReports.length > 0">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Data </th>
+      <td mat-cell *matCellDef="let report">{{ formatDate(report.date) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef> Funcionário </th>
+      <td mat-cell *matCellDef="let report">
+        <ul>
+          <li *ngFor="let service of report.service">{{ service.employee.name }}</li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="serviceName">
+      <th mat-header-cell *matHeaderCellDef> Serviço </th>
+      <td mat-cell *matCellDef="let report">
+        <ul>
+          <li *ngFor="let service of report.service">{{ service.name }}</li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="serviceValue">
+      <th mat-header-cell *matHeaderCellDef> Valor do Serviço </th>
+      <td mat-cell *matCellDef="let report">
+        <ul>
+          <li *ngFor="let service of report.service">{{ service.price | currency:'BRL' }}</li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="commission">
+      <th mat-header-cell *matHeaderCellDef> Comissão </th>
+      <td mat-cell *matCellDef="let report">
+        <ul>
+          <li *ngFor="let service of report.service">{{ (service.price * service.commission / 100) | currency:'BRL' }}</li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['date', 'employeeName', 'serviceName', 'serviceValue', 'commission']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['date', 'employeeName', 'serviceName', 'serviceValue', 'commission']"></tr>
+  </table>
+
+  <!-- Mensagem caso não haja agendamentos -->
+  <div *ngIf="filteredReports.length === 0" class="no-data-message">
+    Nenhum agendamento encontrado para os filtros aplicados.
+  </div>
+</div>

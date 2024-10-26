@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: 'clientConsult', component: ConsultClientComponent, canActivate: [AuthGuard]},
       { path: 'petRegister', component: RegisterPetComponent, canActivate: [AuthGuard],},
       { path: 'petConsult', component: ConsultPetComponent, canActivate: [AuthGuard]},
-      { path: 'agend', component: AgendaComponent, canActivate: [AuthGuard]},
+      { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuard]},
       { path: 'serviceRegister', component: ServiceComponent, canActivate: [AuthGuard]},
       { path: 'serviceList', component: ListServiceComponent, canActivate: [AuthGuard]},
       { path: 'schedulingRegister', component: SchedulingComponent, canActivate: [AuthGuard]},
