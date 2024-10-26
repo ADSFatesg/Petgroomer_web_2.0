@@ -2,17 +2,31 @@
   <h2>Relatório de Comissões</h2>
 
   <form [formGroup]="schedulingForm" (ngSubmit)="submitForm()">
-    <!-- Campo de Data do Serviço -->
+    <!-- Campo de Data de Início -->
     <div class="form-group"
-         [ngClass]="{'has-error': schedulingForm.get('date')?.touched && schedulingForm.get('date')?.invalid}">
-      <label for="date">Data do Serviço <span class="required">*</span></label>
+         [ngClass]="{'has-error': schedulingForm.get('startDate')?.touched && schedulingForm.get('startDate')?.invalid}">
+      <label for="startDate">Data de Início <span class="required">*</span></label>
       <input
-        id="date"
-        formControlName="date"
+        id="startDate"
+        formControlName="startDate"
         type="date"
         class="form-control">
-      <div *ngIf="schedulingForm.get('date')?.touched && schedulingForm.get('date')?.invalid" class="error-message">
-        Data é obrigatória.
+      <div *ngIf="schedulingForm.get('startDate')?.touched && schedulingForm.get('startDate')?.invalid" class="error-message">
+        Data de início é obrigatória.
+      </div>
+    </div>
+
+    <!-- Campo de Data de Fim -->
+    <div class="form-group"
+         [ngClass]="{'has-error': schedulingForm.get('endDate')?.touched && schedulingForm.get('endDate')?.invalid}">
+      <label for="endDate">Data de Fim <span class="required">*</span></label>
+      <input
+        id="endDate"
+        formControlName="endDate"
+        type="date"
+        class="form-control">
+      <div *ngIf="schedulingForm.get('endDate')?.touched && schedulingForm.get('endDate')?.invalid" class="error-message">
+        Data de fim é obrigatória.
       </div>
     </div>
 
@@ -25,15 +39,12 @@
         [(ngModel)]="selectedEmployeeId"
         (change)="applyFilter()"
       >
-        <!-- Placeholder visível até que uma seleção seja feita -->
-        <option *ngIf="!selectedEmployeeId" [ngValue]="null" disabled>Escolha um funcionário</option>
+        <option [ngValue]="null" disabled selected>Escolha um funcionário</option>
         <option *ngFor="let employee of employees" [ngValue]="employee.id">
           {{ employee.name }}
         </option>
       </select>
     </div>
-
-
 
     <!-- Botão de Aplicar Filtro -->
     <button type="submit" class="btn btn-primary" [disabled]="schedulingForm.invalid">Aplicar Filtro</button>

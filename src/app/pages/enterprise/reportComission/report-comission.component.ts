@@ -16,10 +16,10 @@ import 'jspdf-autotable';
 })
 export class ReportComissionComponent implements  OnInit{
   schedulingForm: FormGroup;
+  selectedEmployeeId: string | null = null;
+  employees: any[] = [];
   schedulingsConcluidos: SchedulingRetrieve[] = [];
   filteredReports: SchedulingRetrieve[] = [];
-  employees: any[] = []; // Lista completa de funcionários
-  selectedEmployeeId: string | null = null;
   totalCommission: number = 0;
 
   constructor(
@@ -28,7 +28,8 @@ export class ReportComissionComponent implements  OnInit{
     private employeeService: EmployeeService
   ) {
     this.schedulingForm = this.fb.group({
-      date: [null, Validators.required]
+      startDate: [null, Validators.required],
+      endDate: [null, Validators.required]
     });
   }
 
@@ -51,21 +52,27 @@ export class ReportComissionComponent implements  OnInit{
   }
 
   applyFilter(): void {
-    const selectedDate: Date = this.schedulingForm.get('date')?.value;
-    const formattedDate = selectedDate ? this.formatDate(selectedDate) : null;
+    const startDate = new Date(this.schedulingForm.get('startDate')?.value);
+    const endDate = new Date(this.schedulingForm.get('endDate')?.value);
+    const selectedEmployee = this.selectedEmployeeId;
 
     this.filteredReports = this.schedulingsConcluidos.filter(s => {
-      const matchesEmployee = this.selectedEmployeeId ?
-        s.service.some(serv => serv.employee.id === this.selectedEmployeeId) : true;
+      const serviceDate = new Date(s.date);
 
-      const matchesDate = formattedDate ?
-        this.formatDate(s.date) === formattedDate : true;
+      const withinDateRange = serviceDate >= startDate && serviceDate <= endDate;
+      const matchesEmployee = selectedEmployee ?
+        s.service.some(serv => serv.employee.id === selectedEmployee) : true;
 
-      return matchesEmployee && matchesDate;
+      return withinDateRange && matchesEmployee;
     });
 
-    // Calcula o total de comissões para o relatório filtrado
     this.totalCommission = this.calculateTotalCommission();
+  }
+
+  calculateTotalCommission(): number {
+    return this.filteredReports.reduce((total, report) =>
+      total + report.service.reduce((serviceTotal, service) =>
+        serviceTotal + (service.price * service.commission / 100), 0), 0);
   }
 
   submitForm() {
@@ -79,12 +86,6 @@ export class ReportComissionComponent implements  OnInit{
   formatDate(date: Date | string): string {
     const dateObj = typeof date === 'string' ? new Date(date + 'T00:00:00') : date;
     return dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  }
-
-  calculateTotalCommission(): number {
-    return this.filteredReports.reduce((total, report) =>
-      total + report.service.reduce((serviceTotal, service) =>
-        serviceTotal + (service.price * service.commission / 100), 0), 0);
   }
 
   exportToPDF(): void {
@@ -135,5 +136,4 @@ export class ReportComissionComponent implements  OnInit{
     xlsx.utils.book_append_sheet(workbook, worksheet, 'Relatório de Comissões');
     xlsx.writeFile(workbook, 'relatorio_comissoes.xlsx');
   }
-
 }
