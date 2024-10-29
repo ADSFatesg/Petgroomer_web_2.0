@@ -1,0 +1,41 @@
+<div class="user-list-container">
+  <h2>Lista de Usuários</h2>
+
+  <!-- Tabela de Usuários -->
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Usuário (Login)</th>
+      <th>Nome do Usuário</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of usersWithEmployee">
+      <td>{{ user.login }}</td>
+      <td>{{ user.employeeName }}</td>
+      <td>
+        <button (click)="selectUser(user.id)">Alterar Senha</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="selectedUser" class="update-password-form">
+    <h3>Alterar Senha para Usuário: {{ selectedUser.employeeName }}</h3>
+    <div class="form-group">
+      <label for="oldPassword">Senha Atual:</label>
+      <input type="password" id="oldPassword" [(ngModel)]="oldPassword">
+    </div>
+    <div class="form-group">
+      <label for="newPassword">Nova Senha:</label>
+      <input type="password" id="newPassword" [(ngModel)]="newPassword">
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirmar Senha:</label>
+      <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword">
+    </div>
+    <button (click)="updatePassword()">Alterar Senha</button>
+  </div>
+
+</div>

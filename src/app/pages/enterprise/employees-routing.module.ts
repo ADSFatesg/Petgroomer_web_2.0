@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'serviceRegister', component: ServiceComponent, canActivate: [AuthGuard]},
       { path: 'serviceList', component: ListServiceComponent, canActivate: [AuthGuard]},
       { path: 'schedulingRegister', component: SchedulingComponent, canActivate: [AuthGuard]},
+      { path: 'schedulingRegister', component: SchedulingComponent, canActivate: [AuthGuard]},
       { path: 'schedulingList', component: ListSchedulingComponent, canActivate: [AuthGuard]}
     ]
   },

@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root',
@@ -94,6 +95,30 @@ export class AuthService {
   getUserRoles(): string[] {
     const roles = localStorage.getItem(this.roleKey);
     return roles ? roles.split(',') : [];
+  }
+
+  // Método para listar todos os usuários (agora com tipagem User[])
+  findAllUsers(): Observable<User[]> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<User[]>(`${this.apiUrl}/admin/findall`, { headers }).pipe(
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  // AuthService
+  adminUpdatePassword(userId: string, oldPassword: string, newPassword: string, confirmPassword: string): Observable<void> {
+    const payload = { oldPassword, newPassword, confirmPassword }; // Inclui oldPassword no payload
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.getToken()}` // Inclui o token de autorização, se necessário
+    });
+
+    return this.http.post<void>(`${this.apiUrl}/admin/update-password/${userId}`, payload, { headers });
   }
 
   // Tratamento de erros da API

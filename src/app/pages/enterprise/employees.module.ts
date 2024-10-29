@@ -13,7 +13,8 @@ import {ServiceModule} from "./service/service.module";
 import {ListServiceModule} from "./list-service/list-service.module";
 import {SchedulingModule} from "./scheduling/scheduling.module";
 import {ListSchedulingModule} from "./list-scheduling/list-scheduling.module";
-import {ReportComissionModule} from "./reportComission/report-comission.module";
+import {ReportComissionModule} from "./report-comission/report-comission.module";
+import {UsersModule} from "./users/users.module";
 
 
 @NgModule({

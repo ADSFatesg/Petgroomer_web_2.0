@@ -10,16 +10,15 @@ import 'jspdf-autotable';
 
 
 @Component({
-  selector: 'app-reportComission',
+  selector: 'app-report-comission',
   templateUrl: './report-comission.component.html',
   styleUrl: './report-comission.component.scss'
 })
 export class ReportComissionComponent implements  OnInit{
   schedulingForm: FormGroup;
-  selectedEmployeeId: string | null = null;
   employees: any[] = [];
-  schedulingsConcluidos: SchedulingRetrieve[] = [];
-  filteredReports: SchedulingRetrieve[] = [];
+  allServices: any[] = []; // Armazena todos os serviços
+  filteredReports: any[] = []; // Serviços filtrados para exibição
   totalCommission: number = 0;
 
   constructor(
@@ -29,7 +28,8 @@ export class ReportComissionComponent implements  OnInit{
   ) {
     this.schedulingForm = this.fb.group({
       startDate: [null, Validators.required],
-      endDate: [null, Validators.required]
+      endDate: [null, Validators.required],
+      employeeId: [null]
     });
   }
 
@@ -40,7 +40,18 @@ export class ReportComissionComponent implements  OnInit{
 
   loadCompletedSchedulings(): void {
     this.schedulingService.findAll().subscribe((schedulings: SchedulingRetrieve[]) => {
-      this.schedulingsConcluidos = schedulings.filter(s => s.statusScheduling === 'CONCLUIDO');
+      this.allServices = schedulings
+        .filter(s => s.statusScheduling === 'CONCLUIDO')
+        .flatMap(s =>
+          s.service.map(service => ({
+            date: s.date,
+            time: s.time,
+            employee: service.employee,
+            serviceName: service.name,
+            price: service.price,
+            commission: service.commission
+          }))
+        );
       this.applyFilter();
     });
   }
@@ -52,16 +63,19 @@ export class ReportComissionComponent implements  OnInit{
   }
 
   applyFilter(): void {
-    const startDate = new Date(this.schedulingForm.get('startDate')?.value);
-    const endDate = new Date(this.schedulingForm.get('endDate')?.value);
-    const selectedEmployee = this.selectedEmployeeId;
+    const startDate = this.schedulingForm.get('startDate')?.value ? new Date(this.schedulingForm.get('startDate')?.value) : null;
+    const endDate = this.schedulingForm.get('endDate')?.value ? new Date(this.schedulingForm.get('endDate')?.value) : null;
+    const selectedEmployeeId = this.schedulingForm.get('employeeId')?.value;
 
-    this.filteredReports = this.schedulingsConcluidos.filter(s => {
-      const serviceDate = new Date(s.date);
+    this.filteredReports = this.allServices.filter(service => {
+      const serviceDate = new Date(service.date);
 
-      const withinDateRange = serviceDate >= startDate && serviceDate <= endDate;
-      const matchesEmployee = selectedEmployee ?
-        s.service.some(serv => serv.employee.id === selectedEmployee) : true;
+      // Verifica se a data está dentro do intervalo
+      const withinDateRange = startDate && endDate ?
+        (serviceDate >= startDate && serviceDate <= endDate) : true;
+
+      // Verifica se o serviço corresponde ao funcionário selecionado
+      const matchesEmployee = selectedEmployeeId ? service.employee.id === selectedEmployeeId : true;
 
       return withinDateRange && matchesEmployee;
     });
@@ -70,9 +84,8 @@ export class ReportComissionComponent implements  OnInit{
   }
 
   calculateTotalCommission(): number {
-    return this.filteredReports.reduce((total, report) =>
-      total + report.service.reduce((serviceTotal, service) =>
-        serviceTotal + (service.price * service.commission / 100), 0), 0);
+    return this.filteredReports.reduce((total, service) =>
+      total + (service.price * service.commission / 100), 0);
   }
 
   submitForm() {
@@ -93,15 +106,13 @@ export class ReportComissionComponent implements  OnInit{
     doc.setFontSize(16);
     doc.text('Relatório de Comissões', 14, 20);
 
-    const tableData = this.filteredReports.flatMap(report =>
-      report.service.map(service => [
-        this.formatDate(report.date),
-        service.employee.name,
-        service.name,
-        `R$ ${service.price.toFixed(2)}`,
-        `R$ ${(service.price * service.commission / 100).toFixed(2)}`
-      ])
-    );
+    const tableData = this.filteredReports.map(service => [
+      this.formatDate(service.date),
+      service.employee.name,
+      service.serviceName,
+      `R$ ${service.price.toFixed(2)}`,
+      `R$ ${(service.price * service.commission / 100).toFixed(2)}`
+    ]);
 
     (doc as any).autoTable({
       head: [['Data', 'Funcionário', 'Serviço', 'Valor do Serviço', 'Comissão']],
@@ -113,15 +124,13 @@ export class ReportComissionComponent implements  OnInit{
   }
 
   exportToXLS(): void {
-    const reportData = this.filteredReports.flatMap(report =>
-      report.service.map(service => ({
-        Data: this.formatDate(report.date),
-        Funcionário: service.employee.name,
-        Serviço: service.name,
-        Valor: service.price,
-        Comissão: (service.price * service.commission) / 100
-      }))
-    );
+    const reportData = this.filteredReports.map(service => ({
+      Data: this.formatDate(service.date),
+      Funcionário: service.employee.name,
+      Serviço: service.serviceName,
+      Valor: service.price,
+      Comissão: (service.price * service.commission) / 100
+    }));
 
     reportData.push({
       Data: '',

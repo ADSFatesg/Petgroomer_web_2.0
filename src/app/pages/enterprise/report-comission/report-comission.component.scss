@@ -1,0 +1,127 @@
+.report-comission-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .form-group {
+      flex: 1 1 20%;
+      margin: 10px 30px; // Margem lateral para separar os campos
+
+      label {
+        font-weight: bold;
+        color: #555;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #0056b3;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .export-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      margin: 0 10px; // Espaçamento entre botões
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 2px solid #0056b3;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      background-color: #fff;
+
+      &:nth-child(even) {
+        background-color: #f9f9f9; // Cor alternada para as linhas
+      }
+
+      &:hover {
+        background-color: #f1f1f1; // Cor ao passar o mouse
+      }
+    }
+  }
+
+  .no-data-message {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    color: #777;
+  }
+}
+/* Estilo para o botão de filtro */
+.btn-filter {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #218838;
+  }
+
+  &:active {
+    background-color: #1e7e34;
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+}
