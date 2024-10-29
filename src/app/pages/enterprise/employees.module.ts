@@ -13,6 +13,7 @@ import {ServiceModule} from "./service/service.module";
 import {ListServiceModule} from "./list-service/list-service.module";
 import {SchedulingModule} from "./scheduling/scheduling.module";
 import {ListSchedulingModule} from "./list-scheduling/list-scheduling.module";
+import {ReportComissionModule} from "./reportComission/report-comission.module";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {ListSchedulingModule} from "./list-scheduling/list-scheduling.module";
     ServiceModule,
     ListServiceModule,
     SchedulingModule,
-    ListSchedulingModule
+    ListSchedulingModule,
+    ReportComissionModule
   ]
 })
 export class EmployeesModule { }

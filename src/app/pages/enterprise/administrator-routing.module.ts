@@ -15,6 +15,7 @@ import { AuthGuard } from '../../authentication/auth.guard';
 import { ServiceComponent } from './service/service.component';
 import { ListServiceComponent } from './list-service/list-service.component';
 import { SchedulingComponent } from './scheduling/scheduling.component';
+import {ReportComissionComponent} from "./reportComission/report-comission.component";
 
 const routes: Routes = [
   {
@@ -34,7 +35,8 @@ const routes: Routes = [
       { path: 'registerService', component: ServiceComponent, canActivate: [AuthGuard]},
       { path: 'listService', component: ListServiceComponent, canActivate: [AuthGuard]},
       { path: 'scheduling', component: SchedulingComponent, canActivate: [AuthGuard]},
-      { path: 'listScheduling', component: ListSchedulingComponent, canActivate: [AuthGuard]}
+      { path: 'listScheduling', component: ListSchedulingComponent, canActivate: [AuthGuard]},
+      { path: 'comission', component:ReportComissionComponent, canActivate: [AuthGuard]}
     ]
   },
 ];
