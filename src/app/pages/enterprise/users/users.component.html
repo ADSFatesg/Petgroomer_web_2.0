@@ -1,5 +1,5 @@
 <div class="user-list-container">
-  <h2>Lista de Usuários</h2>
+  <h1>Lista de Usuários</h1>
 
   <!-- Tabela de Usuários -->
   <table class="table">
@@ -15,12 +15,16 @@
       <td>{{ user.login }}</td>
       <td>{{ user.employeeName }}</td>
       <td>
-        <button (click)="selectUser(user.id)">Alterar Senha</button>
+        <!-- Botão com ícone e tooltip -->
+        <button (click)="selectUser(user.id)" matTooltip="Alterar a senha deste usuário">
+          <mat-icon>lock</mat-icon>
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
 
+  <!-- Formulário de Alteração de Senha -->
   <div *ngIf="selectedUser" class="update-password-form">
     <h3>Alterar Senha para Usuário: {{ selectedUser.employeeName }}</h3>
     <div class="form-group">
@@ -37,5 +41,4 @@
     </div>
     <button (click)="updatePassword()">Alterar Senha</button>
   </div>
-
 </div>

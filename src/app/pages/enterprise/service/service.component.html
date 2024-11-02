@@ -1,5 +1,5 @@
 <div class="register-service-container">
-    <h2>Cadastro de Serviço</h2>
+    <h1>Cadastro de Serviço</h1>
     <form [formGroup]="serviceForm" (ngSubmit)="registerService()">
         <div class="form-sections">
 
@@ -14,7 +14,7 @@
                         <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF"
                             mask="000.000.000-00">
                         <!-- Lupa dentro do campo -->
-                        <button type="button" class="btn-icon" (click)="searchEmployeeByCpf()">
+                        <button type="button" class="btn-icon" (click)="searchEmployeeByCpf()" matTooltip="Consultar funcionário">
                             <mat-icon>search</mat-icon>
                         </button>
                     </div>

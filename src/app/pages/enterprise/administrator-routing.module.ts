@@ -17,6 +17,7 @@ import { ListServiceComponent } from './list-service/list-service.component';
 import { SchedulingComponent } from './scheduling/scheduling.component';
 import {ReportComissionComponent} from "./report-comission/report-comission.component";
 import {UsersComponent} from "./users/users.component";
+import {ReportInvoicingComponent} from "./report-invoicing/report-invoicing.component";
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
       { path: 'listScheduling', component: ListSchedulingComponent, canActivate: [AuthGuard]},
       { path: 'comission', component:ReportComissionComponent, canActivate: [AuthGuard]},
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+      { path: 'invoicing', component: ReportInvoicingComponent, canActivate: [AuthGuard]},
     ]
   },
 ];

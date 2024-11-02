@@ -1,4 +1,4 @@
-.report-comission-container {
+.report-invoicing-container {
   padding: 20px;
   max-width: 1200px;
   margin: auto;
@@ -20,24 +20,33 @@
 
     .form-group {
       flex: 1 1 20%;
-      margin: 10px 30px; // Margem lateral para separar os campos
+      margin: 10px 30px;
 
       label {
         color: #555;
+        display: block;
+        margin-bottom: 8px;
       }
 
       input,
-      select {
+      mat-select{
         width: 100%;
         padding: 12px;
         border: 1px solid #007bff;
         border-radius: 4px;
         transition: border-color 0.3s;
+        background-color: #fff;
 
-        &:focus {
+
+        &:focus,
+        &.mat-focused .mat-form-field-outline {
           border-color: #0056b3;
           outline: none;
         }
+      }
+
+      mat-select {
+        padding: 9px;
       }
     }
   }
@@ -53,7 +62,7 @@
       border: none;
       padding: 10px 15px;
       border-radius: 4px;
-      margin: 0 10px; // Espaçamento entre botões
+      margin: 0 10px;
       cursor: pointer;
       transition: background-color 0.3s;
 
@@ -82,11 +91,11 @@
       background-color: #fff;
 
       &:nth-child(even) {
-        background-color: #f9f9f9; // Cor alternada para as linhas
+        background-color: #f9f9f9;
       }
 
       &:hover {
-        background-color: #f1f1f1; // Cor ao passar o mouse
+        background-color: #f1f1f1;
       }
     }
   }
@@ -98,6 +107,7 @@
     color: #777;
   }
 }
+
 /* Estilo para o botão de filtro */
 .btn-filter {
   background-color: #28a745;

@@ -1,5 +1,5 @@
 <div class="register-scheduling-container">
-    <h2>Cadastro de Agendamento</h2>
+    <h1>Cadastro de Agendamento</h1>
     <form [formGroup]="schedulingForm" (ngSubmit)="registerScheduling()">
         <div class="form-sections">
 
@@ -14,7 +14,7 @@
                         <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF"
                             mask="000.000.000-00">
                         <!-- Lupa dentro do campo -->
-                        <button type="button" class="btn-icon" (click)="consultarPets()">
+                        <button type="button" class="btn-icon" (click)="consultarPets()" matTooltip="Consultar cliente">
                             <mat-icon>search</mat-icon>
                         </button>
                     </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             </div>
-            
+
 
             <!-- Seção de Informações do Serviço -->
             <div class="form-section">
@@ -125,7 +125,7 @@
                     <div *ngFor="let service of selectedServices" class="cart-item">
                         <span>{{ service.name }} - R$ {{ service.price }}</span>
                         <button type="button" class="btn-remove" (click)="removeService(service.id)"><mat-icon>delete</mat-icon></button>
-                        
+
                     </div>
                     <div *ngIf="selectedServices.length === 0" class="no-services-message">
                         Nenhum serviço adicionado ao carrinho.
@@ -136,7 +136,7 @@
                 </div>
             </div>
             </div>
-           
+
         </div>
 
         <button type="submit" class="btn-save" [disabled]="schedulingForm.invalid">Cadastrar Agendamento</button>

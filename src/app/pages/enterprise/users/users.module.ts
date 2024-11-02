@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
 import {SharedModule} from "../../../shared/shared.module";
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 
@@ -9,8 +10,9 @@ import {SharedModule} from "../../../shared/shared.module";
   declarations: [
     UsersComponent
   ],
-  imports: [
-    SharedModule
-  ]
+    imports: [
+        SharedModule
+
+    ]
 })
 export class UsersModule { }

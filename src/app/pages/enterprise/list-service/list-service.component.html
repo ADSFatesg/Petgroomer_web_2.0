@@ -18,7 +18,7 @@
       <label for="searchName">Buscar por Nome</label>
       <div class="input-with-icon">
         <input id="searchName" type="text" [(ngModel)]="nameFilter" placeholder="Nome do Serviço">
-        <button class="btn-icon" (click)="applyNameFilter()">
+        <button class="btn-icon" (click)="applyNameFilter()" matTooltip="Buscar serviço por nome">
           <mat-icon class="mat-18">search</mat-icon>
         </button>
       </div>
@@ -77,19 +77,19 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let service">
-        <!-- Ícone de editar serviço -->
-        <button (click)="openServiceModal(service)" class="btn-icon-open">
+        <!-- Ícone de editar serviço com tooltip -->
+        <button (click)="openServiceModal(service)" class="btn-icon-open" matTooltip="Editar serviço">
           <mat-icon class="mat-18">edit</mat-icon>
         </button>
 
-        <!-- Ícone de desativar serviço (se ativo) -->
-        <button *ngIf="service.active" (click)="deactivateService(service)" class="btn-icon-block">
-          <mat-icon class="mat-18 active-icon">block</mat-icon>
+        <!-- Ícone de desativar serviço (se ativo) com tooltip -->
+        <button *ngIf="service.active" (click)="deactivateService(service)" class="btn-icon-block" matTooltip="Desativar serviço">
+          <mat-icon class="mat-18 active-icon" style="color: green;">block</mat-icon>
         </button>
 
-        <!-- Ícone de ativar serviço (se inativo) -->
-        <button *ngIf="!service.active" (click)="activateService(service)" class="btn-icon-block">
-          <mat-icon class="mat-18 inactive-icon">block</mat-icon>
+        <!-- Ícone de ativar serviço (se inativo) com tooltip -->
+        <button *ngIf="!service.active" (click)="activateService(service)" class="btn-icon-block" matTooltip="Ativar serviço">
+          <mat-icon class="mat-18 inactive-icon" style="color: red;">block</mat-icon>
         </button>
       </td>
     </ng-container>

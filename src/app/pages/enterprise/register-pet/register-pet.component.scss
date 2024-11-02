@@ -1,14 +1,13 @@
 .register-pet-container {
-    max-width: 100%; // Mantém a largura total disponível
-    margin: 0 auto;
+    max-width: 50%; // Mantém a largura total disponível
+    margin: 50px auto;
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: #f4f3f3;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     h3 {
         font-size: 18px;
-        font-weight: bold;
         color: #333;
         margin-bottom: 15px;
         border-bottom: 1px solid #ddd;
@@ -42,7 +41,6 @@
             margin-bottom: 15px;
 
             label {
-                font-weight: bold;
                 color: #333;
                 margin-bottom: 5px;
             }
@@ -82,13 +80,13 @@
                 position: relative;
 
                 input {
-                    padding-right: 35px; /* Espaço extra à direita para o ícone */
-                   
+                    padding-right: 35px;
+
                 }
 
                 mat-icon {
                     position: absolute;
-                    left: 10px;
+                    left: 140px;
                     top: 50%;
                     transform: translateY(-50%);
                     font-size: 20px;
@@ -103,7 +101,7 @@
                     background: transparent;
                     border: none;
                     cursor: pointer;
-                
+
                     mat-icon {
                         color: #666;
                         font-size: 24px;

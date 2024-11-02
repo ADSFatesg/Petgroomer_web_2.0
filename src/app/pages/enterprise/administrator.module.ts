@@ -15,6 +15,7 @@ import { ListServiceModule } from './list-service/list-service.module';
 import { SchedulingModule } from './scheduling/scheduling.module';
 import { ListSchedulingModule } from './list-scheduling/list-scheduling.module';
 import {UsersModule} from "./users/users.module";
+import {ReportInvoicingModule} from "./report-invoicing/report-invoicing.module";
 
 
 
@@ -37,7 +38,8 @@ import {UsersModule} from "./users/users.module";
     ListServiceModule,
     SchedulingModule,
     ListSchedulingModule,
-    UsersModule
+    UsersModule,
+    ReportInvoicingModule
   ]
 })
 export class AdministratorModule { }
