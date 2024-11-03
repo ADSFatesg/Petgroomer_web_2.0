@@ -8,20 +8,21 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './exceptions/erro-interceptor.service';
 import { TokenInterceptorService } from './authentication/token-interceptor.service';
-import { LoginModule } from './pages/login/login.module';
-import { MenuClientComponent } from './pages/Client/menu-client/menu-client.component';
-import {MatIcon} from "@angular/material/icon";
-import {MatToolbar} from "@angular/material/toolbar";
+import { LoginModule } from './pages/homeMain/login/login.module';
 import {SharedModule} from "./shared/shared.module";
 import {ClientModule} from "./pages/Client/client.module";
 import {EmployeesModule} from "./pages/enterprise/employees.module";
-import { HomeMainComponent } from './pages/homeMain/home-main/home-main.component';
 import {HomeMainModule} from "./pages/homeMain/home-main.module";
+import {RequestResetPasswordComponent} from "./pages/homeMain/request-reset-password/request-reset-password.component";
+import {ResetPasswordComponent} from "./pages/homeMain/reset-password/reset-password.component";
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    RequestResetPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

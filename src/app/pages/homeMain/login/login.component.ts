@@ -1,4 +1,4 @@
-import { AuthService } from './../../authentication/auth.service';
+import { AuthService } from '../../../authentication/auth.service';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';

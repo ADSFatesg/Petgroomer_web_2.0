@@ -109,17 +109,49 @@ export class AuthService {
     );
   }
 
-  // AuthService
+
   adminUpdatePassword(userId: string, oldPassword: string, newPassword: string, confirmPassword: string): Observable<void> {
-    const payload = { oldPassword, newPassword, confirmPassword }; // Inclui oldPassword no payload
+    const payload = { oldPassword, newPassword, confirmPassword };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}` // Inclui o token de autorização, se necessário
+      'Authorization': `Bearer ${this.getToken()}`
     });
 
     return this.http.post<void>(`${this.apiUrl}/admin/update-password/${userId}`, payload, { headers });
   }
+
+  // Método para solicitar a redefinição de senha
+  requestPasswordReset(email: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/request-reset-password/${email}`, null).pipe(
+      map(() => {
+        this.snackBar.open('Solicitação de redefinição de senha enviada. Verifique seu e-mail.', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+          panelClass: ['snack-success']
+        });
+      }),
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  // Método para redefinir a senha usando o token
+  resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<void> {
+    const payload = { newPassword, confirmPassword };
+    return this.http.post<void>(`${this.apiUrl}/reset-password/${token}`, payload).pipe(
+      map(() => {
+        this.snackBar.open('Senha redefinida com sucesso!', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+          panelClass: ['snack-success']
+        });
+      }),
+      catchError(this.handleError.bind(this))
+    );
+  }
+
 
   // Tratamento de erros da API
   private handleError(error: HttpErrorResponse) {

@@ -1,4 +1,13 @@
 /* Flexbox container para as seções */
+
+.user-container{
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 .sections {
   display: flex;
   justify-content: space-between;
@@ -59,9 +68,8 @@ input:focus {
 
 /* Estilos para o ícone de lupa (CEP) */
 .input-with-icon .btn-icon {
-  position: absolute;
   margin-top:10px;
-  right: 40px;
+  right: 10px;
   background: none;
   border: none;
   cursor: pointer;
