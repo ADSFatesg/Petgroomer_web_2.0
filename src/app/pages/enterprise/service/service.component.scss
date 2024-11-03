@@ -1,6 +1,6 @@
 .register-service-container {
-    max-width: 100%; // Mantém a largura total disponível
-    margin: 0 auto;
+    max-width: 70%;
+    margin: 50px auto;
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 8px;
@@ -8,7 +8,6 @@
 
     h3 {
         font-size: 18px;
-        font-weight: bold;
         color: #333;
         margin-bottom: 15px;
         border-bottom: 1px solid #ddd;
@@ -22,12 +21,12 @@
         .form-sections {
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap; // Para adaptar ao espaço disponível
-            gap: 20px; // Espaçamento entre as seções
+            flex-wrap: wrap;
+            gap: 20px;
 
             .form-section {
                 flex: 1;
-                min-width: 350px; // Garante que as seções tenham pelo menos 350px
+                min-width: 350px;
                 margin: 0 10px;
 
                 h3 {
@@ -42,7 +41,6 @@
             margin-bottom: 15px;
 
             label {
-                font-weight: bold;
                 color: #333;
                 margin-bottom: 5px;
             }
@@ -83,12 +81,12 @@
 
                 input {
                     padding-right: 35px; /* Espaço extra à direita para o ícone */
-                   
+
                 }
 
                 mat-icon {
                     position: absolute;
-                    left: 10px;
+                    left: 45px;
                     top: 50%;
                     transform: translateY(-50%);
                     font-size: 20px;
@@ -103,7 +101,7 @@
                     background: transparent;
                     border: none;
                     cursor: pointer;
-                
+
                     mat-icon {
                         color: #666;
                         font-size: 24px;

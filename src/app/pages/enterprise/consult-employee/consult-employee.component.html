@@ -18,7 +18,7 @@
       <label for="searchCpf">Buscar por CPF</label>
       <div class="input-with-icon">
         <input id="searchCpf" type="text" [(ngModel)]="cpfFilter" placeholder="CPF" mask="000.000.000-00">
-        <button class="btn-icon" (click)="applyCpfFilter()">
+        <button class="btn-icon" (click)="applyCpfFilter()" matTooltip="Buscar empregado por CPF">
           <mat-icon class="mat-18">search</mat-icon>
         </button>
       </div>
@@ -79,19 +79,19 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let employee">
-        <!-- Ícone de editar empregado -->
-        <button (click)="openEmployeeModal(employee)" class="btn-icon-open">
+        <!-- Botão de editar empregado com tooltip -->
+        <button (click)="openEmployeeModal(employee)" class="btn-icon-open" matTooltip="Editar empregado">
           <mat-icon class="mat-18">edit</mat-icon>
         </button>
 
-        <!-- Ícone de desativar empregado (se ativo) -->
-        <button *ngIf="employee.active" (click)="deactivateEmployee(employee)" class="btn-icon-block">
-          <mat-icon class="mat-18 active-icon">block</mat-icon>
+        <!-- Botão de desativar empregado (se ativo) com tooltip -->
+        <button *ngIf="employee.active" (click)="deactivateEmployee(employee)" class="btn-icon-block" matTooltip="Desativar empregado">
+          <mat-icon class="mat-18 active-icon" style="color: green;">block</mat-icon>
         </button>
 
-        <!-- Ícone de ativar empregado (se desativado) -->
-        <button *ngIf="!employee.active" (click)="activateEmployee(employee)" class="btn-icon-block">
-          <mat-icon class="mat-18 inactive-icon">block</mat-icon>
+        <!-- Botão de ativar empregado (se desativado) com tooltip -->
+        <button *ngIf="!employee.active" (click)="activateEmployee(employee)" class="btn-icon-block" matTooltip="Ativar empregado">
+          <mat-icon class="mat-18 inactive-icon" style="color: red;">block</mat-icon>
         </button>
       </td>
     </ng-container>

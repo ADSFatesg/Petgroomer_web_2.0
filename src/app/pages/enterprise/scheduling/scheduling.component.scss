@@ -1,52 +1,50 @@
 .register-scheduling-container {
-    max-width: 100%;
-    margin: 0 auto;
+    max-width: 70%;
+    margin: 50px auto;
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: #f4f3f3;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+
     h3 {
       font-size: 18px;
-      font-weight: bold;
       color: #333;
       margin-bottom: 15px;
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
     }
-  
+
     form {
       display: flex;
       flex-direction: column;
-  
+
       .form-sections {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 20px;
-  
+
         .form-section {
           flex: 1;
           min-width: 350px;
           margin: 0 10px;
-  
+
           h3 {
             margin-bottom: 10px;
           }
         }
       }
-  
+
       .form-group {
         display: flex;
         flex-direction: column;
         margin-bottom: 15px;
-  
+
         label {
-          font-weight: bold;
           color: #333;
           margin-bottom: 5px;
         }
-  
+
         input,
         select {
           padding: 10px;
@@ -55,20 +53,20 @@
           border-radius: 4px;
           outline: none;
           transition: border-color 0.3s;
-  
+
           &:focus {
             border-color: #66afe9;
             box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
           }
         }
-  
+
         .input-with-icon {
-          position: absolute; 
-  
+          position: absolute;
+
           input {
             padding-right: 45px;
           }
-  
+
           button.btn-icon {
             position: absolute;
             right: 5px;
@@ -77,30 +75,30 @@
             background: transparent;
             border: none;
             cursor: pointer;
-  
+
             mat-icon {
               color: #666;
               font-size: 20px;
             }
-  
+
             &:hover mat-icon {
               color: #007bff;
             }
           }
         }
-  
+
         .has-error input,
         .has-error select {
           border-color: #e74c3c;
         }
-  
+
         .error-message {
           font-size: 12px;
           color: #e74c3c;
           margin-top: 5px;
         }
       }
-  
+
       .btn-save {
         background-color: #28a745;
         color: white;
@@ -111,17 +109,17 @@
         cursor: pointer;
         transition: background-color 0.3s;
         margin-top: 20px;
-  
+
         &:hover {
           background-color: #218838;
         }
-  
+
         &:disabled {
           background-color: #ccc;
           cursor: not-allowed;
         }
       }
-  
+
       .btn-add {
         background-color: #28a745;
         color: white;
@@ -133,7 +131,7 @@
         transition: background-color 0.3s;
         margin-top: 20px;
       }
-  
+
       .btn-remove {
         background-color: transparent;
         border: none;
@@ -141,25 +139,25 @@
         display: inline;
         align-items: center;
         transition: transform 0.3s;
-  
+
         mat-icon {
           color: #e74c3c;
           font-size: 24px;
           transition: color 0.3s;
-  
+          padding-left: 20px;
+
           &:hover {
             color: #c0392b;
           }
         }
-  
+
         &:hover {
           transform: scale(1.1);
         }
-  
+
         &:focus {
           outline: none;
         }
       }
     }
   }
-  
