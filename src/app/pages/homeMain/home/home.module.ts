@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home.component';
 import {SharedModule} from "../../../shared/shared.module";
-import {MenuClientComponent} from "./menu-client.component";
+
 
 
 @NgModule({
   declarations: [
-    MenuClientComponent
+    HomeComponent
   ],
   imports: [
     SharedModule
   ]
 })
-export class MenuClientModule { }
+export class HomeModule { }

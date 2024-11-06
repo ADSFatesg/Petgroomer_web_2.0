@@ -1,5 +1,5 @@
 .register-scheduling-container {
-  max-width: 100%;
+  max-width: 70%;
   margin: 0 auto;
   padding: 20px;
   background-color: #f7f7f7;
@@ -23,7 +23,7 @@
     align-items: center;
     mat-icon {
       margin-right: 8px;
-      color: #007bff;
+      color: black;
     }
   }
 
@@ -199,7 +199,6 @@
       margin-top: 10px;
       text-align: right;
       font-size: 18px;
-      font-weight: bold;
     }
   }
 
