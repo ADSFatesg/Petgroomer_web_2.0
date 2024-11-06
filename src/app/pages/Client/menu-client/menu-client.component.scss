@@ -62,3 +62,23 @@ button[mat-button] {
   padding: 16px 0;
   font-size: 14px;
 }
+/* Estilo do primeiro botão na toolbar para deixá-lo perfeitamente redondo */
+.toolbar button[mat-button]:first-of-type {
+  border-radius: 50%;
+  width: 10px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #3f51b5;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Centralizar o ícone no botão redondo */
+.toolbar button[mat-button]:first-of-type mat-icon {
+  margin: 0;
+}
+

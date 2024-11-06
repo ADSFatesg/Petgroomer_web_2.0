@@ -11,7 +11,6 @@ h2 {
   font-size: 1.5em;
   color: #333;
   margin-bottom: 20px;
-  font-weight: bold;
   text-align: center;
 }
 
@@ -27,7 +26,6 @@ h2 {
     flex-direction: column;
 
     label {
-      font-weight: bold;
       margin-bottom: 5px;
       color: #555;
     }
@@ -62,7 +60,7 @@ h2 {
   background: none;
   border: none;
   cursor: pointer;
-  color: #007bff;
+  color: black;
 }
 
 .btn-icon:focus {
@@ -120,7 +118,7 @@ table {
   background: none;
   border: none;
   cursor: pointer;
-  color: #007bff;
+  color: black;
 }
 
 .btn-icon-open:disabled {
@@ -162,7 +160,6 @@ button[mat-button][color="warn"] {
 
   th {
     background-color: #f2f2f2;
-    font-weight: bold;
   }
 
   tr:hover {
@@ -212,7 +209,6 @@ button[mat-button][color="warn"] {
   /* Estilo do rótulo */
   label {
     margin-right: 10px;
-    font-weight: bold;
 
     @media (max-width: 600px) {
       margin-bottom: 5px;
@@ -314,7 +310,6 @@ button[mat-button][color="warn"] {
   /* Estilo do botão "Fechar" no snackbar */
   .mat-simple-snackbar-action {
     color: white;
-    font-weight: bold;
   }
   /* Cor verde para cliente ativo */
   .active-icon {
@@ -336,20 +331,21 @@ button[mat-button][color="warn"]:hover {
 }
 .status-agendado {
   color: #007bff; /* Azul para "Agendado" */
-  font-weight: bold;
 }
 
 .status-em-andamento {
   color: #ffc107; /* Amarelo para "Em Andamento" */
-  font-weight: bold;
 }
 
 .status-concluido {
   color: #28a745; /* Verde para "Concluído" */
-  font-weight: bold;
 }
 
 .status-cancelado {
   color: #dc3545; /* Vermelho para "Cancelado" */
-  font-weight: bold;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
