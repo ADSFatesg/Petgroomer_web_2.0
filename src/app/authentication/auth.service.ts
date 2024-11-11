@@ -9,7 +9,7 @@ import {User} from "../model/user";
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://petgroomer-app:8080/auth';
+  private apiUrl = 'https://back-end.segredes.com.br/auth';
   private tokenKey = 'authToken';
   private roleKey = 'userRole';
   private clientIdKey = 'clientId';
