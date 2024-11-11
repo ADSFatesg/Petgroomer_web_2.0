@@ -11,7 +11,7 @@ import { ClientDTO, ClientRetrive } from '../model/client';
 })
 export class ClientService {
 
-  private apiUrl = 'https://petgroomer-app:8080/api/client';
+  private apiUrl = 'http://petgroomer-app:8080/api/client';
 
   constructor(private http: HttpClient ) {}
 

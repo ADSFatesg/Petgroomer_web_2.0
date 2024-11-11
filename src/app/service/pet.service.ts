@@ -8,7 +8,7 @@ import { PetDTO, PetRetrive } from '../model/pet';
 })
 export class PetService {
 
-  private apiUrl = 'https://petgroomer-app:8080/api/pet';
+  private apiUrl = 'http://petgroomer-app:8080/api/pet';
 
   constructor(private http: HttpClient) { }
 

@@ -9,7 +9,7 @@ import { ServiceDTO, ServiceRetrieve } from '../model/service';
 })
 export class ServicesService {
 
-  private urlApi = 'https://petgroomer-app:8080/api/service'
+  private urlApi = 'http://petgroomer-app:8080/api/service'
 
   constructor(private http: HttpClient) { }
 
