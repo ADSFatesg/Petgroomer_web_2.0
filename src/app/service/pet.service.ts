@@ -8,7 +8,7 @@ import { PetDTO, PetRetrive } from '../model/pet';
 })
 export class PetService {
 
-  private apiUrl = 'http://localhost:8080/api/pet';
+  private apiUrl = 'https://petgroomer-app:8080/api/pet';
 
   constructor(private http: HttpClient) { }
 
@@ -44,17 +44,17 @@ getPetsByClientId(clientId: string): Observable<PetRetrive[]> {
   );
 }
 
-  
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Client-side error
       return throwError(() => new Error(`Erro: ${error.error.message}`));
     } else {
-      // Server-side error 
+      // Server-side error
       let errorMessage = 'Ocorreu um erro inesperado.';
 
       if (error.status === 400 && error.error && error.error.errors) {
-        // Trata erros de validação 
+        // Trata erros de validação
         const validationErrors = error.error.errors.map((err: any) => err.error);
         errorMessage = `Erro de validação: ${validationErrors.join(', ')}`;
       } else if (error.error && error.error.message) {

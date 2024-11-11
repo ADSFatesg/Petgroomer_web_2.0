@@ -11,7 +11,7 @@ import { ClientDTO, ClientRetrive } from '../model/client';
 })
 export class ClientService {
 
-  private apiUrl = 'http://localhost:8080/api/client';
+  private apiUrl = 'https://petgroomer-app:8080/api/client';
 
   constructor(private http: HttpClient ) {}
 
@@ -56,17 +56,17 @@ export class ClientService {
       // Client-side error
       return throwError(() => new Error(`Erro: ${error.error.message}`));
     } else {
-      // Server-side error 
+      // Server-side error
       let errorMessage = 'Ocorreu um erro inesperado.';
-  
-      if (error.status === 400 && error.error && error.error.errors) { 
-        // Trata erros de validação 
-        const validationErrors = error.error.errors.map((err: any) => err.error); 
+
+      if (error.status === 400 && error.error && error.error.errors) {
+        // Trata erros de validação
+        const validationErrors = error.error.errors.map((err: any) => err.error);
         errorMessage = `Erro de validação: ${validationErrors.join(', ')}`;
       } else if (error.error && error.error.message) {
         errorMessage = error.error.message;
-      } 
-  
+      }
+
       return throwError(() => new Error(errorMessage));
     }
   }

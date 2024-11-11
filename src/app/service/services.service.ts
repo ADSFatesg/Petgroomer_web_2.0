@@ -9,7 +9,7 @@ import { ServiceDTO, ServiceRetrieve } from '../model/service';
 })
 export class ServicesService {
 
-  private urlApi = 'http://localhost:8080/api/service'
+  private urlApi = 'https://petgroomer-app:8080/api/service'
 
   constructor(private http: HttpClient) { }
 
@@ -43,11 +43,11 @@ export class ServicesService {
       // Client-side error
       return throwError(() => new Error(`Erro: ${error.error.message}`));
     } else {
-      // Server-side error 
+      // Server-side error
       let errorMessage = 'Ocorreu um erro inesperado.';
 
       if (error.status === 400 && error.error && error.error.errors) {
-        // Trata erros de validação 
+        // Trata erros de validação
         const validationErrors = error.error.errors.map((err: any) => err.error);
         errorMessage = `Erro de validação: ${validationErrors.join(', ')}`;
       } else if (error.error && error.error.message) {

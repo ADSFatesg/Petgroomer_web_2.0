@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  petgroomer-web:
+    build: .
+    ports:
+      - "4200:4200"
+    restart: always
+    environment:
+      - NODE_ENV=production
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: tasks_proxy
+    external: true

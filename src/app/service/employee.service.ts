@@ -9,7 +9,7 @@ import { EmployeeDTO, employeeRetrive } from '../model/employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private apiUrl = 'http://localhost:8080/api/employee'; // Replace with your actual API URL
+  private apiUrl = 'https://petgroomer-app:8080/api/employee'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 
@@ -60,17 +60,17 @@ export class EmployeeService {
       // Client-side error
       return throwError(() => new Error(`Erro: ${error.error.message}`));
     } else {
-      // Server-side error 
+      // Server-side error
       let errorMessage = 'Ocorreu um erro inesperado.';
-  
-      if (error.status === 400 && error.error && error.error.errors) { 
-        // Trata erros de validação 
-        const validationErrors = error.error.errors.map((err: any) => err.error); 
+
+      if (error.status === 400 && error.error && error.error.errors) {
+        // Trata erros de validação
+        const validationErrors = error.error.errors.map((err: any) => err.error);
         errorMessage = `Erro de validação: ${validationErrors.join(', ')}`;
       } else if (error.error && error.error.message) {
         errorMessage = error.error.message;
-      } 
-  
+      }
+
       return throwError(() => new Error(errorMessage));
     }
   }
