@@ -9,7 +9,7 @@ import { EmployeeDTO, employeeRetrive } from '../model/employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private apiUrl = 'http://petgroomer-app:8080/api/employee'; // Replace with your actual API URL
+  private apiUrl = 'https://back-end.segredes.com.br/api/employee'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 
