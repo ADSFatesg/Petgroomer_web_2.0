@@ -11,7 +11,7 @@ import { PaymentMethodEnum } from '../model/payment-method-enum';
   providedIn: 'root'
 })
 export class SchedulingService {
-  private apiUrl = 'http://petgroomer-app:8080/api/scheduling';
+  private apiUrl = 'https://back-end.segredes.com.br/api/scheduling';
 
   constructor(
     private http: HttpClient
