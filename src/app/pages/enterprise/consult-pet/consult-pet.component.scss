@@ -1,164 +1,237 @@
 .consult-pet-container {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 800px;
-    margin: 0 auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
 
-  /* Organizando seções do formulário */
-  .form-sections {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
+/* Organizando seções do formulário */
+.form-sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
-  .form-section {
-    flex: 1;
-    margin-bottom: 15px;
-    margin-right: 20px;
-  }
+.form-section {
+  flex: 1;
+  margin-bottom: 15px;
+  margin-right: 20px;
+  min-width: 300px;
+}
 
-  .form-section label {
-    margin-bottom: 5px;
-    display: block;
+.form-section label {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+/* Input com ícone à esquerda */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon mat-icon.leading-icon {
+  margin-right: 10px;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+input,
+select {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
     font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+
+    &:focus {
+        border-color: #66afe9;
+        box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+    }
+
+    @media (max-width: 600px) {
+        font-size: 13px;
+        padding: 12px;
+    }
+}
+/* Botão de busca (lupa) */
+.btn-icon {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.btn-icon mat-icon {
+  color: #333;
+  font-size: 24px;
+}
+
+.btn-icon:hover mat-icon {
+  color: #007bff;
+  transition: color 0.2s ease;
+}
+
+/* Lista de pets */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+ul li:hover {
+  background-color: #f1f1f1;
+}
+
+/* Campos inline (nome do pet, raça, porte) */
+.inline-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.field {
+  flex: 1;
+  margin-bottom: 15px;
+}
+
+.field select,
+.field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Botão de salvar */
+.btn-save {
+  background-color: #28a745;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+
+  &:hover {
+      background-color: #218838;
+  }
+}
+
+.btn-save:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilo para spinner */
+.spinner-border {
+  margin-right: 5px;
+}
+
+h3 {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+/* Ajuste do campo CPF */
+#cpf {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .inline-fields {
+      flex-direction: column;
+      gap: 15px;
   }
 
-  .input-with-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
+  .form-sections {
+      flex-direction: column;
+      gap: 15px;
   }
 
-  .input-with-icon mat-icon.leading-icon {
-    margin-right: 5px;
+  .field,
+  .form-section {
+      margin-right: 0;
+      width: 100%;
   }
 
   .input-with-icon input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+      padding-right: 40px;
   }
 
   .btn-icon {
-    position: relative;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 8px;
-    right: 37px;
-    bottom: 5px;
-      &:hover {
-      transform: scale(1.05);
-    }
+      right: 5px;
   }
 
-  .btn-icon mat-icon {
-    color: #333;
-    font-size: 24px;
-  }
-  .btn-icon:hover mat-icon {
-    color: #007bff;
-    transition: color 0.2s ease;
+  .input-with-icon mat-icon.leading-icon {
+      font-size: 20px;
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  ul li {
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  ul li:hover {
-    background-color: #f1f1f1;
-  }
-
-  /* Seção de campos inline (nome do pet, raça, porte) */
-  .inline-fields {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .field {
-    flex: 1;
-    margin-bottom: 15px;
-  }
-
-  .field select, .field input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  /* Botão de salvar, ocupa toda a largura disponível */
   .btn-save {
-    background-color: #28a745;
-    color: #fff;
-    padding: 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-    &:hover {
-      background-color: #218838;
-    }
+      padding: 12px;
+      font-size: 14px;
   }
+}
 
-  .btn-save:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-
-  .spinner-border {
-    margin-right: 5px;
+/* Responsividade para telas muito pequenas (max-width: 480px) */
+@media (max-width: 480px) {
+  .consult-pet-container {
+      padding: 15px;
   }
 
   h3 {
-    margin-top: 10px;
-    font-size: 18px;
+      font-size: 16px;
   }
 
-  input[type="checkbox"] {
-    margin-left: 10px;
+  .field select,
+  .field input {
+      padding: 8px 10px;
+      font-size: 13px;
   }
 
-
-  #cpf {
-    max-width: 200px; /* Define um tamanho menor para o campo CPF */
-    margin-bottom: 15px;
+  .btn-save {
+      padding: 10px;
+      font-size: 13px;
   }
-
-  /* Responsividade */
-  @media (max-width: 768px) {
-    .inline-fields {
-      flex-direction: column; /* Campos ficam em coluna em telas menores */
-    }
-
-    .form-sections {
-      flex-direction: column; /* Coloca as seções do formulário em coluna */
-    }
-
-    .field, .form-section {
-      margin-right: 0; /* Remove a margem lateral em telas menores */
-    }
-  }
+}

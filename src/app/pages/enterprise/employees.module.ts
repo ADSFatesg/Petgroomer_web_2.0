@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { EmployeesRoutingModule } from './employees-routing.module';
 import {SharedModule} from "../../shared/shared.module";
 import {MenuEmployeeModule} from "./menu-employee/menu-employee.module";
@@ -14,13 +12,11 @@ import {ListServiceModule} from "./list-service/list-service.module";
 import {SchedulingModule} from "./scheduling/scheduling.module";
 import {ListSchedulingModule} from "./list-scheduling/list-scheduling.module";
 import {ReportComissionModule} from "./report-comission/report-comission.module";
-import {UsersModule} from "./users/users.module";
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     EmployeesRoutingModule,
     SharedModule,
     MenuEmployeeModule,

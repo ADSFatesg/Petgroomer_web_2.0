@@ -186,4 +186,12 @@ export class ListSchedulingClientComponent implements  OnInit,OnDestroy{
       }
     });
   }
+  formatPaymentMethod(paymentMethod: string): string {
+    // Substitui os caracteres especiais por espaços e capitaliza a primeira letra
+    return paymentMethod
+      .replace(/_/g, ' ') // Substitui "_" por espaço
+      .toLowerCase() // Coloca todo o texto em minúsculas
+      .replace(/\b\w/g, (match) => match.toUpperCase()); // Capitaliza a primeira letra de cada palavra
+  }
+
 }

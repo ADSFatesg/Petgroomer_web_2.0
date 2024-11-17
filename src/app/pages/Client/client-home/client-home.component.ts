@@ -13,9 +13,9 @@ import {ClientService} from "../../../service/client.service";
   styleUrl: './client-home.component.scss'
 })
 export class ClientHomeComponent implements OnInit {
-  clientName: string = ''; // Nome do cliente logado
-  nextSchedulings: SchedulingRetrieve[] = []; // Lista de próximos agendamentos
-  pets: PetRetrive[] = []; // Lista dos pets cadastrados
+  clientName: string = '';
+  nextSchedulings: SchedulingRetrieve[] = [];
+  pets: PetRetrive[] = [];
 
   constructor(
     private schedulingService: SchedulingService,
@@ -31,7 +31,7 @@ export class ClientHomeComponent implements OnInit {
 
   // Carregar os dados do cliente e agendamentos
   loadClientData(): void {
-    const clientId = this.authService.getClientId(); // Obtém o ID do cliente do AuthService
+    const clientId = this.authService.getClientId();
     if (clientId) {
       // Carregar dados do cliente
       this.clientService.findById(clientId).subscribe(
@@ -56,7 +56,7 @@ export class ClientHomeComponent implements OnInit {
           ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         },
         (error) => {
-          this.snackBar.open('Erro ao carregar agendamentos', 'Fechar', {
+          this.snackBar.open(error.message || 'Nenhum agendamento', 'Fechar', {
             duration: 3000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
@@ -70,7 +70,7 @@ export class ClientHomeComponent implements OnInit {
           this.pets = pets;
         },
         (error) => {
-          this.snackBar.open('Erro ao carregar pets', 'Fechar', {
+          this.snackBar.open(error.message || 'Erro ao carregar pets', 'Fechar', {
             duration: 3000,
             verticalPosition: 'top',
             horizontalPosition: 'right'

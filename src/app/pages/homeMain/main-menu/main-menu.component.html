@@ -1,5 +1,8 @@
-<header class="navbar">
-  <span class="app-name">Petgroomer</span>
+<!-- Menu Desktop (Visível apenas em telas maiores) -->
+<header class="navbar desktop-menu">
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo Petgroomer" class="logo">
+  </div>
   <nav class="navbar-menu">
     <ul>
       <li><a routerLink="/home" routerLinkActive="active"><mat-icon>home</mat-icon><span>Home</span></a></li>
@@ -10,10 +13,50 @@
   </nav>
 </header>
 
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
+<!-- Menu Mobile (Sidenav) -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="mobile-menu">
+    <div class="sidenav-header">
+      <span class="app-name">Petgroomer</span>
+      <button mat-icon-button (click)="sidenav.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <nav class="navbar-menu">
+      <ul>
+        <li>
+          <a routerLink="/home" routerLinkActive="active" (click)="closeSidenav(sidenav)">
+            <mat-icon>home</mat-icon><span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/register" routerLinkActive="active" (click)="closeSidenav(sidenav)">
+            <mat-icon>person_add</mat-icon><span>Cadastre-se</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/login" routerLinkActive="active" (click)="closeSidenav(sidenav)">
+            <mat-icon>login</mat-icon><span>Login</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </mat-sidenav>
 
-<footer class="footer">
-  © 2024 Petgroomer - Todos os direitos reservados.
-</footer>
+  <!-- Conteúdo Principal (Visível em ambas as versões) -->
+  <mat-sidenav-content>
+    <header class="mobile-navbar">
+      <button mat-icon-button class="menu-button" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </header>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="footer">
+      © 2024 Petgroomer - Todos os direitos reservados.
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

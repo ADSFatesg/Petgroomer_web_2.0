@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PaymentMethodEnum } from '../../../model/payment-method-enum';
+import { PaymentMethodEnum, PaymentMethodOptions } from '../../../model/payment-method-enum';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { SchedulingRetrieve } from '../../../model/scheduling';
@@ -13,8 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SchedulingModalComponent {
   paymentForm: FormGroup;
-  paymentMethods = Object.values(PaymentMethodEnum); 
-
+  paymentMethodOptions = PaymentMethodOptions;
   constructor(
     private dialogRef: MatDialogRef<SchedulingModalComponent>,
     private schedulingService: SchedulingService,

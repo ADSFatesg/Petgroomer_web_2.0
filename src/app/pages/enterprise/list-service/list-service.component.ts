@@ -132,7 +132,7 @@ export class ListServiceComponent implements OnInit {
         });
       },
       (error) => {
-        this.snackBar.open('Erro ao desativar o serviço.', 'Fechar', {
+        this.snackBar.open(error.Mensagem() || 'Erro ao desativar o serviço.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'

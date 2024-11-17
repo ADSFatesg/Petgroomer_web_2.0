@@ -59,7 +59,7 @@ export class CadastrarComponent implements OnInit {
           });
         },
         (error) => {
-          this.snackBar.open('Erro ao consultar o CEP.', 'Fechar', {
+          this.snackBar.open(error.message || 'Erro ao consultar o CEP.', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'center'
@@ -99,7 +99,7 @@ export class CadastrarComponent implements OnInit {
 
       this.clientService.create(client).subscribe(
         () => {
-          this.snackBar.open('Cliente cadastrado com sucesso!', 'Fechar', {
+          this.snackBar.open('Cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
@@ -108,7 +108,7 @@ export class CadastrarComponent implements OnInit {
           this.router.navigate(['/home']);
         },
         (error) => {
-          this.snackBar.open(error.message() ||'Erro ao cadastrar cliente.', 'Fechar', {
+          this.snackBar.open(error.message ||'Erro ao cadastrar cliente.', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'

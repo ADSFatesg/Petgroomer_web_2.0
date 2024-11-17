@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {EntityId, ServiceRetrieve} from "../../../model/service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PetRetrive} from "../../../model/pet";
-import {PaymentMethodEnum} from "../../../model/payment-method-enum";
+import {PaymentMethodEnum, PaymentMethodOptions} from "../../../model/payment-method-enum";
 import {PetService} from "../../../service/pet.service";
 import {SchedulingService} from "../../../service/scheduling.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -22,7 +22,7 @@ export class ClientSchedulingComponent {
   schedulingForm!: FormGroup;
   pets: PetRetrive[] = [];
   services: ServiceRetrieve[] = [];
-  paymentMethods = Object.values(PaymentMethodEnum);
+  paymentMethods = PaymentMethodOptions;
   selectedClient: string = '';
   noActivePets: boolean = false;
   noActiveService: boolean = false;

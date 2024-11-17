@@ -10,12 +10,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrl: './menu-employee.component.scss'
 })
 export class MenuEmployeeComponent implements OnInit{
-  userName: string | null = ''; // Variável para armazenar o nome do funcionário
+  userName: string | null = '';
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private employeeService: EmployeeService, // Injetando EmployeeService
+    private employeeService: EmployeeService,
     private snackBar: MatSnackBar
   ) {}
 

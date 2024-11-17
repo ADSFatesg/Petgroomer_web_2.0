@@ -4,9 +4,53 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-
 }
-/* Estilo do container principal */
+
+/* Nome do aplicativo */
+.app-name {
+  font-size: 20px;
+  color: #fff;
+}
+
+/* Espaçamento flexível */
+.spacer {
+  flex: 1;
+}
+
+/* Nome do cliente */
+.client-name {
+  margin-left: 10px;
+  color: #fff;
+}
+
+/* Menu container */
+.menu-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para o botão de menu */
+button[mat-button] {
+  color: #fff;
+}
+
+/* Botão de menu redondo */
+.toolbar button[mat-button]:first-of-type {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3f51b5;
+}
+
+/* Centralizar o ícone no botão redondo */
+.toolbar button[mat-button]:first-of-type mat-icon {
+  margin: 0;
+}
+
+/* Conteúdo principal */
 .main-content {
   background-color: #f4f6f8;
   border-radius: 8px;
@@ -15,35 +59,15 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   min-height: 80vh;
 }
-.spacer {
-  flex: 1;
+
+/* Rodapé */
+.footer {
+  text-align: center;
+  padding: 16px 0;
+  font-size: 14px;
 }
 
-/* Nome do aplicativo alinhado à direita */
-.app-name {
-  font-size: 20px;
-  color: #fff;
-}
-
-/* Botão de menu e nome do cliente alinhados à esquerda */
-.menu-container {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-}
-
-/* Ajuste de cor para os botões dentro da toolbar */
-button[mat-button] {
-  color: #fff;
-}
-
-/* Estilo para o nome do cliente */
-.client-name {
-  margin-left: 10px;
-  color: #fff;
-}
-
-/* Estilo dos itens do menu */
+/* Itens do menu */
 .mat-menu-item {
   display: flex;
   align-items: center;
@@ -53,32 +77,68 @@ button[mat-button] {
   margin-right: 8px;
 }
 
-
+/* Cor do último item (Alterar Senha) */
 .mat-menu-item:last-child {
   color: #ff5c5c;
 }
-.footer {
-  text-align: center;
-  padding: 16px 0;
-  font-size: 14px;
-}
-/* Estilo do primeiro botão na toolbar para deixá-lo perfeitamente redondo */
-.toolbar button[mat-button]:first-of-type {
-  border-radius: 50%;
-  width: 10px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  background-color: #3f51b5;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
+
+
+/* Telas pequenas (Dispositivos móveis) */
+@media (max-width: 600px) {
+  .app-name {
+    font-size: 18px;
+  }
+
+  .client-name {
+    display: none;
+  }
+
+  .toolbar {
+    padding: 0 5px;
+  }
+
+  .toolbar button[mat-button]:first-of-type {
+    width: 36px;
+    height: 36px;
+  }
 }
 
-/* Centralizar o ícone no botão redondo */
-.toolbar button[mat-button]:first-of-type mat-icon {
-  margin: 0;
+/* Telas médias (Tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .app-name {
+    font-size: 18px;
+  }
+
+  .client-name {
+    font-size: 14px;
+  }
+
+  .toolbar {
+    padding: 0 10px;
+  }
+
+  .toolbar button[mat-button]:first-of-type {
+    width: 40px;
+    height: 40px;
+  }
 }
 
+/* Telas grandes (Desktop) */
+@media (min-width: 1025px) {
+  .app-name {
+    font-size: 22px;
+  }
+
+  .client-name {
+    font-size: 16px;
+  }
+
+  .toolbar {
+    padding: 0 20px;
+  }
+
+  .toolbar button[mat-button]:first-of-type {
+    width: 44px;
+    height: 44px;
+  }
+}

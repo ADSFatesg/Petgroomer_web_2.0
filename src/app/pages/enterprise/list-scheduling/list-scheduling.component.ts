@@ -84,9 +84,9 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
   // Aplicar filtro por CPF e status
   applyFilter(): void {
     this.filteredSchedulings = this.schedulings.filter(scheduling => {
-      const matchesCpf = this.cpfFilter ? scheduling.pet[0].client.name.includes(this.cpfFilter) : true;
+      const matchesCpf = this.cpfFilter ? scheduling.pet?.[0]?.client?.name?.includes(this.cpfFilter) : true;
       const matchesStatus = this.statusFilter === 'all' || scheduling.statusScheduling === this.statusFilter.toUpperCase();
-
+  
       return matchesCpf && matchesStatus;
     });
 
@@ -158,4 +158,24 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
       }
     });
   }
+  // Função para formatar o método de pagamento
+formatPaymentMethod(paymentMethod: string): string {
+  switch (paymentMethod) {
+    case 'DINHEIRO':
+      return 'Dinheiro';
+    case 'CARTAO_CREDITO':
+      return 'Cartão de Crédito';
+    case 'CARTAO_DEBITO':
+      return 'Cartão de Débito';
+    case 'TRANSFERENCIA_BANCARIA':
+      return 'Transferência Bancária';
+    case 'PIX':
+      return 'Pix';
+    case 'BOLETO_BANCARIO':
+      return 'Boleto Bancário';
+    default:
+      return paymentMethod;
+  }
+}
+
 }

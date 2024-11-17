@@ -220,3 +220,82 @@
     }
   }
 }
+/* Ajustes para dispositivos móveis (telas pequenas) */
+@media screen and (max-width: 600px) {
+  .register-scheduling-container {
+    max-width: 80%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  h3{
+    font-size: 1.2em;
+    width: 50%;
+  }
+  h2 {
+    font-size: 20px;
+  }
+
+  .form-sections {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-section {
+    width: 40%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .form-group {
+    width: 60%;
+    box-sizing: border-box;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .input-with-icon {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
+
+  .input-with-icon mat-icon {
+    margin-bottom: 5px;
+  }
+
+  .btn-add,
+  .btn-save {
+    width: 70%;
+    padding: 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .cart-container {
+    width: 60%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    width: 30%;
+    box-sizing: border-box;
+  }
+
+  .total-amount {
+    text-align: left;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}

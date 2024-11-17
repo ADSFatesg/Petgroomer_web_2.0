@@ -52,4 +52,119 @@ button[mat-list-item] {
 mat-list-item mat-icon {
   margin-right: 8px;
 }
+/* Responsividade para Dispositivos Móveis */
+@media screen and (max-width: 600px) {
+  .sidenav-container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .sidenav {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  mat-sidenav-content {
+    padding: 10px;
+  }
+
+  .toolbar {
+    padding: 0 10px;
+  }
+
+  .app-name {
+    font-size: 16px;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .user-greeting {
+    font-size: 12px;
+    display: none; /* Ocultar para economizar espaço */
+  }
+
+  .menu-list-button {
+    font-size: 24px;
+  }
+
+  button[mat-list-item] {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  mat-list-item mat-icon {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  .footer {
+    font-size: 12px;
+    padding: 10px 0;
+  }
+
+  .signature {
+    font-size: 12px;
+  }
+}
+
+/* Responsividade para Tablets */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .sidenav-container {
+    max-width: 100%;
+  }
+
+  .sidenav {
+    width: 250px;
+  }
+
+  mat-sidenav-content {
+    padding: 15px;
+  }
+
+  .toolbar {
+    padding: 0 15px;
+  }
+
+  .app-name {
+    font-size: 18px;
+  }
+
+  .user-greeting {
+    font-size: 14px;
+  }
+
+  button[mat-list-item] {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
+  mat-list-item mat-icon {
+    font-size: 22px;
+    margin-right: 10px;
+  }
+
+  .footer {
+    font-size: 13px;
+    padding: 12px 0;
+  }
+
+  .signature {
+    font-size: 13px;
+  }
+}
+
+/* Ajustes para Evitar Ultrapassagem de Tela */
+button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+input,
+select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 

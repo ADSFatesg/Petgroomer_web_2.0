@@ -1,4 +1,4 @@
-import { employeeRetrive } from './../../../model/employee';
+import { employeeRetrive } from '../../../model/employee';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -162,7 +162,8 @@ export class ConsultEmployeeComponent implements OnInit {
         this.snackBar.open('Empregado desativado com sucesso!', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
-          horizontalPosition: 'right'
+          horizontalPosition: 'right',
+          panelClass: ['snack-error']
         });
       },
       (error) => {

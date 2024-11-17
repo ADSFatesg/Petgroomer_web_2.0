@@ -3,7 +3,6 @@
 
   <!-- Filtros e Busca -->
   <div class="filter-section">
-    <!-- Filtro de Status -->
     <div class="form-group">
       <label for="statusFilter">Filtrar por Status:</label>
       <select [(ngModel)]="statusFilter" (change)="applyFilter()">
@@ -15,7 +14,6 @@
       </select>
     </div>
 
-    <!-- Ordenar por -->
     <div class="form-group">
       <label for="sortOrder">Ordenar por:</label>
       <select id="sortOrder" [(ngModel)]="sortOrder" (change)="applySort()">
@@ -25,102 +23,73 @@
     </div>
   </div>
 
-  <!-- Indicador de carregamento -->
-  <div *ngIf="loading" class="loading">Carregando agendamentos...</div>
+  <!-- Contêiner responsivo para a tabela -->
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Colunas da Tabela -->
+      <ng-container matColumnDef="petName">
+        <th mat-header-cell *matHeaderCellDef> Nome do Pet </th>
+        <td mat-cell *matCellDef="let scheduling"> {{ scheduling.pet.name || 'N/A' }} </td>
+      </ng-container>
 
-  <!-- Tabela de agendamentos -->
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Nome do Pet -->
-    <ng-container matColumnDef="petName">
-      <th mat-header-cell *matHeaderCellDef> Nome do Pet </th>
-      <td mat-cell *matCellDef="let scheduling"> {{ scheduling.pet.name || 'N/A' }} </td>
-    </ng-container>
-
-    <!-- Serviço -->
-    <ng-container matColumnDef="service">
-      <th mat-header-cell *matHeaderCellDef> Serviço(s) </th>
-      <td mat-cell *matCellDef="let scheduling">
-        <ng-container *ngIf="scheduling.service && scheduling.service.length > 0; else noService">
+      <ng-container matColumnDef="service">
+        <th mat-header-cell *matHeaderCellDef> Serviço(s) </th>
+        <td mat-cell *matCellDef="let scheduling">
           <ul>
             <li *ngFor="let service of scheduling.service">{{ service.name }}</li>
           </ul>
-        </ng-container>
-        <ng-template #noService>
-          Nenhum serviço
-        </ng-template>
-      </td>
-    </ng-container>
-      <!-- total valor -->
-      <ng-container matColumnDef="totalValue">
-          <th mat-header-cell *matHeaderCellDef> Valor Total </th>
-          <td mat-cell *matCellDef="let scheduling">
-              {{ scheduling.totalValue | currency:'BRL':'symbol':'1.2-2' }}
-          </td>
+        </td>
       </ng-container>
 
-      <!-- Data -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Data </th>
-      <td mat-cell *matCellDef="let scheduling"> {{ scheduling.date | date: 'dd/MM/yyyy' }} </td>
-    </ng-container>
+      <ng-container matColumnDef="totalValue">
+        <th mat-header-cell *matHeaderCellDef> Valor Total </th>
+        <td mat-cell *matCellDef="let scheduling">
+          {{ scheduling.totalValue | currency:'BRL':'symbol':'1.2-2' }}
+        </td>
+      </ng-container>
 
-    <!-- Hora -->
-    <ng-container matColumnDef="time">
-      <th mat-header-cell *matHeaderCellDef> Hora </th>
-      <td mat-cell *matCellDef="let scheduling"> {{ scheduling.time }} </td>
-    </ng-container>
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Data </th>
+        <td mat-cell *matCellDef="let scheduling"> {{ scheduling.date | date: 'dd/MM/yyyy' }} </td>
+      </ng-container>
 
-    <!-- Coluna de Pagamento -->
-    <ng-container matColumnDef="paymentMethod">
-      <th mat-header-cell *matHeaderCellDef> Pagamento </th>
-      <td mat-cell *matCellDef="let scheduling">
-        {{ scheduling.paymentMethod }}
-        <button *ngIf="scheduling.statusScheduling !== 'CANCELADO'"
-                mat-icon-button color="primary"
-                (click)="openEditModal(scheduling)"
-                aria-label="Editar Método de Pagamento">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Hora </th>
+        <td mat-cell *matCellDef="let scheduling"> {{ scheduling.time }} </td>
+      </ng-container>
 
-    <!-- Coluna de Status -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let scheduling">
-        <span [ngClass]="{
-          'status-agendado': scheduling.statusScheduling === 'AGENDADO',
-          'status-em-andamento': scheduling.statusScheduling === 'EM_ANDAMENTO',
-          'status-concluido': scheduling.statusScheduling === 'CONCLUIDO',
-          'status-cancelado': scheduling.statusScheduling === 'CANCELADO'
-        }">
-          {{ scheduling.statusScheduling }}
-        </span>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="paymentMethod">
+        <th mat-header-cell *matHeaderCellDef> Pagamento </th>
+        <td mat-cell *matCellDef="let scheduling">
+          {{ formatPaymentMethod(scheduling.paymentMethod) }}
+          <button *ngIf="scheduling.statusScheduling !== 'CANCELADO'"
+                  mat-icon-button color="primary"
+                  (click)="openEditModal(scheduling)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
 
-    <!-- Coluna de Ações -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Ação </th>
-      <td mat-cell *matCellDef="let scheduling">
-        <button *ngIf="scheduling.statusScheduling !== 'CANCELADO' && scheduling.statusScheduling !== 'CONCLUIDO'"
-                mat-button color="warn"
-                (click)="cancelScheduling(scheduling)">
-          Cancelar Agendamento
-        </button>
-      </td>
-    </ng-container>
+      </ng-container>
 
-    <tr mat-header-row
-        *matHeaderRowDef="['petName', 'service','totalValue', 'date', 'time', 'paymentMethod', 'status']"></tr>
-    <tr mat-row
-        *matRowDef="let row; columns: ['petName', 'service','totalValue', 'date', 'time', 'paymentMethod', 'status']">
-    </tr>
-  </table>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let scheduling">
+          <span [ngClass]="{
+            'status-agendado': scheduling.statusScheduling === 'AGENDADO',
+            'status-em-andamento': scheduling.statusScheduling === 'EM_ANDAMENTO',
+            'status-concluido': scheduling.statusScheduling === 'CONCLUIDO',
+            'status-cancelado': scheduling.statusScheduling === 'CANCELADO'
+          }">
+            {{ scheduling.statusScheduling }}
+          </span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['petName', 'service', 'totalValue', 'date', 'time', 'paymentMethod', 'status']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['petName', 'service', 'totalValue', 'date', 'time', 'paymentMethod', 'status']"></tr>
+    </table>
+  </div>
 
   <!-- Paginação -->
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-  <!-- Mensagem caso não haja agendamentos -->
-  <div *ngIf="!loading && filteredSchedulings.length === 0">Nenhum agendamento encontrado.</div>
 </div>

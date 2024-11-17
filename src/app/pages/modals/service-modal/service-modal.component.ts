@@ -13,12 +13,12 @@ import { ServiceDTO, ServiceRetrieve } from '../../../model/service';
 })
 export class ServiceModalComponent implements OnInit{
   serviceForm!: FormGroup;
-  selectedEmployee: any = null; // Guardar o funcionário selecionado
+  selectedEmployee: any = null;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ServiceModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { service: ServiceRetrieve }, // Recebe o serviço selecionado
+    @Inject(MAT_DIALOG_DATA) public data: { service: ServiceRetrieve },
     private servicesService: ServicesService,
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar
@@ -32,13 +32,13 @@ export class ServiceModalComponent implements OnInit{
       name: [selectedService.name, [Validators.required]],
       price: [selectedService.price, [Validators.required]],
       commission: [selectedService.commission, [Validators.required]],
-      estimated: [this.convertMinutesToTime(selectedService.estimated), [Validators.required]], // Exibe como HH:mm
+      estimated: [this.convertMinutesToTime(selectedService.estimated), [Validators.required]], 
       active: [selectedService.active],
       cpf: [selectedService.employee ? selectedService.employee.cpf : '', [Validators.required]],
       employeeName: [{ value: selectedService.employee ? selectedService.employee.name : '', disabled: true }]
     });
 
-    this.selectedEmployee = selectedService.employee; // Define o funcionário associado (se houver)
+    this.selectedEmployee = selectedService.employee;
   }
 
   // Função para buscar o funcionário pelo CPF
@@ -99,7 +99,7 @@ export class ServiceModalComponent implements OnInit{
           this.dialogRef.close(updatedService);
         },
         (error) => {
-          this.snackBar.open('Erro ao atualizar o serviço.', 'Fechar', {
+          this.snackBar.open(error.message || 'Erro ao atualizar o serviço.', 'Fechar', {
             duration: 3000
           });
         }

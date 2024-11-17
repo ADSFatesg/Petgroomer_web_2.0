@@ -4,7 +4,7 @@ import { PetRetrive } from '../../../model/pet';
 import { PetService } from '../../../service/pet.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EntityId, ServiceRetrieve } from '../../../model/service';
-import { PaymentMethodEnum } from '../../../model/payment-method-enum';
+import { PaymentMethodEnum, PaymentMethodOptions } from '../../../model/payment-method-enum';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { ClientRetrive } from '../../../model/client';
 import { ClientService } from '../../../service/client.service';
@@ -21,13 +21,13 @@ export class SchedulingComponent implements OnInit {
   schedulingForm!: FormGroup;
   pets: PetRetrive[] = [];
   services: ServiceRetrieve[] = [];
-  paymentMethods = Object.values(PaymentMethodEnum);
+  paymentMethods = PaymentMethodOptions;
   selectedClient: string = '';
   noActivePets: boolean = false;
   noActiveService: boolean = false;
   clientActive: boolean = true;
   selectedServices: { id: string, name: string, price: number }[] = [];
-  total: number = 0; // Total dos serviços
+  total: number = 0;
 
   constructor(
     private fb: FormBuilder,

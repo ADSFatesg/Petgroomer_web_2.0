@@ -1,13 +1,18 @@
 .consult-scheduling-container {
   max-width: 1200px;
   margin: 20px auto;
+  padding: 10px;
 
   h2 {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 20px;
   }
-
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
   .agendamentos-card {
     margin-bottom: 30px;
     background-color: #f5f5f5;
@@ -25,8 +30,16 @@
       padding: 20px;
     }
 
+    /* Contêiner responsivo para a tabela */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     table {
       width: 100%;
+      border-collapse: collapse;
       margin-top: 10px;
 
       th {
@@ -34,11 +47,14 @@
         background-color: #e0e0e0;
         padding: 10px;
         text-align: left;
+        white-space: nowrap;
       }
 
       td {
         padding: 10px;
         border-bottom: 1px solid #e0e0e0;
+        white-space: nowrap;
+        word-wrap: break-word;
       }
     }
 
@@ -50,7 +66,30 @@
     }
   }
 }
-.no-bullets {
-  list-style-type: none;
-  padding-left: 0;
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  .consult-scheduling-container {
+    padding: 10px;
+  }
+
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .agendamentos-card {
+    mat-card-content {
+      padding: 10px;
+    }
+
+    mat-card-title {
+      font-size: 1.2rem;
+    }
+  }
 }

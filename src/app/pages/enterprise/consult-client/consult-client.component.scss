@@ -1,14 +1,16 @@
+/* Estilo para a tabela */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-
+  overflow-x: auto; 
   th {
     background-color: #3f51b5;
     color: #fff;
     padding: 10px;
     text-align: left;
     border-bottom: 2px solid #0056b3;
+    white-space: nowrap;
   }
 
   td {
@@ -23,8 +25,36 @@ table {
     &:hover {
       background-color: #f1f1f1;
     }
+
+    @media (max-width: 600px) {
+      padding: 8px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
   }
 }
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 600px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  th {
+    font-size: 14px;
+  }
+}
+
+/* Estilo para botões */
 button {
   background-color: #007bff;
   color: white;
@@ -37,17 +67,22 @@ button {
   @media (max-width: 600px) {
     padding: 4px 8px;
     font-size: 12px;
+    width: 80%;
   }
 }
-
 
 /* Estilo para o indicador de carregamento */
 .loading {
   font-size: 18px;
   text-align: center;
   margin-top: 20px;
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+  }
 }
 
+/* Estilo para o select */
 select {
   padding: 8px 12px;
   font-size: 14px;
@@ -57,7 +92,7 @@ select {
   margin-bottom: 5px;
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: 80%;
   }
 }
 
@@ -70,7 +105,7 @@ label {
   }
 }
 
-/* Flexbox para alinhar o filtro de status e a busca por CPF */
+/* Flexbox para a seção de filtros */
 .filter-section {
   display: flex;
   align-items: flex-end;
@@ -82,29 +117,37 @@ label {
     gap: 10px;
   }
 }
-/* Estilos para o campo de CPF e o botão de busca */
+
+/* Estilo para campo de CPF e botão de busca */
 .form-group {
   display: flex;
   flex-direction: column;
 
   @media (max-width: 600px) {
-    width: 50%;
+    width: 80%;
   }
 }
 
+/* Estilo para input com ícone */
 .input-with-icon {
   display: flex;
   align-items: center;
+  width: 80%;
 }
 
 .input-with-icon input {
-  width: 200px;
+  width: 80%;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
 }
 
+/* Estilo para ícones de botão */
 .btn-icon {
   position: relative;
   background: none;
@@ -112,42 +155,51 @@ label {
   cursor: pointer;
   margin-left: 5px;
   padding: 8px;
-  right: 37px;
-  top: 5px;
-    &:hover {
+  font-size: 20px;
+
+  &:hover {
     transform: scale(1.05);
+  }
+  @media (max-width:720px) {
+    right: 30px;
+    top: 5px;
   }
 }
 
 .btn-icon mat-icon {
   color: #333;
   font-size: 24px;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
 }
 
-.btn-icon-open, .btn-icon-block {
+/* Estilo para botões de ação (editar e bloquear) */
+.btn-icon-open,
+.btn-icon-block {
   background: none;
   border: none;
   cursor: pointer;
   margin-left: 5px;
   padding: 8px;
-  right:0px;
-  top: 5px;
-    &:hover {
+
+  &:hover {
     transform: scale(1.05);
   }
 }
 
-.btn-icon-open mat-icon {
+.btn-icon-open mat-icon,
+.btn-icon-block mat-icon {
   color: #333;
   font-size: 20px;
 }
 
-/* Adicionando uma transição suave ao hover */
+/* Adicionando uma transição suave no hover */
 .btn-icon:hover mat-icon {
   color: #007bff;
   transition: color 0.2s ease;
 }
-
 
 /* Estilo personalizado para o snackbar de erro */
 .snack-error {
@@ -155,17 +207,18 @@ label {
   color: white;
   font-size: 16px;
   text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
 }
 
-.mat-simple-snackbar-action {
-  color: white;
-}
+/* Cor verde para cliente ativo */
 .active-icon {
   color: green !important;
 }
 
+/* Cor vermelha para cliente desativado */
 .inactive-icon {
   color: red !important;
 }
-
-

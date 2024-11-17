@@ -14,11 +14,12 @@ h2 {
   text-align: center;
 }
 
+/* Seção de Filtros */
 .filter-section {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
   gap: 20px;
+  margin-bottom: 20px;
 
   .form-group {
     flex: 1;
@@ -61,69 +62,200 @@ h2 {
   border: none;
   cursor: pointer;
   color: black;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
-.btn-icon:focus {
-  outline: none;
+/* Contêiner Responsivo para a Tabela */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* Scroll horizontal para telas pequenas */
+  -webkit-overflow-scrolling: touch; /* Suaviza o scroll em dispositivos móveis */
 }
 
-.loading {
-  text-align: center;
-  color: #666;
-  font-style: italic;
-  margin-top: 10px;
-}
-
+/* Estilo da Tabela */
 table {
   width: 100%;
-  margin-top: 20px;
   border-collapse: collapse;
+  margin-bottom: 20px;
 
-  th {
-
-    color: black;
-    padding: 10px;
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
   }
 
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 600px) {
+  .consult-scheduling-container {
+    max-width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .filter-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .btn-icon {
+    right: 10px;
+    font-size: 20px;
+  }
+
+  .table-responsive {
+    overflow-x: scroll;
+  }
+
+  table {
+    font-size: 12px;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .mat-paginator {
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .btn-icon-open {
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+
+/* Responsividade para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .consult-scheduling-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .filter-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .table-responsive {
+    overflow-x: scroll;
+  }
+
+  table {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  th,
   td {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
   }
 
-  tr:last-child td {
-    border-bottom: none;
+  .mat-paginator {
+    font-size: 14px;
   }
 
-  .mat-radio-group {
-    display: flex;
-    gap: 8px;
+  button {
+    font-size: 16px;
+    padding: 12px;
   }
 
-  .mat-radio-button {
-    padding: 0 8px;
+  .btn-icon-open {
+    font-size: 22px;
+    padding: 12px;
   }
 }
 
-.mat-elevation-z8 {
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+/* Estilos para o snackbar */
+.snack-error {
+  background-color: #f44336;
+  color: white;
+  font-size: 16px;
+  text-align: center;
 }
 
-.mat-paginator {
-  margin-top: 20px;
+.mat-simple-snackbar-action {
+  color: white;
 }
 
-.btn-icon-open {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: black;
+/* Estilo para ícones de status */
+.active-icon {
+  color: green !important;
 }
 
-.btn-icon-open:disabled {
-  color: #ccc;
-  cursor: not-allowed;
+.inactive-icon {
+  color: red !important;
+}
+
+/* Estilos para status */
+.status-agendado {
+  color: #007bff;
+}
+
+.status-em-andamento {
+  color: #ffc107;
+}
+
+.status-concluido {
+  color: #28a745;
+}
+
+.status-cancelado {
+  color: #dc3545;
+}
+
+/* Estilos de botões */
+button[mat-button][color="warn"] {
+  background-color: #dc3545;
+}
+
+button[mat-button][color="warn"]:hover {
+  background-color: #c82333;
 }
 
 button {
@@ -135,215 +267,7 @@ button {
   transition: background-color 0.2s;
 }
 
-button:disabled {
-  cursor: not-allowed;
-  background-color: #ccc;
-}
-
-button[mat-button][color="warn"] {
-  background-color: #dc3545;table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-
-    @media (max-width: 600px) {
-      padding: 4px;
-      font-size: 12px;
-    }
-  }
-}
-
-  th {
-    background-color: #f2f2f2;
-  }
-
-  tr:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
-  }
-
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-
-    @media (max-width: 600px) {
-      padding: 4px 8px;
-      font-size: 12px;
-    }
-  }
-
-  .li, ul{
-    list-style-type: none;
-  }
-
-  /* Estilo para o indicador de carregamento */
-  .loading {
-    font-size: 18px;
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  select {
-    padding: 8px 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 180px;
-    margin-bottom: 5px;
-
-    @media (max-width: 600px) {
-      width: 100%;
-    }
-  }
-
-  /* Estilo do rótulo */
-  label {
-    margin-right: 10px;
-
-    @media (max-width: 600px) {
-      margin-bottom: 5px;
-    }
-  }
-
-  /* Flexbox para alinhar o filtro de status e a busca por CPF */
-  .filter-section {
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    margin-bottom: 20px;
-
-    @media (max-width: 600px) {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-  /* Estilos para o campo de CPF e o botão de busca */
-  .form-group {
-    display: flex;
-    flex-direction: column;
-
-    @media (max-width: 600px) {
-      width: 50%;
-    }
-  }
-
-  .input-with-icon {
-    display: flex;
-    align-items: center;
-  }
-
-  .input-with-icon input {
-    width: 200px;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  .btn-icon {
-    position: relative;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 8px;
-    right: 37px;
-    top: 5px;
-    &:hover {
-      transform: scale(1.05);
-    }
-
-  }
-
-  .btn-icon mat-icon {
-    color: #333;
-    font-size: 24px;
-  }
-
-  /* Adicionando uma transição suave ao hover */
-  .btn-icon:hover mat-icon {
-    color: #007bff;
-  }
-  .btn-icon-open, .btn-icon-block {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 8px;
-    right:0px;
-    top: 5px;
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  .btn-icon-open mat-icon {
-    color: #000;
-    font-size: 24px;
-  }
-
-  /* Adicionando uma transição suave ao hover */
-  .btn-icon:hover mat-icon {
-    color: #007bff;
-    transition: color 0.2s ease;
-  }
-
-
-  /* Estilo personalizado para o snackbar de erro */
-  .snack-error {
-    background-color: #f44336;
-    color: white;
-    font-size: 16px;
-    text-align: center;
-  }
-
-  /* Estilo do botão "Fechar" no snackbar */
-  .mat-simple-snackbar-action {
-    color: white;
-  }
-  /* Cor verde para cliente ativo */
-  .active-icon {
-    color: green !important;
-  }
-
-  /* Cor vermelha para cliente desativado */
-  .inactive-icon {
-    color: red !important;
-  }
-
-
-
-  color: #fff;
-}
-
-button[mat-button][color="warn"]:hover {
-  background-color: #c82333;
-}
-.status-agendado {
-  color: #007bff; /* Azul para "Agendado" */
-}
-
-.status-em-andamento {
-  color: #ffc107; /* Amarelo para "Em Andamento" */
-}
-
-.status-concluido {
-  color: #28a745; /* Verde para "Concluído" */
-}
-
-.status-cancelado {
-  color: #dc3545; /* Vermelho para "Cancelado" */
-}
+/* Estilo personalizado para lista */
 ul {
   list-style-type: none;
   padding: 0;

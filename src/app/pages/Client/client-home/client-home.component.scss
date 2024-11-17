@@ -1,12 +1,14 @@
+/* Estilização geral da Home */
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  padding: 30px;
+  padding: 20px;
   background-color: #f0f4f8;
 }
 
+/* Cartão de boas-vindas */
 .welcome-card {
   width: 100%;
   max-width: 800px;
@@ -23,25 +25,22 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
+/* Estilização dos títulos */
 .welcome-card mat-card-title {
   font-size: 1.8rem;
 }
 
-.welcome-card mat-card-subtitle {
-  font-size: 1.1rem;
-}
-
+/* Contêiner de resumo */
 .summary-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
 }
 
+/* Estilização dos cartões de resumo */
 .summary-card {
-  flex: 1;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
@@ -54,6 +53,7 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
+/* Estilização dos cartões específicos */
 .agendamentos {
   background-color: #ffebee;
   border-left: 5px solid #e57373;
@@ -64,12 +64,14 @@
   border-left: 5px solid #66bb6a;
 }
 
+/* Contêiner de agendamentos */
 .scheduling-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
+/* Cartões de agendamento */
 .scheduling-card {
   background-color: #fafafa;
   border-radius: 10px;
@@ -83,11 +85,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.scheduling-card p {
-  margin: 0;
-  font-size: 1rem;
-}
-
+/* Lista de pets */
 .pet-list {
   list-style: none;
   padding: 0;
@@ -103,6 +101,7 @@
   border-bottom: none;
 }
 
+/* Botões de ações dos cartões */
 mat-card-actions button {
   background-color: #3f51b5;
   color: white;
@@ -112,4 +111,68 @@ mat-card-actions button {
 
 mat-card-actions button:hover {
   background-color: #303f9f;
+}
+
+/* ===== Responsividade ===== */
+
+/* Telas pequenas (Dispositivos móveis) */
+@media (max-width: 600px) {
+  .welcome-card mat-card-title {
+    font-size: 1.5rem;
+  }
+
+  .summary-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .scheduling-container {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 10px;
+  }
+
+  mat-card-actions button {
+    font-size: 0.9rem;
+  }
+}
+
+/* Telas médias (Tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .welcome-card mat-card-title {
+    font-size: 1.6rem;
+  }
+
+  .summary-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .scheduling-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .summary-card {
+    padding: 18px;
+  }
+}
+
+/* Telas grandes (Desktop) */
+@media (min-width: 1025px) {
+  .welcome-card mat-card-title {
+    font-size: 1.8rem;
+  }
+
+  .summary-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .scheduling-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .summary-card {
+    padding: 20px;
+  }
 }
