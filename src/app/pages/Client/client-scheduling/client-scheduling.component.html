@@ -101,7 +101,7 @@
           <div class="input-with-icon">
             <mat-icon class="leading-icon">credit_card</mat-icon>
             <select id="paymentMethod" formControlName="paymentMethod">
-              <option *ngFor="let method of paymentMethods" [value]="method">{{ method.viewValue }}</option>
+              <option *ngFor="let method of paymentMethods" [value]="method.value">{{ method.viewValue }}</option>
             </select>
           </div>
           <div *ngIf="schedulingForm.get('paymentMethod')?.touched && schedulingForm.get('paymentMethod')?.invalid" class="error-message">

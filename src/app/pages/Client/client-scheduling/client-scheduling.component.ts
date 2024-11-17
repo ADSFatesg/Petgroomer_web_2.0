@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EntityId, ServiceRetrieve} from "../../../model/service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PetRetrive} from "../../../model/pet";
@@ -18,7 +18,7 @@ import {SchedulingDTO} from "../../../model/scheduling";
   templateUrl: './client-scheduling.component.html',
   styleUrl: './client-scheduling.component.scss'
 })
-export class ClientSchedulingComponent {
+export class ClientSchedulingComponent implements OnInit {
   schedulingForm!: FormGroup;
   pets: PetRetrive[] = [];
   services: ServiceRetrieve[] = [];
@@ -128,7 +128,6 @@ export class ClientSchedulingComponent {
     );
   }
 
-  // Função para registrar o agendamento
   registerScheduling(): void {
     if (this.schedulingForm.valid && this.clientActive) {
       const { clientName, ...formValues } = this.schedulingForm.value;
@@ -140,7 +139,7 @@ export class ClientSchedulingComponent {
         date: formValues.date,
         time: formValues.time,
         observations: formValues.observations,
-        paymentMethod: formValues.paymentMethod,
+        paymentMethod: formValues.paymentMethod, // Enviar apenas o valor
         statusScheduling: formValues.statusScheduling
       };
 
@@ -154,7 +153,6 @@ export class ClientSchedulingComponent {
           this.schedulingForm.reset();
           this.selectedServices = [];
           this.total = 0;
-
         },
         (error) => {
           this.snackBar.open(error.message || 'Erro ao cadastrar agendamento.', 'Fechar', {

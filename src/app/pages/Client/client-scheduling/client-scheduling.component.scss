@@ -114,9 +114,19 @@
         margin-top: 5px;
       }
     }
-
-    .btn-save,
-    .btn-add {
+    .btn-add{
+      width:50%;
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+    .btn-save{
       background-color: #28a745;
       color: white;
       padding: 10px 20px;
