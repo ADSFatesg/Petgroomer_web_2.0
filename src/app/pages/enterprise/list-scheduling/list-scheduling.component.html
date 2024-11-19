@@ -37,8 +37,14 @@
     </div>
   </div>
 
-  <!-- Indicador de carregamento -->
-  <div *ngIf="loading" class="loading">Carregando agendamentos...</div>
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner
+      class="loading-spinner"
+      [diameter]="50"
+      mode="indeterminate">
+    </mat-progress-spinner>
+    <p>Carregando dados...</p>
+  </div>
 
   <!-- Tabela de agendamentos -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -96,7 +102,7 @@
         {{ formatPaymentMethod(scheduling.paymentMethod) }}
       </td>
     </ng-container>
-    
+
     <!-- Coluna de Status -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>

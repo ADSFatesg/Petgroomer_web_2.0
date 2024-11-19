@@ -1,8 +1,18 @@
 <div class="user-list-container">
   <h1>Lista de Usuários</h1>
 
+  <!-- Spinner centralizado -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner
+      class="loading-spinner"
+      [diameter]="50"
+      mode="indeterminate">
+    </mat-progress-spinner>
+    <p>Carregando dados...</p>
+  </div>
+
   <!-- Tabela de Usuários -->
-  <table class="table">
+  <table class="table" *ngIf="!loading">
     <thead>
     <tr>
       <th>Usuário (Login)</th>
@@ -25,7 +35,7 @@
   </table>
 
   <!-- Formulário de Alteração de Senha -->
-  <div *ngIf="selectedUser" class="update-password-form">
+  <div *ngIf="selectedUser && !loading" class="update-password-form">
     <h3>Alterar Senha para Usuário: {{ selectedUser.employeeName }}</h3>
     <div class="form-group">
       <label for="oldPassword">Senha Atual:</label>

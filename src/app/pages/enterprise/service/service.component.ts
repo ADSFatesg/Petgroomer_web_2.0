@@ -15,6 +15,7 @@ import { ServiceDTO } from '../../../model/service';
 export class ServiceComponent implements OnInit {
   serviceForm!: FormGroup;
   selectedEmployee: employeeRetrive | null = null;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -89,6 +90,7 @@ export class ServiceComponent implements OnInit {
   // Enviar o formulário para cadastrar o serviço
   registerService(): void {
     if (this.serviceForm.valid && this.selectedEmployee) {
+      this.loading = true;
 
       const estimatedTime = this.serviceForm.get('estimated')?.value;
       const estimatedInMinutes = this.convertTimeToMinutes(estimatedTime);
@@ -101,6 +103,7 @@ export class ServiceComponent implements OnInit {
 
       this.servicesService.create(serviceData).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Serviço cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',

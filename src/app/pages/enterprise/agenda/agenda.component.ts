@@ -9,6 +9,7 @@ import {StatusSchedulingEnum} from "../../../model/status-scheduling-enum";
   styleUrl: './agenda.component.scss'
 })
 export class AgendaComponent implements  OnInit {
+  loading = true;
   schedulingsAgendados: SchedulingRetrieve[] = [];
   schedulingsEmAndamento: SchedulingRetrieve[] = [];
 
@@ -24,9 +25,6 @@ export class AgendaComponent implements  OnInit {
       const today = new Date();
       const todayString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
-      console.log('Data de hoje formatada:', todayString);
-      console.log('Todos os agendamentos:', schedulings);
-
       // Filtrar agendamentos Agendados para a data atual
       this.schedulingsAgendados = schedulings.filter(s => {
         const schedulingDate = new Date(s.date).toISOString().split('T')[0];
@@ -39,9 +37,13 @@ export class AgendaComponent implements  OnInit {
         return s.statusScheduling === StatusSchedulingEnum.EM_ANDAMENTO && schedulingDate === todayString;
       });
 
-      console.log('Agendamentos Agendados:', this.schedulingsAgendados);
-      console.log('Agendamentos Em Andamento:', this.schedulingsEmAndamento);
-    });
+      this.loading = false;
+    },
+      error => {
+        console.error('Erro ao carregar agendamentos:', error);
+        this.loading = false;
+      }
+    );
   }
 
   // Método para formatar a data como 'YYYY-MM-DD'

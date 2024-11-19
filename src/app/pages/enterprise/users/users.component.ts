@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit{
   oldPassword: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -27,6 +28,7 @@ export class UsersComponent implements OnInit{
 
   // Método para carregar a lista de usuários e extrair apenas os campos necessários
   loadUsers(): void {
+    this.loading = true;
     this.authService.findAllUsers().subscribe(
       (usersData: any[]) => {
         this.allUsers = usersData.map(user => ({
@@ -36,6 +38,7 @@ export class UsersComponent implements OnInit{
           employeeName: user.employee ? user.employee.name : 'N/A'
         }));
         this.usersWithEmployee = this.allUsers.filter(user => user.employeeId);
+        this.loading = false;
       },
       (error) => {
         this.snackBar.open('Erro ao carregar usuários', 'Fechar', {
@@ -44,6 +47,7 @@ export class UsersComponent implements OnInit{
           horizontalPosition: 'right',
           panelClass: ['snack-error']
         });
+        this.loading = false; // Desativa o spinner em caso de erro
       }
     );
   }
@@ -82,7 +86,7 @@ export class UsersComponent implements OnInit{
     }
 
     if (this.selectedUser) {
-      // Envio do payload com oldPassword, newPassword e confirmPassword
+      this.loading = true;
       this.authService.adminUpdatePassword(this.selectedUser.id, this.oldPassword, this.newPassword, this.confirmPassword).subscribe(
         () => {
           this.snackBar.open('Senha alterada com sucesso!', 'Fechar', {
@@ -92,15 +96,16 @@ export class UsersComponent implements OnInit{
             panelClass: ['snack-success']
           });
           this.resetForm();
+          this.loading = false;
         },
         (error) => {
-          console.error('Erro ao alterar senha:', error);
           this.snackBar.open(error.message || 'Erro ao alterar senha!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right',
             panelClass: ['snack-error']
           });
+          this.loading = false;
         }
       );
     }

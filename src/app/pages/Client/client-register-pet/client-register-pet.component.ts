@@ -19,6 +19,7 @@ export class ClientRegisterPetComponent implements OnInit{
   selectedClient: ClientRetrive | null = null;
   races = Object.values(RacaPetENUM);
   sizes = Object.values(PortePetENUM);
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +64,7 @@ export class ClientRegisterPetComponent implements OnInit{
   // Enviar o formulário para cadastrar o pet
   onSubmit(): void {
     if (this.petForm.valid && this.selectedClient) {
+      this.loading = true;
       const petData: PetDTO = {
         ...this.petForm.value,
         client: this.selectedClient  // Associa o cliente autenticado ao pet
@@ -70,6 +72,7 @@ export class ClientRegisterPetComponent implements OnInit{
 
       this.petService.create(petData).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Pet cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',

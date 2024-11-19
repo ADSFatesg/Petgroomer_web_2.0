@@ -1,12 +1,15 @@
+<div *ngIf="loading" class="global-spinner-container">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
 <div class="register-pet-container">
     <h1>Cadastro de Pet</h1>
     <form [formGroup]="petForm" (ngSubmit)="onSubmit()">
       <div class="form-sections">
-  
+
         <!-- Seção de Busca de Cliente -->
         <div class="form-section">
           <h3>Buscar Cliente</h3>
-  
+
           <!-- CPF do Cliente -->
           <div class="form-group" [ngClass]="{'has-error': petForm.get('cpf')?.touched && petForm.get('cpf')?.invalid}">
             <label for="cpf">
@@ -23,7 +26,7 @@
               CPF é obrigatório.
             </div>
           </div>
-  
+
           <!-- Nome do Cliente -->
           <div class="form-group">
             <label for="clientName">
@@ -35,11 +38,11 @@
             </div>
           </div>
         </div>
-  
+
         <!-- Seção de Informações do Pet -->
         <div class="form-section">
           <h3>Informações do Pet</h3>
-  
+
           <!-- Nome do Pet -->
           <div class="form-group" [ngClass]="{'has-error': petForm.get('name')?.touched && petForm.get('name')?.invalid}">
             <label for="name">
@@ -53,7 +56,7 @@
               Nome do pet é obrigatório.
             </div>
           </div>
-  
+
           <!-- Raça -->
           <div class="form-group" [ngClass]="{'has-error': petForm.get('race')?.touched && petForm.get('race')?.invalid}">
             <label for="race">
@@ -69,7 +72,7 @@
               Raça é obrigatória.
             </div>
           </div>
-  
+
           <!-- Porte -->
           <div class="form-group" [ngClass]="{'has-error': petForm.get('size')?.touched && petForm.get('size')?.invalid}">
             <label for="size">
@@ -87,10 +90,9 @@
           </div>
         </div>
       </div>
-  
+
       <!-- Botão de Cadastrar -->
-      <button type="submit" class="btn-save" [disabled]="petForm.invalid">Cadastrar Pet
+      <button type="submit" class="btn-save" [disabled]="petForm.invalid || loading">Cadastrar Pet
       </button>
     </form>
   </div>
-  

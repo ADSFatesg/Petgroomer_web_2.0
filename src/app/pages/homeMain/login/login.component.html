@@ -35,14 +35,18 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
-        Entrar
+      <button type="submit" class="btn-primary" [disabled]="loginForm.invalid || loading">
+        {{ loading ? 'Entrando...' : 'Entrar' }}
       </button>
 
-      <!-- Link para redefinir senha -->
       <p class="forgot-password">
         <a routerLink="/request-reset-password">Esqueceu sua senha?</a>
       </p>
     </form>
+  </div>
+
+  <!-- Spinner de Carregamento -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="spinner"></div>
   </div>
 </div>

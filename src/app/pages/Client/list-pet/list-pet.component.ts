@@ -94,15 +94,14 @@ export class ListPetComponent {
 
   atualizarPet(): void {
     if (this.selectedPet && this.petForm.valid) {
+      this.loading = true;
       const updatedPet: PetRetrive = {
         ...this.selectedPet,
         ...this.petForm.value
       };
-
-      this.loading = true;
-
       this.petService.update(updatedPet.id, updatedPet).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Pet atualizado com sucesso!', 'Fechar', {
             duration: 3000,
             verticalPosition: 'top',

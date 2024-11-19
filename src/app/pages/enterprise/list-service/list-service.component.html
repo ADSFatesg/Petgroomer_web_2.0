@@ -38,8 +38,14 @@
     </div>
   </div>
 
-  <!-- Indicador de carregamento -->
-  <div *ngIf="loading" class="loading">Carregando serviços...</div>
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner
+      class="loading-spinner"
+      [diameter]="50"
+      mode="indeterminate">
+    </mat-progress-spinner>
+    <p>Carregando dados...</p>
+  </div>
 
   <!-- Tabela de serviços -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

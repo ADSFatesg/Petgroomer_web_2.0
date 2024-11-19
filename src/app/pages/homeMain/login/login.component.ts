@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   login: string = '';
   password: string = '';
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -19,8 +20,12 @@ export class LoginComponent {
   ) { }
 
   loginUser() {
+    if (this.loading) return;
+    this.loading = true;
+
     this.authService.login(this.login, this.password).subscribe(
       success => {
+        this.loading = false;
         if (success) {
           const roles = this.authService.getUserRoles();
 
@@ -41,8 +46,9 @@ export class LoginComponent {
         }
       },
       error => {
+        this.loading = false;
         console.error('Login falhou', error);
-        this.snackBar.open('Erro ao realizar login. Verifique suas credenciais.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao realizar login. Verifique suas credenciais.', 'Fechar', {
           duration: 5000,
           verticalPosition: 'top'
         });

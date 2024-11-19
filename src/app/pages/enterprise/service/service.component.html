@@ -1,3 +1,6 @@
+<div *ngIf="loading" class="global-spinner-container">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
 <div class="register-service-container">
     <h1>Cadastro de Serviço</h1>
     <form [formGroup]="serviceForm" (ngSubmit)="registerService()">
@@ -84,6 +87,6 @@
             </div>
         </div>
 
-        <button type="submit" class="btn-save" [disabled]="serviceForm.invalid">Cadastrar Serviço</button>
+        <button type="submit" class="btn-save" [disabled]="serviceForm.invalid || loading">Cadastrar Serviço</button>
     </form>
 </div>

@@ -1,5 +1,11 @@
 <div class="consult-pet-container">
   <h2>Pets</h2>
+
+  <!-- Spinner global -->
+  <div *ngIf="loading" class="fullscreen-loading-container">
+    <div class="fullscreen-loading-spinner"></div>
+  </div>
+
   <form [formGroup]="petForm" (ngSubmit)="atualizarPet()">
     <!-- Seção de CPF e Dono -->
     <div class="form-sections">
@@ -8,8 +14,14 @@
         <div class="input-with-icon">
           <mat-icon class="leading-icon">badge</mat-icon>
           <input id="cpf" formControlName="cpf" type="text" placeholder="Digite o CPF" mask="000.000.000-00">
-          <button type="button" class="btn-icon" (click)="consultarPets()" tabindex="-1" matTooltip="Consultar Pet pelo CPF do dono">
-            <mat-icon>search</mat-icon>
+          <button
+            type="button"
+            class="btn-icon"
+            [disabled]="loading"
+            (click)="consultarPets()"
+            matTooltip="Consultar Pet pelo CPF do dono">
+            <div *ngIf="loading" class="spinner-border"></div>
+            <mat-icon *ngIf="!loading">search</mat-icon>
           </button>
         </div>
         <!-- Nome do Dono -->
@@ -57,10 +69,11 @@
           {{ petForm.get('active')?.value ? 'Ativo' : 'Desativado' }}
         </mat-slide-toggle>
       </div>
+
       <!-- Botão de Atualizar -->
       <button type="submit" class="btn-save" [disabled]="loading">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        {{ loading ? 'Salvando...' : 'Atualizar Pet' }}
+        <mat-progress-spinner *ngIf="loading" [diameter]="20" mode="indeterminate"></mat-progress-spinner>
+        <span *ngIf="!loading">Atualizar Pet</span>
       </button>
     </div>
   </form>

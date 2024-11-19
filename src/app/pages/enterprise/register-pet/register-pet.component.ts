@@ -17,6 +17,7 @@ import { PetDTO } from '../../../model/pet';
 export class RegisterPetComponent implements OnInit {
   petForm!: FormGroup;
   selectedClient: ClientRetrive | null = null;
+  loading: boolean = false;
   races = Object.values(RacaPetENUM);
   sizes = Object.values(PortePetENUM);
 
@@ -24,7 +25,7 @@ export class RegisterPetComponent implements OnInit {
     private fb: FormBuilder,
     private petService: PetService,
     private snackBar: MatSnackBar,
-    private clientService: ClientService 
+    private clientService: ClientService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +56,7 @@ export class RegisterPetComponent implements OnInit {
       (client: ClientRetrive) => {
         if (client) {
           this.selectedClient = client;  // Armazena o cliente retornado
-          
+
           // Preenche o campo "clientName" com o nome do cliente no formulário
           this.petForm.patchValue({ clientName: client.name });
 
@@ -87,6 +88,7 @@ export class RegisterPetComponent implements OnInit {
   // Enviar o formulário para cadastrar o pet
   onSubmit(): void {
     if (this.petForm.valid && this.selectedClient) {
+      this.loading = true;
       const petData: PetDTO = {
         ...this.petForm.value,
         client: this.selectedClient  // Associar o cliente selecionado ao pet
@@ -94,6 +96,7 @@ export class RegisterPetComponent implements OnInit {
 
       this.petService.create(petData).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Pet cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',

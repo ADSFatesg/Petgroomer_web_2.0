@@ -18,7 +18,7 @@ export class ConsultPetComponent implements OnInit {
   petForm!: FormGroup;
   pets: PetRetrive[] = [];
   selectedPet: PetRetrive | null = null;
-  ownerName: string = ''; 
+  ownerName: string = '';
   loading = false;
   races = Object.values(RacaPetENUM);
   sizes = Object.values(PortePetENUM);
@@ -32,7 +32,7 @@ export class ConsultPetComponent implements OnInit {
 
   ngOnInit(): void {
     this.petForm = this.fb.group({
-      cpf: ['', [Validators.required, Validators.pattern('\\d{11}')]], 
+      cpf: ['', [Validators.required, Validators.pattern('\\d{11}')]],
       name: ['', Validators.required],
       race: ['', Validators.required],
       size: ['', Validators.required],
@@ -42,7 +42,7 @@ export class ConsultPetComponent implements OnInit {
 
   consultarPets(): void {
     const cpf = this.petForm.get('cpf')?.value;
-
+    this.loading = true;
     if (!cpf || cpf.trim() === '') {
       this.snackBar.open('CPF não foi informado.', 'Fechar', {
         duration: 3000,
@@ -51,14 +51,12 @@ export class ConsultPetComponent implements OnInit {
       });
       return;
     }
-
     this.loading = true;
 
     this.clientService.findByCpf(cpf).subscribe(
       (client: ClientRetrive) => {
         if (client && client.id) {
           this.ownerName = client.name;
-
           this.petService.getPetsByClientId(client.id).subscribe(
             (pets: PetRetrive[]) => {
               this.pets = pets;
@@ -103,9 +101,7 @@ export class ConsultPetComponent implements OnInit {
         ...this.petForm.value
 
       };
-
       this.loading = true;
-
       this.petService.update(updatedPet.id, updatedPet).subscribe(
         () => {
           this.snackBar.open('Pet atualizado com sucesso!', 'Fechar', {
@@ -117,7 +113,7 @@ export class ConsultPetComponent implements OnInit {
           this.petForm.reset();
           this.selectedPet = null;
           this.pets = [];
-          this.ownerName = ''; 
+          this.ownerName = '';
           this.loading = false;
         },
         (error) => {

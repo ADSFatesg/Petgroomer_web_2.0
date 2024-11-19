@@ -5,7 +5,7 @@
     background-color: #f7f7f7;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+
     h3 {
       font-size: 18px;
       color: #333;
@@ -13,90 +13,85 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
     }
-  
+
     form {
       display: flex;
       flex-direction: column;
-  
+
       .form-sections {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         gap: 20px;
-  
+
         .form-section {
           flex: 1;
           min-width: 45%;
           margin-bottom: 15px;
-  
+
           h3 {
             margin-bottom: 10px;
           }
-  
+
           @media (max-width: 768px) {
             min-width: 100%;
           }
         }
       }
-  
+
       .form-group {
         display: flex;
         flex-direction: column;
         margin-bottom: 15px;
-  
+
         label {
           color: #333;
           margin-bottom: 5px;
           display: flex;
           align-items: center;
         }
-  
+
         input,
         select {
-          width: 80%;
+          width:80%;
           padding: 10px;
           font-size: 14px;
           border: 1px solid #ccc;
           border-radius: 4px;
           outline: none;
           transition: border-color 0.3s;
-  
+
           &:focus {
             border-color: #66afe9;
             box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
           }
         }
-  
+
         .input-with-icon {
           position: relative;
-          width: 100%;
-  
-          input {
-            padding-right: 40px;
-          }
-  
+          width: 60%;
+
           mat-icon {
             position: absolute;
-            right: 45px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 20px;
             color: #666;
-          
+
             /* Ajuste para telas médias (máximo de 768px) */
             @media (max-width: 768px) {
-              right: 25px;
+              right: 30px;
               font-size: 18px;
             }
-          
+
             /* Ajuste para telas pequenas (máximo de 480px) */
             @media (max-width: 480px) {
-              right: 15px;
+              right: 25px;
               font-size: 16px;
             }
           }
-          
-  
+
           button.btn-icon {
             position: absolute;
             right: 10px;
@@ -105,19 +100,30 @@
             background: transparent;
             border: none;
             cursor: pointer;
-  
+
             mat-icon {
               color: #666;
               font-size: 24px;
+
+              /* Ajuste para telas médias (máximo de 768px) */
+              @media (max-width: 768px) {
+                font-size: 22px;
+              }
+
+              /* Ajuste para telas pequenas (máximo de 480px) */
+              @media (max-width: 480px) {
+                font-size: 20px;
+              }
             }
-  
+
             &:hover mat-icon {
               color: #007bff;
             }
           }
         }
       }
-  
+
+
       .btn-save {
         background-color: #28a745;
         color: white;
@@ -129,11 +135,11 @@
         width: 100%;
         transition: background-color 0.3s;
         margin-top: 20px;
-  
+
         &:hover {
           background-color: #218838;
         }
-  
+
         &:disabled {
           background-color: #ccc;
           cursor: not-allowed;
@@ -141,27 +147,27 @@
       }
     }
   }
-  
+
   /* Responsividade para telas menores */
   @media (max-width: 768px) {
     .register-service-container {
       max-width: 100%;
       padding: 15px;
     }
-  
+
     .form-sections {
       flex-direction: column;
       gap: 15px;
     }
-  
+
     .form-section {
       width: 100%;
     }
-  
+
     .form-group {
       margin-bottom: 10px;
     }
-  
+
     input,
     select {
       width: 100%;
@@ -169,22 +175,37 @@
       font-size: 14px;
     }
   }
-  
+
   /* Ajuste para telas muito pequenas (até 480px) */
   @media (max-width: 480px) {
     h3 {
       font-size: 16px;
     }
-  
+
     input,
     select {
       padding: 10px;
       font-size: 13px;
     }
-  
+
     .btn-save {
       padding: 10px;
       font-size: 13px;
     }
   }
-  
+.global-spinner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+mat-spinner {
+  color: #007bff;
+}

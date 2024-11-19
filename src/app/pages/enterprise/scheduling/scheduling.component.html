@@ -1,3 +1,6 @@
+<div *ngIf="loading" class="global-spinner-container">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
 <div class="register-scheduling-container">
     <h1>Cadastro de Agendamento</h1>
     <form [formGroup]="schedulingForm" (ngSubmit)="registerScheduling()">
@@ -106,7 +109,7 @@
                     <textarea id="observations" formControlName="observations"
                         placeholder="Escreva observações sobre o serviço"></textarea>
                 </div>
-                
+
                 <!-- Método de Pagamento -->
                 <div class="form-group"
                     [ngClass]="{'has-error': schedulingForm.get('paymentMethod')?.touched && schedulingForm.get('paymentMethod')?.invalid}">
@@ -144,6 +147,6 @@
 
         </div>
 
-        <button type="submit" class="btn-save" [disabled]="schedulingForm.invalid">Cadastrar Agendamento</button>
+        <button type="submit" class="btn-save" [disabled]="schedulingForm.invalid || loading">Cadastrar Agendamento</button>
     </form>
 </div>

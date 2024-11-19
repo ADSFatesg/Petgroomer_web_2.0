@@ -28,6 +28,7 @@ export class SchedulingComponent implements OnInit {
   clientActive: boolean = true;
   selectedServices: { id: string, name: string, price: number }[] = [];
   total: number = 0;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +36,7 @@ export class SchedulingComponent implements OnInit {
     private schedulingService: SchedulingService,
     private snackBar: MatSnackBar,
     private serviceService: ServicesService,
-    private clientService: ClientService 
+    private clientService: ClientService
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +86,7 @@ export class SchedulingComponent implements OnInit {
       });
       return;
     }
-  
+
     this.clientService.findByCpf(cpf).subscribe(
       (client: ClientRetrive) => {
         // Verifica se o cliente existe
@@ -95,9 +96,9 @@ export class SchedulingComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
-          return; 
+          return;
         }
-  
+
         // Verifica se o cliente está ativo
         this.clientActive = client.active;
         if (!this.clientActive) {
@@ -109,13 +110,13 @@ export class SchedulingComponent implements OnInit {
           // Limpa o campo de pet e do nome do cliente
           this.schedulingForm.get('pet')?.setValue('');
           this.schedulingForm.get('clientName')?.setValue('');
-          return; 
+          return;
         }
-  
+
         // Se o cliente está ativo, carrega os dados do cliente
         this.selectedClient = client.name;
         this.schedulingForm.get('clientName')?.setValue(client.name);
-  
+
         // Carrega os pets do cliente
         this.loadPets(client.id);
       },
@@ -127,7 +128,7 @@ export class SchedulingComponent implements OnInit {
         });
       }
     );
-  
+
   }
 
   // Função para carregar os pets associados ao cliente
@@ -150,6 +151,7 @@ export class SchedulingComponent implements OnInit {
   // Função para registrar o agendamento
   registerScheduling(): void {
     if (this.schedulingForm.valid && this.selectedClient) {
+      this.loading = true;
       const { cpf, clientName, ...formValues } = this.schedulingForm.value;
       const selectedServiceIds: EntityId[] = this.selectedServices.map(service => service.id as unknown as EntityId);
 
@@ -165,6 +167,7 @@ export class SchedulingComponent implements OnInit {
 
       this.schedulingService.create(schedulingData).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Agendamento cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
@@ -173,7 +176,7 @@ export class SchedulingComponent implements OnInit {
           this.schedulingForm.reset();
           this.selectedServices = [];
           this.total = 0;
-        
+
         },
         (error) => {
           this.snackBar.open(error.message || 'Erro ao cadastrar agendamento.', 'Fechar', {

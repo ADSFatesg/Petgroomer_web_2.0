@@ -1,3 +1,12 @@
+<div class="loading-overlay" *ngIf="loading">
+  <mat-progress-spinner
+    class="loading-spinner"
+    [diameter]="50"
+    mode="indeterminate">
+  </mat-progress-spinner>
+  <p>Carregando agendamentos...</p>
+</div>
+
 <div class="consult-scheduling-container">
   <h2>Agendamentos do Dia</h2>
 

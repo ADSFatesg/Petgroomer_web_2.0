@@ -31,6 +31,7 @@ export class ConsultEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployees();
+    this.dataSource.paginator = this.paginator;
   }
 
   loadEmployees(): void {
@@ -98,6 +99,7 @@ export class ConsultEmployeeComponent implements OnInit {
       this.filteredEmployees = this.employees;
     }
     this.applySort();
+    this.dataSource.paginator = this.paginator;
   }
 
   applyCpfFilter(): void {
@@ -128,7 +130,7 @@ export class ConsultEmployeeComponent implements OnInit {
 
     this.dataSource.data = this.filteredEmployees;
     this.dataSource.paginator = this.paginator;
-    this.cpfFilter = ''; // Limpa o campo de CPF após a busca
+    this.cpfFilter = '';
   }
 
   clearCpfAndReload(): void {

@@ -1,3 +1,6 @@
+<div *ngIf="loading" class="global-spinner-container">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
 <div class="register-scheduling-container">
   <h2>Agendamento de Serviço</h2>
   <form [formGroup]="schedulingForm" (ngSubmit)="registerScheduling()">

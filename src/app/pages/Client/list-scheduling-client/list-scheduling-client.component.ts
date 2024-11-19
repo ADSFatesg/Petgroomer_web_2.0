@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SchedulingRetrieve} from "../../../model/scheduling";
 import {MatTableDataSource} from "@angular/material/table";
 import {PaymentMethodEnum} from "../../../model/payment-method-enum";
@@ -9,6 +9,7 @@ import {StatusSchedulingEnum} from "../../../model/status-scheduling-enum";
 import {SchedulingModalComponent} from "../../modals/scheduling-modal/scheduling-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {interval, Subscription, switchMap} from "rxjs";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-scheduling-client',
@@ -20,6 +21,7 @@ export class ListSchedulingClientComponent implements  OnInit,OnDestroy{
   filteredSchedulings: SchedulingRetrieve[] = [];
   dataSource = new MatTableDataSource<SchedulingRetrieve>(this.filteredSchedulings);
   loading = false;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   // Filtros e opções
   statusFilter = 'all';
@@ -73,7 +75,6 @@ export class ListSchedulingClientComponent implements  OnInit,OnDestroy{
   // Carregar agendamentos do cliente logado
   loadClientSchedulings(): void {
     this.loading = true;
-
     // Obter o ID do cliente logado
     const clientId = this.authService.getClientId();
     if (clientId) {
@@ -84,6 +85,7 @@ export class ListSchedulingClientComponent implements  OnInit,OnDestroy{
             this.applyFilter();
             this.applySort();
             this.loading = false;
+            this.dataSource.paginator = this.paginator;
           },
           (error) => {
             this.snackBar.open(error.message || 'Nenhum Agendamento realizado.', 'Fechar', {
@@ -133,7 +135,7 @@ export class ListSchedulingClientComponent implements  OnInit,OnDestroy{
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
-          this.loadClientSchedulings(); // Recarrega a lista para refletir a mudança
+          this.loadClientSchedulings();
         },
         (error) => {
           this.snackBar.open(error.message || 'Erro ao cancelar agendamento.', 'Fechar', {

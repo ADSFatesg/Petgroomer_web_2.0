@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { SchedulingDTO, SchedulingRetrieve } from '../../../model/scheduling';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { SchedulingModalComponent } from '../../modals/scheduling-modal/scheduling-modal.component';
 import {interval, Subscription, switchMap} from "rxjs";
+import {MatPaginator} from "@angular/material/paginator";
+import {employeeRetrive} from "../../../model/employee";
 
 @Component({
   selector: 'app-list-scheduling-client',
@@ -17,13 +19,14 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
   filteredSchedulings: SchedulingRetrieve[] = [];
   dataSource = new MatTableDataSource<SchedulingRetrieve>(this.filteredSchedulings);
   loading = false;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   // Filtros
   cpfFilter = '';
   statusFilter = 'all';
   sortOrder = 'date';
   statusOptions = ['Agendado','Em Andamento', 'Concluido','Cancelado'];
   private statusSubscription!: Subscription;
+
   constructor(
     private schedulingService: SchedulingService,
     private snackBar: MatSnackBar,
@@ -32,6 +35,8 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
 
   ngOnInit(): void {
     this.loadSchedulings();
+    this.dataSource.paginator = this.paginator;
+    this.updateDataSource();
 
     // Inicia a atualização automática de agendamentos a cada 5 segundos
     this.statusSubscription = interval(5000).pipe(
@@ -68,6 +73,7 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
         this.dataSource.data = this.schedulings;
         this.applyFilter();
         this.applySort();
+        this.dataSource.paginator = this.paginator;
         this.loading = false;
       },
       (error) => {
@@ -86,14 +92,19 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
     this.filteredSchedulings = this.schedulings.filter(scheduling => {
       const matchesCpf = this.cpfFilter ? scheduling.pet?.[0]?.client?.name?.includes(this.cpfFilter) : true;
       const matchesStatus = this.statusFilter === 'all' || scheduling.statusScheduling === this.statusFilter.toUpperCase();
-  
+
       return matchesCpf && matchesStatus;
     });
 
     this.applySort();
     this.dataSource.data = this.filteredSchedulings;
+    this.dataSource.paginator = this.paginator;
   }
-
+  updateDataSource(): void {
+    this.dataSource.data = this.schedulings;
+    this.dataSource.paginator = this.paginator; // Certifique-se de atualizar o paginador
+    this.applyFilter();
+  }
   // Aplicar filtro por CPF
   applyCpfFilter(): void {
     this.applyFilter();
@@ -117,6 +128,7 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
       });
     }
     this.dataSource.data = this.filteredSchedulings;
+    this.dataSource.paginator = this.paginator;
   }
 
 

@@ -84,6 +84,7 @@ export class UserAccountComponent implements OnInit {
   // Método para salvar o cliente
   save(): void {
     if (this.userForm.valid) {
+      this.loading = true;
       const address = {
         postalCode: this.userForm.get('postalCode')!.value,
         street: this.userForm.get('street')!.value,
@@ -106,6 +107,7 @@ export class UserAccountComponent implements OnInit {
       if (clientId) {
         this.clientService.update(clientId, updatedClient).subscribe(
           () => {
+            this.loading = false;
             this.snackBar.open('Cliente atualizado com sucesso!', 'Fechar', {
               duration: 3000,
               verticalPosition: 'top',

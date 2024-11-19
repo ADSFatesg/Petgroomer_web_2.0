@@ -17,7 +17,7 @@ import { AddressDTO } from '../../../model/address';
 export class RegisterClientComponent implements OnInit {
   clientForm!: FormGroup;
   hide = true;
-  loading = false;
+  loadingSubmit = false; // Spinner para salvar cliente
   countries = Object.values(EnumCountry);
   hidePassword = true;
 
@@ -88,7 +88,7 @@ export class RegisterClientComponent implements OnInit {
 
   onSubmit(): void {
     if (this.clientForm.valid) {
-      this.loading = true;
+      this.loadingSubmit = true;
       const client: ClientDTO = {
         ...this.clientForm.value,
         address: {
@@ -102,16 +102,16 @@ export class RegisterClientComponent implements OnInit {
           postalCode: this.clientForm.get('postalCode')!.value
         } as AddressDTO
       };
-  
+
       this.clientService.create(client).subscribe(
         () => {
-          this.loading = false;
           this.snackBar.open('Cliente criado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
-          this.clientForm.reset(); 
+          this.clientForm.reset();
+          this.loadingSubmit = false;
         },
         (error) => {
           // Captura a mensagem de erro e exibe no snackBar
@@ -120,6 +120,7 @@ export class RegisterClientComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loadingSubmit = false;
         }
       );
     } else {
@@ -128,6 +129,7 @@ export class RegisterClientComponent implements OnInit {
         verticalPosition: 'top',
         horizontalPosition: 'right'
       });
+      this.loadingSubmit = false;
     }
   }
 }

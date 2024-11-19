@@ -29,6 +29,7 @@ export class ClientSchedulingComponent implements OnInit {
   clientActive: boolean = true;
   selectedServices: { id: string, name: string, price: number }[] = [];
   total: number = 0;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -130,6 +131,7 @@ export class ClientSchedulingComponent implements OnInit {
 
   registerScheduling(): void {
     if (this.schedulingForm.valid && this.clientActive) {
+      this.loading = true;
       const { clientName, ...formValues } = this.schedulingForm.value;
       const selectedServiceIds: EntityId[] = this.selectedServices.map(service => service.id as unknown as EntityId);
 
@@ -145,6 +147,7 @@ export class ClientSchedulingComponent implements OnInit {
 
       this.schedulingService.create(schedulingData).subscribe(
         () => {
+          this.loading = false;
           this.snackBar.open('Agendamento cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
