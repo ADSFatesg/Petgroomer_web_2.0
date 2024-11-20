@@ -13,42 +13,38 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {}
 
-  // Create a new employee
+
   createEmployee(employeeDTO: EmployeeDTO): Observable<EmployeeDTO> {
     return this.http.post<EmployeeDTO>(this.apiUrl, employeeDTO).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Get all employees
+
   getEmployees(): Observable<employeeRetrive[]> {
     return this.http.get<employeeRetrive[]>(this.apiUrl).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Get a single employee by ID
   getEmployeeById(id:string): Observable<employeeRetrive> {
     return this.http.get<employeeRetrive>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Get a single employee by CPF
   getEmployeeByCpf(cpf: string): Observable<employeeRetrive> {
     return this.http.get<employeeRetrive>(`${this.apiUrl}/findCpf/${cpf}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Update an existing employee
   updateEmployee(id:string, employeeDTO: EmployeeDTO): Observable<EmployeeDTO> {
     return this.http.put<EmployeeDTO>(`${this.apiUrl}/${id}`, employeeDTO).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Delete an employee (usually soft delete by setting active to false)
   deleteEmployee(id:string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)

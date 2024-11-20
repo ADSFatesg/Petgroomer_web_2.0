@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit{
           horizontalPosition: 'right',
           panelClass: ['snack-error']
         });
-        this.loading = false; // Desativa o spinner em caso de erro
+        this.loading = false;
       }
     );
   }
@@ -55,16 +55,6 @@ export class UsersComponent implements OnInit{
   // Método para atualizar a senha do usuário selecionado
   updatePassword(): void {
     // Validação dos campos
-    if (this.oldPassword.length === 0) {
-      this.snackBar.open('A senha atual é obrigatória!', 'Fechar', {
-        duration: 3000,
-        verticalPosition: 'top',
-        horizontalPosition: 'right',
-        panelClass: ['snack-error']
-      });
-      return;
-    }
-
     if (this.newPassword.length < 6) {
       this.snackBar.open('A nova senha deve ter pelo menos 6 caracteres!', 'Fechar', {
         duration: 3000,
@@ -87,7 +77,7 @@ export class UsersComponent implements OnInit{
 
     if (this.selectedUser) {
       this.loading = true;
-      this.authService.adminUpdatePassword(this.selectedUser.id, this.oldPassword, this.newPassword, this.confirmPassword).subscribe(
+      this.authService.admResetPasswordEmployee(this.selectedUser.login, this.newPassword, this.confirmPassword).subscribe(
         () => {
           this.snackBar.open('Senha alterada com sucesso!', 'Fechar', {
             duration: 3000,
@@ -110,6 +100,7 @@ export class UsersComponent implements OnInit{
       );
     }
   }
+
 
   // Método para resetar o formulário de senha
   resetForm(): void {

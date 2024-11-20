@@ -55,9 +55,19 @@ export class RegisterPetComponent implements OnInit {
     this.clientService.findByCpf(cpf).subscribe(
       (client: ClientRetrive) => {
         if (client) {
-          this.selectedClient = client;  // Armazena o cliente retornado
+          if (!client.active) {
+            this.snackBar.open('Cliente inativo. Não é possível cadastrar pet para este cliente.', 'Fechar', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+              panelClass: ['snack-error']
+            });
+            this.selectedClient = null;
+            this.petForm.patchValue({ clientName: '' });
+            return;
+          }
 
-          // Preenche o campo "clientName" com o nome do cliente no formulário
+          this.selectedClient = client;
           this.petForm.patchValue({ clientName: client.name });
 
           this.snackBar.open('Cliente encontrado!', 'Fechar', {
@@ -71,11 +81,11 @@ export class RegisterPetComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
-          this.selectedClient = null;  // Reseta o cliente se não for encontrado
+          this.selectedClient = null;
         }
       },
       (error) => {
-        this.snackBar.open(error.message ||'Erro ao consultar cliente.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao consultar cliente.', 'Fechar', {
           duration: 5000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -85,13 +95,14 @@ export class RegisterPetComponent implements OnInit {
     );
   }
 
+
   // Enviar o formulário para cadastrar o pet
   onSubmit(): void {
     if (this.petForm.valid && this.selectedClient) {
       this.loading = true;
       const petData: PetDTO = {
         ...this.petForm.value,
-        client: this.selectedClient  // Associar o cliente selecionado ao pet
+        client: this.selectedClient
       };
 
       this.petService.create(petData).subscribe(
@@ -102,7 +113,7 @@ export class RegisterPetComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
-          this.petForm.reset();  // Reseta o formulário após o cadastro
+          this.petForm.reset();
         },
         (error) => {
           this.snackBar.open(error.message ||'Erro ao cadastrar o pet.', 'Fechar', {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServicesService } from '../../../service/services.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ServiceModalComponent } from '../../modals/service-modal/service-modal.component';
 import { ServiceRetrieve } from '../../../model/service';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-service',
@@ -15,6 +16,7 @@ export class ListServiceComponent implements OnInit {
   services: ServiceRetrieve[] = [];
   filteredServices: ServiceRetrieve[] = [];
   dataSource = new MatTableDataSource<ServiceRetrieve>(this.services);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   loading = false;
 
   // Filtros
@@ -30,6 +32,7 @@ export class ListServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadServices();
+    this.dataSource.paginator = this.paginator;
   }
 
   // Carregar serviços
@@ -38,7 +41,8 @@ export class ListServiceComponent implements OnInit {
     this.serviceService.findAll().subscribe(
       (services: ServiceRetrieve[]) => {
         this.services = services;
-        this.applyFilter(); // Aplica os filtros iniciais ao carregar os serviços
+        this.applyFilter();
+        this.dataSource.paginator = this.paginator;
         this.loading = false;
       },
       (error) => {
@@ -56,6 +60,7 @@ export class ListServiceComponent implements OnInit {
       return matchesName && matchesStatus;
     });
     this.applySort();
+    this.dataSource.data = this.filteredServices;
   }
 
   // Aplicar filtro de nome

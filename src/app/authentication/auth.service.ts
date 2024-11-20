@@ -33,7 +33,7 @@ export class AuthService {
         }
         return false;
       }),
-      catchError(this.handleError.bind(this)) // Tratamento de erro
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -42,7 +42,7 @@ export class AuthService {
     const token = this.getToken();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` // Token no cabeçalho
+      'Authorization': `Bearer ${token}`
     });
 
     const payload = { oldPassword, newPassword, confirmPassword };
@@ -56,7 +56,7 @@ export class AuthService {
           panelClass: ['snack-success']
         });
       }),
-      catchError(this.handleError.bind(this)) // Tratamento de erro
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -97,7 +97,7 @@ export class AuthService {
     return roles ? roles.split(',') : [];
   }
 
-  // Método para listar todos os usuários (agora com tipagem User[])
+  // Método para listar todos os usuários
   findAllUsers(): Observable<User[]> {
     const token = this.getToken();
     const headers = new HttpHeaders({
@@ -110,15 +110,15 @@ export class AuthService {
   }
 
 
-  adminUpdatePassword(userId: string, oldPassword: string, newPassword: string, confirmPassword: string): Observable<void> {
-    const payload = { oldPassword, newPassword, confirmPassword };
+  admResetPasswordEmployee(cpf: string, newPassword: string, confirmPassword: string): Observable<any> {
+    const payload = { newPassword, confirmPassword };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.getToken()}`
     });
 
-    return this.http.post<void>(`${this.apiUrl}/admin/update-password/${userId}`, payload, { headers });
+    return this.http.post<any>(`${this.apiUrl}/adm-reset-password/${cpf}`, payload, { headers });
   }
 
   // Método para solicitar a redefinição de senha

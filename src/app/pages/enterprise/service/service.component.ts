@@ -6,6 +6,7 @@ import { EmployeeService } from '../../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { employeeRetrive } from '../../../model/employee';
 import { ServiceDTO } from '../../../model/service';
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-service',
@@ -36,7 +37,7 @@ export class ServiceComponent implements OnInit {
     });
   }
 
-  // Função para buscar funcionário pelo CPF e preencher o formulário
+  //Função para buscar funcionário pelo CPF e preencher o formulário
   searchEmployeeByCpf(): void {
     const cpf = this.serviceForm.get('cpf')?.value;
 
@@ -52,6 +53,18 @@ export class ServiceComponent implements OnInit {
     this.employeeService.getEmployeeByCpf(cpf).subscribe(
       (employee: employeeRetrive) => {
         if (employee) {
+          if (!employee.active){
+              // Funcionário inativo
+              this.snackBar.open('Funcionário inativo. Não é possível cadastrar o serviço.', 'Fechar', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'right'
+              });
+              this.selectedEmployee = null;
+              this.serviceForm.patchValue({ employeeName: '' });
+              return;
+
+          }
           this.selectedEmployee = employee;
 
           // Preenche o campo "employeeName" com o nome do funcionário no formulário

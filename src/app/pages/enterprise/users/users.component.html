@@ -38,10 +38,6 @@
   <div *ngIf="selectedUser && !loading" class="update-password-form">
     <h3>Alterar Senha para Usuário: {{ selectedUser.employeeName }}</h3>
     <div class="form-group">
-      <label for="oldPassword">Senha Atual:</label>
-      <input type="password" id="oldPassword" [(ngModel)]="oldPassword">
-    </div>
-    <div class="form-group">
       <label for="newPassword">Nova Senha:</label>
       <input type="password" id="newPassword" [(ngModel)]="newPassword">
     </div>

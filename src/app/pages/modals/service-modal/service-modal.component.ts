@@ -32,7 +32,7 @@ export class ServiceModalComponent implements OnInit{
       name: [selectedService.name, [Validators.required]],
       price: [selectedService.price, [Validators.required]],
       commission: [selectedService.commission, [Validators.required]],
-      estimated: [this.convertMinutesToTime(selectedService.estimated), [Validators.required]], 
+      estimated: [this.convertMinutesToTime(selectedService.estimated), [Validators.required]],
       active: [selectedService.active],
       cpf: [selectedService.employee ? selectedService.employee.cpf : '', [Validators.required]],
       employeeName: [{ value: selectedService.employee ? selectedService.employee.name : '', disabled: true }]
@@ -55,10 +55,21 @@ export class ServiceModalComponent implements OnInit{
     }
 
     this.employeeService.getEmployeeByCpf(cpf).subscribe(
-      (employee) => {
-        if (employee) {
-          this.selectedEmployee = employee;
-          this.serviceForm.patchValue({ employeeName: employee.name });
+      (response) => {
+        if (response) {
+          if (!response.active) {
+            this.snackBar.open('Funcionário inativo. Não é possível associá-lo ao serviço.', 'Fechar', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'right'
+            });
+            this.selectedEmployee = null;
+            this.serviceForm.patchValue({ employeeName: '' });
+            return;
+          }
+
+          this.selectedEmployee = response;
+          this.serviceForm.patchValue({ employeeName: response.name });
           this.snackBar.open('Funcionário encontrado!', 'Fechar', {
             duration: 3000,
             verticalPosition: 'top',
@@ -73,7 +84,7 @@ export class ServiceModalComponent implements OnInit{
         }
       },
       (error) => {
-        this.snackBar.open(error.message ||'Erro ao consultar funcionário.', 'Fechar', {
+        this.snackBar.open(error.message || 'Erro ao consultar funcionário.', 'Fechar', {
           duration: 3000,
           verticalPosition: 'top',
           horizontalPosition: 'right'
@@ -84,28 +95,43 @@ export class ServiceModalComponent implements OnInit{
 
   save(): void {
     if (this.serviceForm.valid) {
+      // Monta o objeto do serviço com o funcionário atualizado
       const updatedService: ServiceRetrieve = {
         ...this.data.service,
-        ...this.serviceForm.value,
+        ...this.serviceForm.value, // Dados atualizados do formulário
         estimated: this.convertTimeToMinutes(this.serviceForm.get('estimated')?.value),
         employee: this.selectedEmployee
       };
 
+      console.log('JSON Enviado:', updatedService);
+
       this.servicesService.update(updatedService.id, updatedService).subscribe(
         () => {
           this.snackBar.open('Serviço atualizado com sucesso!', 'Fechar', {
-            duration: 3000
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
           });
           this.dialogRef.close(updatedService);
         },
         (error) => {
           this.snackBar.open(error.message || 'Erro ao atualizar o serviço.', 'Fechar', {
-            duration: 3000
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
           });
         }
       );
+    } else {
+      this.snackBar.open('Por favor, preencha todos os campos obrigatórios.', 'Fechar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right'
+      });
     }
   }
+
+
 
   // Converte HH:mm para minutos
   convertTimeToMinutes(time: string): number {
