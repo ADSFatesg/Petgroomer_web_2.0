@@ -149,6 +149,7 @@ export class ListSchedulingComponent implements OnInit,OnDestroy{
           verticalPosition: 'top',
           horizontalPosition: 'right'
        });
+      this.loading = false;
     }
   );
   }

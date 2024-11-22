@@ -107,12 +107,12 @@ export class RegisterPetComponent implements OnInit {
 
       this.petService.create(petData).subscribe(
         () => {
-          this.loading = false;
           this.snackBar.open('Pet cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loading = false;
           this.petForm.reset();
         },
         (error) => {
@@ -121,6 +121,7 @@ export class RegisterPetComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loading = false;
         }
       );
     } else {

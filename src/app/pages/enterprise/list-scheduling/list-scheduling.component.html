@@ -103,16 +103,42 @@
       </td>
     </ng-container>
 
-    <!-- Coluna de Status -->
+    <!-- Status -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let scheduling">
-        <mat-radio-group [(ngModel)]="scheduling.statusScheduling" (change)="update(scheduling)"
-          [disabled]="scheduling.statusScheduling === 'CONCLUIDO' || scheduling.statusScheduling === 'CANCELADO'">
-          <mat-radio-button value="AGENDADO" matTooltip="Marcar como agendado">AGENDADO</mat-radio-button>
-          <mat-radio-button value="EM_ANDAMENTO" matTooltip="Marcar como em andamento">EM ANDAMENTO</mat-radio-button>
-          <mat-radio-button value="CONCLUIDO" matTooltip="Marcar como concluído">CONCLUÍDO</mat-radio-button>
-          <mat-radio-button value="CANCELADO" matTooltip="Marcar como cancelado">CANCELADO</mat-radio-button>
+        <mat-radio-group [(ngModel)]="scheduling.statusScheduling" (change)="update(scheduling)">
+          <!-- AGENDADO -->
+          <mat-radio-button
+            value="AGENDADO"
+            [disabled]="scheduling.statusScheduling !== 'AGENDADO'"
+            matTooltip="Marcar como agendado">
+            AGENDADO
+          </mat-radio-button>
+
+          <!-- EM_ANDAMENTO -->
+          <mat-radio-button
+            value="EM_ANDAMENTO"
+            [disabled]="scheduling.statusScheduling === 'CONCLUIDO' || scheduling.statusScheduling === 'CANCELADO'"
+            matTooltip="Marcar como em andamento">
+            EM ANDAMENTO
+          </mat-radio-button>
+
+          <!-- CONCLUIDO -->
+          <mat-radio-button
+            value="CONCLUIDO"
+            [disabled]="scheduling.statusScheduling === 'CANCELADO'"
+            matTooltip="Marcar como concluído">
+            CONCLUÍDO
+          </mat-radio-button>
+
+          <!-- CANCELADO -->
+          <mat-radio-button
+            value="CANCELADO"
+            [disabled]="scheduling.statusScheduling === 'CONCLUIDO'"
+            matTooltip="Marcar como cancelado">
+            CANCELADO
+          </mat-radio-button>
         </mat-radio-group>
       </td>
     </ng-container>

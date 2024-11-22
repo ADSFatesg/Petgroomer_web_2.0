@@ -184,8 +184,10 @@ export class SchedulingComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loading = false;
         }
       );
+
     } else {
       this.snackBar.open('Preencha todos os campos corretamente.', 'Fechar', {
         duration: 3000,

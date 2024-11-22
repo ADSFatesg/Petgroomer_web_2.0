@@ -116,12 +116,12 @@ export class ServiceComponent implements OnInit {
 
       this.servicesService.create(serviceData).subscribe(
         () => {
-          this.loading = false;
           this.snackBar.open('Serviço cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loading = false;
           this.serviceForm.reset();
         },
         (error) => {
@@ -130,6 +130,7 @@ export class ServiceComponent implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loading = false;
         }
       );
     } else {

@@ -114,15 +114,16 @@ export class RegisterEmployeeComponent implements OnInit{
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
-          this.employeeForm.reset(); 
+          this.employeeForm.reset();
+          this.loading = false;
         },
         (error) => {
-          this.loading = false;
           this.snackBar.open(error.message || 'Erro ao criar funcionário.', 'Fechar', {
             duration: 5000,
             verticalPosition: 'top',
             horizontalPosition: 'right'
           });
+          this.loading = false;
         }
       );
     } else {
